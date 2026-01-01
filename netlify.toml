@@ -1,0 +1,7 @@
+[build]
+  command = "ng build --configuration=production"
+  publish = "dist/SistemaCellCompayFrontend"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
