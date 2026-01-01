@@ -1,0 +1,75 @@
+/* Contenedor principal: Fondo sutil azulado */
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Tarjeta de Login */
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Cabecera de la tarjeta */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    color: #1565C0;
+    /* Azul Royal */
+    font-weight: 700;
+    margin: 0;
+    font-size: 28px;
+}
+
+.login-header p {
+    color: #78909c;
+    margin-top: 5px;
+}
+
+/* Campos de texto */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Botón principal */
+.btn-login {
+    width: 100%;
+    background-color: #1565C0;
+    /* Azul Royal */
+    color: white;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #0d47a1;
+    /* Azul más oscuro al hover */
+}
+
+.btn-login:disabled {
+    background-color: #90caf9;
+}
+
+/* Logo o Ícono opcional */
+.logo-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #1565C0;
+    margin-bottom: 10px;
+}

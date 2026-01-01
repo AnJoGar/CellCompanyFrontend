@@ -1,0 +1,54 @@
+<div class="login-container">
+    <mat-card class="login-card">
+
+        <div class="login-header">
+            <mat-icon class="logo-icon">account_balance</mat-icon>
+            <h1>CellCompay</h1>
+            <p>Gestión Administrativa</p>
+        </div>
+
+        <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Correo Electrónico</mat-label>
+                <input matInput formControlName="correo" placeholder="ejemplo@empresa.com" type="email">
+                <mat-icon matPrefix>email</mat-icon>
+                <mat-error *ngIf="formLogin.get('correo')?.hasError('required')">
+                    El correo es requerido
+                </mat-error>
+                <mat-error *ngIf="formLogin.get('correo')?.hasError('email')">
+                    Formato de correo inválido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="ocultarPassword ? 'password' : 'text'" formControlName="clave" placeholder="Ingrese su contraseña">
+                <mat-icon matPrefix>lock</mat-icon>
+                <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword" type="button" tabindex="-1">
+                    <mat-icon>{{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="formLogin.get('clave')?.hasError('required')">
+                    La contraseña es requerida
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" class="btn-login" type="submit" [disabled]="formLogin.invalid || isLoading">
+                <mat-spinner *ngIf="isLoading" diameter="20" style="display:inline-block; margin-right: 10px;"></mat-spinner>
+                <span *ngIf="!isLoading">INGRESAR</span>
+                <span *ngIf="isLoading">Verificando...</span>
+            </button>
+
+            <div class="divider">
+                <span>o</span>
+            </div>
+
+            <button mat-stroked-button color="primary" class="btn-register" type="button" (click)="agregarUsuario()">
+                <mat-icon>person_add</mat-icon>
+                REGISTRARSE
+            </button>
+
+        </form>
+
+    </mat-card>
+</div>

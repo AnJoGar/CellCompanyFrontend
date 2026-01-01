@@ -1,0 +1,109 @@
+<div class="k">
+  <h1 class="page-title" style="color: #17789e;">Ubicaciones de Usuarios</h1>
+  <mat-card class="card" style="margin: 20px 40px 40px 40px">
+    <mat-card-title>
+      <button mat-raised-button color="primary" class="btn btn-info" (click)="cargarTodasLasUbicaciones()">
+        <mat-icon mat-list-icon>refresh</mat-icon> Actualizar Ubicaciones
+      </button>
+    </mat-card-title>
+    <mat-divider inset></mat-divider>
+    <h3></h3>
+    <mat-card-content class="dashboard-card-content">
+      <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <mat-form-field appearance="outline" class="filter-field" style="flex: 1;">
+          <mat-label>Búsqueda por Usuario ID o cualquier campo</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="searchValue" 
+            (keyup)="applyFilter($event)" 
+            (input)="onSearchInput()" 
+            placeholder="Ej. 123 o nombre@correo.com" 
+            #input>
+        </mat-form-field>
+        <button 
+          mat-raised-button 
+          color="accent" 
+          (click)="buscarPorUsuario()" 
+          style="height: 56px;">
+          <mat-icon>search</mat-icon> Buscar por ID
+        </button>
+      </div>
+
+      <h3></h3>
+      <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource">
+          
+          <!-- ID Usuario -->
+          <ng-container matColumnDef="usuarioId">
+            <th mat-header-cell *matHeaderCellDef> ID Usuario </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuarioId}} </td>
+          </ng-container>
+          
+          <!-- Nombre Usuario -->
+          <ng-container matColumnDef="nombreUsuario">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombreUsuario}} </td>
+          </ng-container>
+          
+          <!-- Correo -->
+          <ng-container matColumnDef="correoUsuario">
+            <th mat-header-cell *matHeaderCellDef> Correo </th>
+            <td mat-cell *matCellDef="let element"> {{element.correoUsuario}} </td>
+          </ng-container>
+          
+          <!-- Latitud -->
+          <ng-container matColumnDef="latitud">
+            <th mat-header-cell *matHeaderCellDef> Latitud </th>
+            <td mat-cell *matCellDef="let element"> {{element.latitud | number:'1.6-6'}} </td>
+          </ng-container>
+          
+          <!-- Longitud -->
+          <ng-container matColumnDef="longitud">
+            <th mat-header-cell *matHeaderCellDef> Longitud </th>
+            <td mat-cell *matCellDef="let element"> {{element.longitud | number:'1.6-6'}} </td>
+          </ng-container>
+          
+          <!-- Fecha -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{formatearFecha(element.fecha)}} </td>
+          </ng-container>
+          
+          <!-- Acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width:140px"> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button 
+                mat-icon-button 
+                color="primary" 
+                (click)="verEnMapa(element)"
+                matTooltip="Ver en Google Maps">
+                <mat-icon>map</mat-icon>
+              </button>
+              <button 
+                mat-icon-button 
+                color="accent" 
+                (click)="copiarCoordenadas(element)"
+                matTooltip="Copiar coordenadas">
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="7">No se encontraron ubicaciones para "{{input.value}}"</td>
+          </tr>
+        </table>
+        
+        <mat-paginator 
+          [pageSizeOptions]="[5, 10, 20, 50]" 
+          showFirstLastButtons
+          aria-label="Seleccionar página de ubicaciones">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

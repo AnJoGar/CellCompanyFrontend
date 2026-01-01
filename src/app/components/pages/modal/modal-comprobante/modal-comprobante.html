@@ -1,0 +1,98 @@
+!-- components/pages/modal/comprobante-pago/comprobante-pago.html -->
+<div class="comprobante-container">
+  <div class="comprobante-content" id="comprobante-print">
+    
+    <!-- Encabezado -->
+    <div class="header">
+      <div class="logo-section">
+        <mat-icon class="logo-icon">receipt_long</mat-icon>
+         <h1>CELLCOMPANY</h1>
+        <h1>COMPROBANTE DE PAGO</h1>
+      </div>
+      <div class="numero-comprobante">
+        <p><strong>N° {{datos.numeroComprobante}}</strong></p>
+        <p class="fecha">{{formatearFecha(datos.fechaPago)}}</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Información del Cliente -->
+    <div class="seccion">
+      <h3><mat-icon>person</mat-icon> DATOS DEL CLIENTE</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Nombre:</span>
+          <span class="value">{{datos.nombreCliente}}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Cédula:</span>
+          <span class="value">{{datos.cedula}}</span>
+        </div>
+        <div class="info-item" *ngIf="datos.nombreTienda">
+          <span class="label">Tienda:</span>
+          <span class="value">{{datos.nombreTienda}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información del Crédito -->
+    <div class="seccion">
+      <h3><mat-icon>credit_card</mat-icon> INFORMACIÓN DEL CRÉDITO</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">ID Crédito:</span>
+          <span class="value">{{datos.creditoId}}</span>
+        </div>
+        <div class="info-item" *ngIf="datos.proximaCuota">
+          <span class="label">Próxima Cuota:</span>
+          <span class="value">{{datos.proximaCuota}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detalles del Pago -->
+    <div class="seccion-pago">
+      <h3><mat-icon>payments</mat-icon> DETALLES DEL PAGO</h3>
+      <div class="pago-info">
+        <div class="pago-item metodo">
+          <span class="label">Método de Pago:</span>
+          <span class="value-grande">{{datos.metodoPago}}</span>
+        </div>
+        <div class="pago-item monto">
+          <span class="label">Monto Pagado:</span>
+          <span class="value-monto">{{formatearMoneda(datos.montoPagado)}}</span>
+        </div>
+        <div class="pago-item pendiente" *ngIf="datos.montoPendiente !== undefined">
+          <span class="label">Saldo Pendiente:</span>
+          <span class="value-pendiente">{{formatearMoneda(datos.montoPendiente)}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firma -->
+    <div class="firma-section">
+      <div class="firma-linea"></div>
+      <p class="firma-texto">Firma del Cliente</p>
+    </div>
+
+    <!-- Pie de página -->
+    <div class="footer">
+      <p>Este documento es un comprobante válido de pago</p>
+      <p class="nota">Conserve este comprobante para futuras referencias</p>
+    </div>
+
+  </div>
+
+  <!-- Botones (no se imprimen) -->
+  <div class="acciones no-print">
+    <button mat-raised-button color="primary" (click)="imprimir()">
+      <mat-icon>print</mat-icon>
+      Imprimir
+    </button>
+    <button mat-raised-button color="accent" (click)="cerrar()">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+  </div>
+</div>

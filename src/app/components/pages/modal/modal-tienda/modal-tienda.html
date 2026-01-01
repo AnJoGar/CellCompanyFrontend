@@ -1,0 +1,76 @@
+<h2 mat-dialog-title>{{accion}} Tienda</h2>
+<mat-dialog-content>
+  <form [formGroup]="formTienda">
+    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+      
+      <!-- Nombre Tienda -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de la Tienda</mat-label>
+          <input matInput autocomplete="off" formControlName="nombreTienda">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">store</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!-- Dirección -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Dirección</mat-label>
+          <input matInput autocomplete="off" formControlName="direccion">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">location_on</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!-- Nombre Encargado -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre del Encargado</mat-label>
+          <input matInput autocomplete="off" formControlName="nombreEncargado">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">person</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!-- Cédula -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Cédula del Encargado</mat-label>
+          <input matInput autocomplete="off" formControlName="cedulaEncargado" maxlength="10">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">badge</mat-icon>
+          <mat-error *ngIf="formTienda.get('cedulaEncargado')?.hasError('pattern')">
+            La cédula debe tener 10 dígitos
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!-- Teléfono -->
+      <mat-grid-tile [colspan]="2">
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput autocomplete="off" formControlName="telefono" maxlength="10">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">phone</mat-icon>
+          <mat-error *ngIf="formTienda.get('telefono')?.hasError('pattern')">
+            El teléfono debe tener 10 dígitos
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+  </form>
+
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Procesando...</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn" [disabled]="isLoading">
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" 
+          [disabled]="formTienda.invalid || isLoading" 
+          (click)="agregarEditarTienda()">
+    <span *ngIf="!isLoading">{{accionBoton}}</span>
+    <span *ngIf="isLoading">Procesando...</span>
+  </button>
+</mat-dialog-actions>

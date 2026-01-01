@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{accion}} Usuario</h2>
+<mat-dialog-content>
+  <form [formGroup]="formUsuario">
+    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre y apellidos</mat-label>
+          <input matInput autocomplete="off" formControlName="nombreApellido">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">account_box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input matInput autocomplete="off" formControlName="correo">
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">mail</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Rol</mat-label>
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">grade</mat-icon>
+          <mat-select formControlName="id">
+            <mat-option *ngFor="let item of listaRoles" [value]="item.id">
+              {{item.descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="clave">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" type="button" style="color: lightblue;">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">offline_pin</mat-icon>
+          <mat-select formControlName="esActivo">
+            <mat-option value="1"> Activo </mat-option>
+            <mat-option value="0">No Activo</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Guardando usuario...</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn" [disabled]="isLoading">Volver</button>
+  
+  <button mat-raised-button color="primary" 
+          [disabled]="formUsuario.invalid || isLoading" 
+          (click)="agregarEditarUsuario()">
+    <span *ngIf="!isLoading">{{accionBoton}}</span>
+    <span *ngIf="isLoading">Procesando...</span>
+  </button>
+</mat-dialog-actions>

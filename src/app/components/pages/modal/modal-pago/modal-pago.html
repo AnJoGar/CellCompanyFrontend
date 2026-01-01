@@ -1,0 +1,79 @@
+<!-- components/pages/modal/modal-pago-credito/modal-pago-credito.html -->
+<h2 mat-dialog-title>{{accion}}</h2>
+
+<mat-dialog-content>
+  <!-- Información del crédito -->
+  <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+    <p style="margin: 0; color: #1976d2; font-weight: bold;">
+      <mat-icon style="vertical-align: middle;">info</mat-icon>
+      Crédito ID: {{data.creditoId}}
+    </p>
+    <p *ngIf="data.nombreCliente" style="margin: 5px 0 0 0; color: #424242;">
+      Cliente: {{data.nombreCliente}}
+    </p>
+    <p *ngIf="data.montoPendiente" style="margin: 5px 0 0 0; color: #f57c00; font-weight: bold;">
+      Monto Pendiente: ${{data.montoPendiente | number:'1.2-2'}}
+    </p>
+    <p *ngIf="data.valorPorCuota" style="margin: 5px 0 0 0; color: #2e7d32; font-weight: bold;">
+  Valor por Cuota: ${{data.valorPorCuota | number:'1.2-2'}}
+</p>
+  </div>
+
+  <form [formGroup]="formPago">
+    <mat-grid-list cols="1" rowHeight="80px" gutterSize="10px">
+      
+      <!-- Monto Pagado -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Monto a Pagar</mat-label>
+          <input matInput type="number" step="0.01" autocomplete="off" formControlName="montoPagado">
+          <span matPrefix>$&nbsp;</span>
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">payments</mat-icon>
+          <mat-error *ngIf="formPago.get('montoPagado')?.hasError('required')">
+            El monto es obligatorio
+          </mat-error>
+          <mat-error *ngIf="formPago.get('montoPagado')?.hasError('min')">
+            El monto debe ser mayor a 0
+          </mat-error>
+          <!--<mat-error *ngIf="formPago.get('montoPagado')?.hasError('max')">
+            El monto no puede ser mayor al pendiente
+          </mat-error>-->
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <!-- Método de Pago -->
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Método de Pago</mat-label>
+          <mat-select formControlName="metodoPago">
+            <mat-option *ngFor="let metodo of metodosPago" [value]="metodo">
+              {{metodo}}
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">credit_card</mat-icon>
+          <mat-error *ngIf="formPago.get('metodoPago')?.hasError('required')">
+            Seleccione un método de pago
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+  </form>
+
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Procesando pago...</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn" [disabled]="isLoading">
+    Cancelar
+  </button>
+  <button mat-raised-button color="primary" 
+          [disabled]="formPago.invalid || isLoading" 
+          (click)="registrarPago()">
+    <span *ngIf="!isLoading">{{accionBoton}}</span>
+    <span *ngIf="isLoading">Procesando...</span>
+  </button>
+</mat-dialog-actions>

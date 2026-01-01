@@ -1,0 +1,22 @@
+w {
+  background-color: yellow;
+}
+
+.btn-info {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.mat-raised-button.btn-info {
+  background-color: #00BCD4;
+  color: white;
+  border-color: #00BCD4;
+}
+
+.mat-raised-button.btn-info:hover {
+  background-color: #00A0CE; 
+}
+
+.mat-raised-button.btn-info:active {
+  background-color: #00838F;
+}

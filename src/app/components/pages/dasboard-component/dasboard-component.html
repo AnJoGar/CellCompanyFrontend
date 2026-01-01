@@ -1,0 +1,113 @@
+<div class="dashboard-wrapper">
+  <header class="dashboard-header">
+    <div>
+      <h1>Resumen Operativo</h1>
+      <p class="text-muted">Estado actual de la cartera de créditos</p>
+    </div>
+    <button mat-flat-button color="primary">
+      <mat-icon>download</mat-icon> Exportar Reporte
+    </button>
+  </header>
+
+  <div class="kpi-container">
+    <mat-card class="kpi-card total">
+      <mat-card-content>
+        <div class="kpi-content">
+          <div class="kpi-info">
+            <span class="label">Total Financiado</span>
+            <h2 class="value">{{ totalFinanciado | currency }}</h2>
+          </div>
+          <mat-icon class="kpi-icon">payments</mat-icon>
+        </div>
+        <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card recaudado">
+      <mat-card-content>
+        <div class="kpi-content">
+          <div class="kpi-info">
+            <span class="label">Total Recaudado</span>
+            <h2 class="value">{{ totalRecaudado | currency }}</h2>
+          </div>
+          <mat-icon class="kpi-icon">account_balance_wallet</mat-icon>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="(totalRecaudado/totalFinanciado)*100"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card mora">
+      <mat-card-content>
+        <div class="kpi-content">
+          <div class="kpi-info">
+            <span class="label">En Mora (Pendiente)</span>
+            <h2 class="value text-danger">{{ totalPendiente | currency }}</h2>
+          </div>
+          <mat-icon class="kpi-icon">warning</mat-icon>
+        </div>
+        <mat-progress-bar color="warn" mode="determinate" [value]="(totalPendiente/totalFinanciado)*100"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="main-grid">
+   <div class="dashboard-container">
+  <div class="stats-grid">
+    <mat-card class="stats-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">analytics</mat-icon>
+        <mat-card-title>Análisis de Cumplimiento</mat-card-title>
+        <mat-card-subtitle>Distribución porcentual por estado de crédito</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-wrapper">
+          <canvas id="chartRadarEstados"></canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="accent">storefront</mat-icon>
+        <mat-card-title>Rendimiento por Punto de Venta</mat-card-title>
+        <mat-card-subtitle>Comparativa de volumen de ventas ($)</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-wrapper">
+          <canvas id="chartBarrasTiendas"></canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+    <mat-card class="list-card">
+      <mat-card-header>
+        <mat-card-title>Últimas Entregas</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="recent-list">
+          @for (item of listaReportes.slice(0,5); track item.creditoId) {
+            <div class="list-item">
+              <div class="client-avatar">
+                {{ item.nombreCliente.charAt(0) }}
+              </div>
+              <div class="client-details">
+                <strong>{{ item.nombreCliente }}</strong>
+                <span>{{ item.marca }} - {{ item.modelo }}</span>
+              </div>
+              <div class="client-status">
+                <span class="amount">{{ item.montoTotal | currency }}</span>
+                <span class="badge" [class.mora]="item.montoPendiente > 0">
+                  {{ item.montoPendiente > 0 ? 'Pendiente' : 'Pagado' }}
+                </span>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

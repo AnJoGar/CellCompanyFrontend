@@ -1,0 +1,62 @@
+<mat-toolbar color="primary" style="background-color: #157E8E">
+  <mat-toolbar-row>
+    <mat-icon style="height: 28px; margin-right: 3px;">medical_services</mat-icon>
+    <h1>Sistema odontológico</h1>
+    <button mat-icon-button (click)="drawer.toggle();" style="position: fixed; right: 20px;">
+      
+   <mat-icon >menu</mat-icon>
+ 
+    </button>
+    
+    <span style="flex: 1 1 auto;">
+    </span>
+    <label style="font-size: 14px; margin-right: 60px;">
+      {{correoUsuario}} | {{rolUsuario}}
+
+    </label>
+   
+    
+  </mat-toolbar-row>
+ 
+</mat-toolbar>
+
+<div class="content-container"  style="margin-top: -7px;"  > <!-- Contenedor para el contenido principal -->
+  <mat-sidenav-container class="sidenav-container" style="background-image: url('./assets/ConsultorioDental6.jpg'); background-size: cover; background-position: center;" >
+    <mat-sidenav #drawer class="sidenav"  
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="true">
+      <!-- Contenido del sidenav -->
+
+      <mat-nav-list class="menu-list" >
+   
+        <mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.url">
+          <mat-icon mat-list-icon>{{menu.icono}}</mat-icon>
+          <div mat-line>{{menu.nombre}}</div>
+        </mat-list-item>
+        
+        <span class="example-spacer"></span>
+          <button mat-icon-button size="100px" class="icon-display" aria-label="Example icon-button with heart icon"
+                   (click)="cerrarSession()">
+            <mat-icon>input</mat-icon>
+          </button>
+
+        
+       
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+ 
+  
+   
+    <!-- Contenido de la página principal -->
+    <mat-sidenav-content>
+      <div style="height: 91vh">
+        <router-outlet></router-outlet>
+    
+      </div>
+    
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,25 @@
+<div class="title-container">
+    <h1>Ver usuario</h1>
+</div>
+
+<div *ngIf="usuario != null" class="container">
+    <mat-grid-list cols="2" rowHeight="auto" >
+        <mat-card class="card custom-card">
+            <mat-card-title class="title-container">{{ usuario.nombreApellidos }}</mat-card-title>
+            <mat-card-content>
+                <p class="large-font"><strong>nombreApellidos:</strong> {{ usuario.nombreApellidos }} </p>
+                <p class="large-font"><strong>correo:</strong> {{ usuario.correo }} </p>
+                <p class="large-font"><strong>rolAdminId:</strong> {{ usuario.rolAdminId }} </p>
+                <p class="large-font"><strong>rolDescripcion:</strong> {{ usuario.rolDescripcion }} </p>
+                <p class="large-font"><strong>clave:</strong> {{ usuario.clave }} </p>
+                <p class="large-font"><strong>esActivo:</strong> {{ usuario.esActivo === 1 ? 'Activo' : 'Inactivo' }} </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <!-- Agrega acciones aquí si es necesario -->
+            </mat-card-actions>
+            <mat-card-actions class="button-container">
+                <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-list>
+</div>

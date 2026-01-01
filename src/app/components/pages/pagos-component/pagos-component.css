@@ -1,0 +1,58 @@
+table {
+  width: 100%;
+}
+
+.page-title {
+  margin: 20px 0px 0px 40px;
+  color: white;
+}
+
+.btn-info {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.mat-raised-button.btn-info {
+  background-color: #00BCD4;
+  /* Blue */
+  color: white;
+  border-color: #00BCD4;
+}
+
+.mat-raised-button.btn-info:hover {
+  background-color: #00A0CE;
+  /* Light blue */
+}
+
+.mat-raised-button.btn-info:active {
+  background-color: #00838F;
+  /* Dark blue */
+}
+
+th {
+  color: white;
+  background-color: #17789e;
+}
+
+.card {
+  margin: 20px 40px 40px 40px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.chip-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mat-mdc-chip.selected {
+  background-color: #1976d2 !important;
+  color: white !important;
+}
+
+.mat-mdc-chip:not(.selected) {
+  background-color: #e0e0e0;
+  color: #424242;
+}

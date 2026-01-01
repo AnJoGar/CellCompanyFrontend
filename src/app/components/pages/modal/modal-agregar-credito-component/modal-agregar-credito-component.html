@@ -1,0 +1,108 @@
+<h2 mat-dialog-title>{{accion}} Crédito</h2>
+<mat-dialog-content>
+  <form [formGroup]="formCredito">
+    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+      
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca" placeholder="Ej. Samsung">
+          <mat-icon matSuffix color="primary">smartphone</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="modelo" placeholder="Ej. Galaxy S23">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>IMEI</mat-label>
+          <input matInput formControlName="imei">
+          <mat-icon matSuffix color="primary">fingerprint</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Capacidad (GB)</mat-label>
+          <input matInput type="number" formControlName="capacidad">
+          <mat-icon matSuffix color="primary">sd_storage</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Monto Total</mat-label>
+          <input matInput type="number" formControlName="montoTotal">
+          <mat-icon matSuffix color="primary">attach_money</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Entrada</mat-label>
+          <input matInput type="number" formControlName="entrada">
+          <mat-icon matSuffix color="primary">payments</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Plazo (N° Cuotas)</mat-label>
+          <input matInput type="number" formControlName="plazoCuotas">
+          <mat-icon matSuffix color="primary">reorder</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Frecuencia</mat-label>
+          <mat-select formControlName="frecuenciaPago">
+            <mat-option value="Semanal">Semanal</mat-option>
+            <mat-option value="Quincenal">Quincenal</mat-option>
+            <mat-option value="Mensual">Mensual</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Inicio Pago</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="diaPago">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Método Pago</mat-label>
+          <mat-select formControlName="metodoPago">
+            <mat-option value="Efectivo">Efectivo</mat-option>
+            <mat-option value="Transferencia">Transferencia</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+
+  <div *ngIf="isLoading" class="loading-overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Procesando crédito...</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn" [disabled]="isLoading">Volver</button>
+  <button mat-raised-button color="primary" 
+          [disabled]="formCredito.invalid || isLoading" 
+          (click)="guardarEditarCredito()">
+    <span *ngIf="!isLoading">{{accionBoton}}</span>
+    <span *ngIf="isLoading">Procesando...</span>
+  </button>
+</mat-dialog-actions>

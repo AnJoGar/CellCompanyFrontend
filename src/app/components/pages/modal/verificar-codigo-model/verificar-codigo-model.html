@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Verificar Código</h2>
+    <mat-dialog-content>
+      <div class="verificacion-container">
+        <mat-icon class="email-icon">mark_email_read</mat-icon>
+        <p class="mensaje">
+          Hemos enviado un código de verificación a:
+          <strong>{{data.correo}}</strong>
+        </p>
+        
+        <form [formGroup]="formCodigo">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Código de Verificación</mat-label>
+            <input matInput 
+                   formControlName="codigo" 
+                   placeholder="Ingrese el código de 6 dígitos"
+                   maxlength="6"
+                   autocomplete="off">
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-error *ngIf="formCodigo.get('codigo')?.hasError('required')">
+              El código es requerido
+            </mat-error>
+            <mat-error *ngIf="formCodigo.get('codigo')?.hasError('pattern')">
+              Debe ser un código de 6 dígitos
+            </mat-error>
+          </mat-form-field>
+        </form>
+
+        <div class="info-message">
+          <mat-icon>info</mat-icon>
+          <span>El código expira en 10 minutos</span>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close color="warn" [disabled]="isLoading">
+        Cancelar
+      </button>
+      <button mat-raised-button 
+              color="primary" 
+              [disabled]="formCodigo.invalid || isLoading"
+              (click)="verificarCodigo()">
+        <mat-spinner *ngIf="isLoading" diameter="20" style="display:inline-block; margin-right: 8px;"></mat-spinner>
+        <span *ngIf="!isLoading">Verificar</span>
+        <span *ngIf="isLoading">Verificando...</span>
+      </button>
+    </mat-dialog-actions>

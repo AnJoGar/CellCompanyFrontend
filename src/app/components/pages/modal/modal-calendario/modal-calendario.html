@@ -1,0 +1,161 @@
+<!-- components/pages/modal/modal-calendario-pagos/modal-calendario-pagos.html -->
+<div class="calendario-container">
+  
+  <!-- Header -->
+  <div class="header no-print">
+    <h2 mat-dialog-title>
+      <mat-icon>event_note</mat-icon>
+      Calendario de Pagos
+    </h2>
+    <button mat-icon-button (click)="cerrar()" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Cargando calendario...</p>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error && !isLoading" class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+
+    <!-- Contenido -->
+    <div *ngIf="!isLoading && !error">
+      
+      <!-- Información del crédito -->
+      <mat-card class="info-card">
+        <mat-card-content>
+          <div class="info-header">
+            <div class="info-item">
+              <mat-icon>person</mat-icon>
+              <div>
+                <span class="label">Cliente</span>
+                <strong>{{ data.nombreCliente || 'N/A' }}</strong>
+              </div>
+            </div>
+            <div class="info-item">
+              <mat-icon>credit_card</mat-icon>
+              <div>
+                <span class="label">Crédito ID</span>
+                <strong>{{ data.creditoId }}</strong>
+              </div>
+            </div>
+            <div class="info-item" *ngIf="data.montoTotal">
+              <mat-icon>attach_money</mat-icon>
+              <div>
+                <span class="label">Monto Total</span>
+                <strong>{{ formatearMoneda(data.montoTotal) }}</strong>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Estadísticas -->
+      <div class="stats-container">
+        <mat-card class="stat-card pagadas">
+          <mat-card-content>
+            <mat-icon>check_circle</mat-icon>
+            <div class="stat-info">
+              <span class="stat-label">Cuotas Pagadas</span>
+              <span class="stat-value">{{ cuotasPagadas }} / {{ totalCuotas }}</span>
+              <span class="stat-monto">{{ formatearMoneda(totalPagado) }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card pendientes">
+          <mat-card-content>
+            <mat-icon>pending</mat-icon>
+            <div class="stat-info">
+              <span class="stat-label">Cuotas Pendientes</span>
+              <span class="stat-value">{{ cuotasPendientes }} / {{ totalCuotas }}</span>
+              <span class="stat-monto">{{ formatearMoneda(totalPendiente) }}</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="stat-card progreso">
+          <mat-card-content>
+            <mat-icon>trending_up</mat-icon>
+            <div class="stat-info">
+              <span class="stat-label">Progreso</span>
+              <span class="stat-value">{{ obtenerPorcentajePagado() }}%</span>
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="obtenerPorcentajePagado()"></div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Tabla de calendario -->
+      <div class="table-container">
+        <table mat-table [dataSource]="calendarioPagos" class="calendario-table">
+          
+          <!-- Número -->
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
+          </ng-container>
+
+          <!-- Fecha -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Pago </th>
+            <td mat-cell *matCellDef="let element"> {{ formatearFecha(element.proximaCuotaStr) }} </td>
+          </ng-container>
+
+          <!-- Monto Cuota -->
+          <ng-container matColumnDef="montoCuota">
+            <th mat-header-cell *matHeaderCellDef> Monto Cuota </th>
+            <td mat-cell *matCellDef="let element"> {{ formatearMoneda(element.abonadoCuota) }} </td>
+          </ng-container>
+
+          <!-- Monto Pendiente -->
+          <ng-container matColumnDef="montoPendiente">
+            <th mat-header-cell *matHeaderCellDef> Saldo Pendiente </th>
+            <td mat-cell *matCellDef="let element" [style.color]="element.montoPendiente === 0 ? '#388e3c' : '#f57c00'">
+              {{ formatearMoneda(element.montoPendiente) }}
+            </td>
+          </ng-container>
+
+          <!-- Estado -->
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="estado-badge" [style.background-color]="obtenerColorEstado(element.estadoCuota)">
+                <mat-icon>{{ element.estadoCuota === 'Pagado' ? 'check_circle' : 'schedule' }}</mat-icon>
+                {{ element.estadoCuota }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-dialog-content>
+
+  <!-- Botones -->
+  <mat-dialog-actions align="end" class="no-print">
+    <button mat-raised-button (click)="imprimir()">
+      <mat-icon>print</mat-icon>
+      Imprimir
+    </button>
+    <button mat-raised-button color="primary" (click)="cerrar()">
+      <mat-icon>close</mat-icon>
+      Cerrar
+    </button>
+  </mat-dialog-actions>
+
+</div>

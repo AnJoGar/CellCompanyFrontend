@@ -1,0 +1,35 @@
+.modal-simple {
+  max-height: 70vh;
+  padding: 10px;
+}
+
+.section-box {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-left: 4px solid #17789e;
+}
+
+.section-title {
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.grid-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+mat-dialog-content {
+  min-width: 600px;
+  max-height: 80vh;
+}

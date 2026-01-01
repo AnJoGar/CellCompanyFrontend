@@ -1,0 +1,260 @@
+/* components/pages/modal/comprobante-pago/comprobante-pago.css */
+.comprobante-container {
+  padding: 10px;
+  max-width: 700px;
+  margin: 0 auto;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.comprobante-content {
+  background: white;
+  padding: 25px;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: #1976d2;
+}
+
+.logo-section h1 {
+  margin: 0;
+  color: #1976d2;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.numero-comprobante {
+  text-align: right;
+}
+
+.numero-comprobante p {
+  margin: 3px 0;
+  font-size: 13px;
+}
+
+.fecha {
+  color: #666;
+  font-size: 11px;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid #1976d2;
+  margin: 15px 0;
+}
+
+/* Secciones */
+.seccion {
+  margin-bottom: 15px;
+}
+
+.seccion h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #1976d2;
+  font-size: 14px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.seccion h3 mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.value {
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Sección de Pago */
+.seccion-pago {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.seccion-pago h3 {
+  border-bottom: none;
+  margin-bottom: 12px;
+}
+
+.pago-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pago-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+}
+
+.value-grande {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.value-monto {
+  font-size: 20px;
+  font-weight: bold;
+  color: #388e3c;
+}
+
+.value-pendiente {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f57c00;
+}
+
+/* Firma */
+.firma-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.firma-linea {
+  width: 250px;
+  height: 1px;
+  background-color: #333;
+  margin: 0 auto 8px;
+}
+
+.firma-texto {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+/* Footer */
+.footer {
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px dashed #ccc;
+}
+
+.footer p {
+  margin: 4px 0;
+  font-size: 11px;
+  color: #666;
+}
+
+.nota {
+  font-style: italic;
+  color: #999;
+}
+
+/* Botones */
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.acciones button {
+  min-width: 140px;
+}
+
+/* Estilos de impresión */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .comprobante-container {
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .comprobante-content {
+    border: none;
+    box-shadow: none;
+    padding: 20px;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Responsive para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .comprobante-container {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .comprobante-content {
+    padding: 15px;
+  }
+
+  .logo-section h1 {
+    font-size: 16px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .numero-comprobante {
+    text-align: left;
+  }
+}

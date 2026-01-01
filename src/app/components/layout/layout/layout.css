@@ -1,0 +1,39 @@
+.sidenav-container {
+    height: 100vh;
+}
+
+.sidenav {
+    width: 250px;
+    background-color: white;
+    border-right: 1px solid #e0e0e0;
+}
+
+.sidenav-header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background-color: #0d47a1;
+    /* Azul Oscuro */
+    color: white;
+}
+
+.logo-icon {
+    margin-right: 10px;
+}
+
+.toolbar-custom {
+    background-color: #1565C0;
+    /* Azul Corporativo */
+    color: white;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.content-wrapper {
+    padding: 20px;
+    background-color: #F5F7FA;
+    min-height: calc(100vh - 64px);
+}
