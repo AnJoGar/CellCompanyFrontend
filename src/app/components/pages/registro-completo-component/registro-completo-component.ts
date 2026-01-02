@@ -59,7 +59,7 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     'modelo',
     'imei',
     'capacidad',
-    'estado',
+    'estadoDeComision',
     'editar',
     'eliminar',
     'consultar'

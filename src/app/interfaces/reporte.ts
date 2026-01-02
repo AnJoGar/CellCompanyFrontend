@@ -13,6 +13,7 @@ export interface ReporteInterface {
   nombreTienda: string;
   encargadoTienda: string;
   telefonoTienda: string;
+  estadoDeComision:string;
 
   // ===== CRÉDITO =====
   creditoId: number;

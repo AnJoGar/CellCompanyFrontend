@@ -44,7 +44,7 @@
               <mat-icon>credit_card</mat-icon>
               <div>
                 <span class="label">Crédito ID</span>
-                <strong>{{ data.creditoId }}</strong>
+                <strong>{{ data.codigoUnico }}</strong>
               </div>
             </div>
             <div class="info-item" *ngIf="data.montoTotal">
@@ -82,18 +82,7 @@
           </mat-card-content>
         </mat-card>
 
-        <mat-card class="stat-card progreso">
-          <mat-card-content>
-            <mat-icon>trending_up</mat-icon>
-            <div class="stat-info">
-              <span class="stat-label">Progreso</span>
-              <span class="stat-value">{{ obtenerPorcentajePagado() }}%</span>
-              <div class="progress-bar">
-                <div class="progress-fill" [style.width.%]="obtenerPorcentajePagado()"></div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
+      
       </div>
 
       <!-- Tabla de calendario -->

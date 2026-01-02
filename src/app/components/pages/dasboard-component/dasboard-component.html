@@ -81,33 +81,16 @@
   </div>
 </div>
 
-    <mat-card class="list-card">
-      <mat-card-header>
-        <mat-card-title>Últimas Entregas</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        <div class="recent-list">
-          @for (item of listaReportes.slice(0,5); track item.creditoId) {
-            <div class="list-item">
-              <div class="client-avatar">
-                {{ item.nombreCliente.charAt(0) }}
-              </div>
-              <div class="client-details">
-                <strong>{{ item.nombreCliente }}</strong>
-                <span>{{ item.marca }} - {{ item.modelo }}</span>
-              </div>
-              <div class="client-status">
-                <span class="amount">{{ item.montoTotal | currency }}</span>
-                <span class="badge" [class.mora]="item.montoPendiente > 0">
-                  {{ item.montoPendiente > 0 ? 'Pendiente' : 'Pagado' }}
-                </span>
-              </div>
-            </div>
-            <mat-divider></mat-divider>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
+   <mat-card>
+        <mat-card-header>
+          <mat-icon mat-card-avatar style="color: #ff9800;">donut_large</mat-icon>
+          <mat-card-title>Estado de Cartera</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="chart-container-small">
+            <canvas id="chartDonaCumplimiento"></canvas>
+          </div>
+        </mat-card-content>
+      </mat-card>
   </div>
 </div>

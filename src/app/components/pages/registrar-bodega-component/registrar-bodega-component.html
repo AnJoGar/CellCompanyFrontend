@@ -1,0 +1,206 @@
+<div class="k">
+  <h1 class="page-title" style="color: #17789e;">Gestión de Productos en Bodega</h1>
+  <mat-card class="card" style="margin: 20px 40px 40px 40px">
+    <mat-card-title>
+      <button mat-raised-button color="primary" class="btn btn-info" (click)="agregarProducto()">
+        <mat-icon mat-list-icon>add_circle</mat-icon> Nuevo Producto
+      </button>
+    </mat-card-title>
+    <mat-divider inset></mat-divider>
+    <h3></h3>
+    <mat-card-content class="dashboard-card-content">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Búsqueda (Código, Marca, Modelo, IMEI)</mat-label>
+        <input 
+          matInput 
+          [(ngModel)]="searchValue" 
+          (keyup)="applyFilter($event)" 
+          (input)="onSearchInput()" 
+          placeholder="Ej. Samsung Galaxy" 
+          #input>
+      </mat-form-field>
+
+      <div class="kpi-container" style="display: flex; gap: 20px; margin: 0 40px 20px 40px; justify-content: space-between;">
+  
+  <mat-card class="kpi-card" style="flex: 1; border-left: 5px solid #17789e;">
+    <mat-card-content style="display: flex; align-items: center; justify-content: space-between; padding: 15px;">
+      <div>
+        <p style="margin: 0; color: #666; font-size: 0.9rem;">Stock Total</p>
+        <h2 style="margin: 0; font-size: 1.8rem; color: #17789e;">{{ totalProductos }}</h2>
+      </div>
+      <mat-icon style="font-size: 40px; height: 40px; width: 40px; color: #17789e; opacity: 0.5;">inventory_2</mat-icon>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="kpi-card" style="flex: 1; border-left: 5px solid #ff9800;">
+    <mat-card-content style="display: flex; align-items: center; justify-content: space-between; padding: 15px;">
+      <div>
+        <p style="margin: 0; color: #666; font-size: 0.9rem;">Valor Total</p>
+        <h2 style="margin: 0; font-size: 1.8rem; color: #ff9800;">{{ totalInversion | currency }}</h2>
+      </div>
+      <mat-icon style="font-size: 40px; height: 40px; width: 40px; color: #ff9800; opacity: 0.5;">payments</mat-icon>
+    </mat-card-content>
+  </mat-card>
+
+
+
+  <mat-card class="kpi-card" style="flex: 1; border-left: 5px solid #f44336;">
+    <mat-card-content style="display: flex; align-items: center; justify-content: space-between; padding: 15px;">
+      <div>
+        <p style="margin: 0; color: #666; font-size: 0.9rem;">Stock Antiguo (+30d)</p>
+        <h2 style="margin: 0; font-size: 1.8rem; color: #f44336;">{{ productosEnAlerta }}</h2>
+      </div>
+      <mat-icon style="font-size: 40px; height: 40px; width: 40px; color: #f44336; opacity: 0.5;">history</mat-icon>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+      
+      <h3></h3>
+      <div class="mat-elevation-z2">
+        <table mat-table [dataSource]="dataSource">
+          
+          <!-- Código -->
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef> Código </th>
+            <td mat-cell *matCellDef="let element">
+              <strong style="color: #17789e;">{{element.codigo}}</strong>
+            </td>
+          </ng-container>
+          
+          <!-- Tipo Producto -->
+          <ng-container matColumnDef="tipoProducto">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipoProducto}} </td>
+          </ng-container>
+          
+          <!-- Marca -->
+          <ng-container matColumnDef="marca">
+            <th mat-header-cell *matHeaderCellDef> Marca </th>
+            <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+          </ng-container>
+          
+          <!-- Modelo -->
+          <ng-container matColumnDef="modelo">
+            <th mat-header-cell *matHeaderCellDef> Modelo </th>
+            <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
+          </ng-container>
+          
+          <!-- IMEI -->
+          <ng-container matColumnDef="imei">
+            <th mat-header-cell *matHeaderCellDef> IMEI </th>
+            <td mat-cell *matCellDef="let element">
+              <small style="color: #666;">{{element.imei || 'N/A'}}</small>
+            </td>
+          </ng-container>
+          
+          <!-- Color -->
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef> Color </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip *ngIf="element.color" class="chip-color">
+                {{element.color}}
+              </mat-chip>
+              <span *ngIf="!element.color" style="color: #999;">N/A</span>
+            </td>
+          </ng-container>
+          
+          <!-- Estado -->
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-chip [ngClass]="getEstadoClass(element.estado)">
+                {{element.estado}}
+              </mat-chip>
+            </td>
+          </ng-container>
+          
+          <!-- Precio Compra -->
+          <ng-container matColumnDef="precioCompra">
+            <th mat-header-cell *matHeaderCellDef> P. Compra </th>
+            <td mat-cell *matCellDef="let element">
+              {{formatearPrecio(element.precioCompra)}}
+            </td>
+          </ng-container>
+          
+          <!-- Precio Venta -->
+          <ng-container matColumnDef="precioVenta">
+            <th mat-header-cell *matHeaderCellDef> P. Venta </th>
+            <td mat-cell *matCellDef="let element">
+              <strong style="color: #28a745;">
+                {{element.precioVenta ? formatearPrecio(element.precioVenta) : 'N/A'}}
+              </strong>
+            </td>
+          </ng-container>
+          
+          <!-- Fecha Ingreso -->
+          <ng-container matColumnDef="fechaIngreso">
+            <th mat-header-cell *matHeaderCellDef> Fecha Ingreso </th>
+            <td mat-cell *matCellDef="let element">
+              <small>{{formatearFecha(element.fechaIngreso)}}</small>
+            </td>
+          </ng-container>
+          
+          <!-- Días en Bodega -->
+          <ng-container matColumnDef="diasEnBodega">
+            <th mat-header-cell *matHeaderCellDef> Días </th>
+            <td mat-cell *matCellDef="let element">
+              <span [ngClass]="getColorDiasBodega(element.diasEnBodega)">
+                <strong>{{element.diasEnBodega}}</strong> días
+              </span>
+            </td>
+          </ng-container>
+          
+          <!-- Editar -->
+         
+          <ng-container matColumnDef="trasladar">
+  <th mat-header-cell *matHeaderCellDef style="width:80px"> Trasladar </th>
+  <td mat-cell *matCellDef="let element">
+    <button 
+      mat-icon-button 
+      color="accent" 
+      (click)="trasladarProducto(element)"
+      matTooltip="Trasladar a tienda">
+      <mat-icon>local_shipping</mat-icon>
+    </button>
+  </td>
+</ng-container>
+  <ng-container matColumnDef="Historial">
+            <th mat-header-cell *matHeaderCellDef style="width:80px"> Historial </th>
+            <td mat-cell *matCellDef="let element">
+              <button 
+                  mat-icon-button 
+                  color="accent" 
+                  (click)="verHistorial(element)"
+                  matTooltip="Ver historial">
+                  <mat-icon>history</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+          <!-- Eliminar -->
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef style="width:80px"> Eliminar </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="eliminarProducto(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="12">No existe el producto "{{input.value}}"</td>
+          </tr>
+        </table>
+        
+        <mat-paginator 
+          [pageSizeOptions]="[5, 10, 20, 50]" 
+          showFirstLastButtons
+          aria-label="Seleccionar página de productos">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

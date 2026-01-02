@@ -65,6 +65,7 @@ tituloAccion: string = "Agregar";
       telefono: ['', Validators.required],
       direccion: ['', Validators.required],
       cedulaEncargado: ['', Validators.required],
+      estadoDeComision: ['', Validators.required],
       
   // 🔥 AGREGA ESTA LÍNEA:
   nombrePropietario: ['']// Para TiendaApps
@@ -110,7 +111,8 @@ if (this.data && this.data.usuario) {
           telefono: u.cliente.detalleCliente?.telefono,
           direccion: u.cliente.detalleCliente?.direccion,
           nombrePropietario: u.cliente.detalleCliente?.nombrePropietario,
-          cedulaEncargado: u.cliente.tiendaApps?.[0]?.cedulaEncargado // Sacamos el valor del array
+          cedulaEncargado: u.cliente.tiendaApps?.[0]?.cedulaEncargado,
+            estadoDeComision: u.cliente.tiendaApps?.[0]?.estadoDeComision // Sacamos el valor del array
         });
 
         // 5. RELLENAR FORMULARIO CRÉDITO (Sacamos datos del primer crédito)
@@ -169,7 +171,7 @@ registrarTodo() {
       tiendaApps: [{
        id: this.data?.usuario?.cliente?.tiendaApps?.[0]?.id || 0,
         cedulaEncargado: this.formCliente.value.cedulaEncargado,
-        estadoDeComision: "Pendiente",
+        estadoDeComision:this.formCliente.value.estadoDeComision,
         fechaRegistro: fechaISO,
         clienteId: 0
       }],

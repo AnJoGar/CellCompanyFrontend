@@ -7,7 +7,7 @@ import { UsuarioService } from '../../services/usuario';
 import { RolNavegacionService } from '../../services/rol-navegacion';
 import { Login } from '../../interfaces/login';
 import { UsuarioModel } from '../pages/modal/usuario-model/usuario-model';
-
+import { RestablecerClaveModel } from '../pages/modal/restablecer-clave-model/restablecer-clave-model';
 // Angular Material
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -105,4 +105,12 @@ iniciarSesion() {
     this.isLoading = false;
     this.cdr.detectChanges(); // <--- 5. Esto resuelve el error NG0100
   }
+
+  // Dentro de la clase LoginComponent:
+recuperarContrasena() {
+  this.dialog.open(RestablecerClaveModel, {
+    width: '400px',
+    disableClose: true
+  });
+}
 }

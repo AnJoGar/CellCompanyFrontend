@@ -11,7 +11,7 @@
     <p *ngIf="data.nombreCliente" style="margin: 5px 0 0 0; color: #424242;">
       Cliente: {{data.nombreCliente}}
     </p>
-    <p *ngIf="data.montoPendiente" style="margin: 5px 0 0 0; color: #f57c00; font-weight: bold;">
+     <p *ngIf="data.montoPendiente" style="margin: 5px 0 0 0; color: #f57c00; font-weight: bold;">
       Monto Pendiente: ${{data.montoPendiente | number:'1.2-2'}}
     </p>
     <p *ngIf="data.valorPorCuota" style="margin: 5px 0 0 0; color: #2e7d32; font-weight: bold;">

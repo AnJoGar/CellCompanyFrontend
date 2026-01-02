@@ -706,6 +706,7 @@ verCalendarioPagos(element: ReporteInterface) {
     data: {
       creditoId: element.creditoId,
       clienteId: element.clienteId,
+      codigoUnico: element.codigoUnico,
       nombreCliente: element.nombreCliente,
       montoTotal: element.montoTotal
     }

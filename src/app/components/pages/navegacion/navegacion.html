@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" style="background-color: #157E8E">
   <mat-toolbar-row>
-    <mat-icon style="height: 28px; margin-right: 3px;">medical_services</mat-icon>
-    <h1>Sistema odontológico</h1>
+    
+    <h1>Sistema CellCompany</h1>
     <button mat-icon-button (click)="drawer.toggle();" style="position: fixed; right: 20px;">
       
    <mat-icon >menu</mat-icon>
@@ -28,23 +28,19 @@
       [opened]="true">
       <!-- Contenido del sidenav -->
 
-      <mat-nav-list class="menu-list" >
-   
-        <mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.url">
-          <mat-icon mat-list-icon>{{menu.icono}}</mat-icon>
-          <div mat-line>{{menu.nombre}}</div>
-        </mat-list-item>
-        
-        <span class="example-spacer"></span>
-          <button mat-icon-button size="100px" class="icon-display" aria-label="Example icon-button with heart icon"
-                   (click)="cerrarSession()">
-            <mat-icon>input</mat-icon>
-          </button>
+      <mat-nav-list class="menu-list">
+  <mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.url" class="menu-item">
+    <mat-icon matListItemIcon>{{menu.icono}}</mat-icon>
+    <span matListItemTitle>{{menu.nombre}}</span>
+  </mat-list-item>
 
-        
-       
-
-      </mat-nav-list>
+  <div class="logout-container">
+    <button mat-list-item (click)="cerrarSession()" class="logout-button">
+      <mat-icon matListItemIcon>logout</mat-icon>
+      <span matListItemTitle>Cerrar Sesión</span>
+    </button>
+  </div>
+</mat-nav-list>
     </mat-sidenav>
 
  

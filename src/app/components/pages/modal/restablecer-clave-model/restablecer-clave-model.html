@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Recuperar Contraseña</h2>
+<mat-dialog-content>
+  <div *ngIf="paso === 1">
+    <p>Ingresa tu correo para enviarte un código.</p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput [(ngModel)]="correo" type="email">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="paso === 2">
+    <p>Ingresa el código enviado a <b>{{correo}}</b></p>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Código</mat-label>
+      <input matInput [(ngModel)]="token" placeholder="Ej: 123456">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nueva Contraseña</mat-label>
+      <input matInput [(ngModel)]="nuevaClave" type="password">
+    </mat-form-field>
+  </div>
+  
+  <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cerrar()">Cancelar</button>
+  <button mat-raised-button color="primary" *ngIf="paso === 1" (click)="enviarCorreo()" [disabled]="isLoading">Enviar Código</button>
+  <button mat-raised-button color="primary" *ngIf="paso === 2" (click)="cambiarClave()" [disabled]="isLoading">Restablecer</button>
+</mat-dialog-actions>

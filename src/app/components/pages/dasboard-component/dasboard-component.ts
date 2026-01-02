@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { ReporteInterface } from '../../../interfaces/reporte';
 import { ReportService } from '../../../services/Reporte-service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
@@ -27,7 +27,7 @@ Chart.register(...registerables);
   templateUrl: './dasboard-component.html',
   styleUrl: './dasboard-component.css',
 })
-export class DasboardComponent implements OnInit, AfterViewInit {
+export class DasboardComponent implements OnInit, AfterViewInit, AfterViewInit {
   listaReportes: ReporteInterface[] = [];
   
   // Totales para las tarjetas
@@ -39,7 +39,9 @@ export class DasboardComponent implements OnInit, AfterViewInit {
   private chartRadar: Chart | null = null;
   private chartBarras: Chart | null = null;
 
-  constructor(private _reporteServicio: ReportService) { }
+  constructor(private _reporteServicio: ReportService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.obtenerDatos();
@@ -55,10 +57,13 @@ export class DasboardComponent implements OnInit, AfterViewInit {
         if (res.status) {
           this.listaReportes = res.value;
           this.calcularKpis();
+          // Fuerza a Angular a renderizar los nuevos valores en las tarjetas ($8,782.00 en lugar de $0.00)
+          this.cdr.detectChanges();
           // Esperar un momento para que el DOM se actualice
           setTimeout(() => {
             this.generarGraficoRadar();
             this.generarGraficoVentas();
+             this.generarGraficoDonaCumplimiento(); 
           }, 100);
         }
       },
@@ -222,5 +227,89 @@ export class DasboardComponent implements OnInit, AfterViewInit {
     if (this.chartBarras) {
       this.chartBarras.destroy();
     }
+  }
+
+  private chartLineas: Chart | null = null;
+
+generarGraficoEvolucionVentas(): void {
+  // 1. Agrupar montos por mes
+  const ventasPorMes: { [key: string]: number } = {};
+  
+  this.listaReportes.forEach(item => {
+    // Extraemos el mes y año (asumiendo formato DD/MM/YYYY o ISO)
+    const fecha = new Date(item.fechaCreditoStr);
+    const mesAnio = fecha.toLocaleString('es-ES', { month: 'short', year: 'numeric' });
+    
+    ventasPorMes[mesAnio] = (ventasPorMes[mesAnio] || 0) + item.montoTotal;
+  });
+
+  const ctx = document.getElementById('chartRadarEstados') as HTMLCanvasElement; // Usamos el mismo id o uno nuevo
+  if (!ctx) return;
+
+  if (this.chartLineas) this.chartLineas.destroy();
+
+  this.chartLineas = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(ventasPorMes),
+      datasets: [{
+        label: 'Ventas Mensuales ($)',
+        data: Object.values(ventasPorMes),
+        borderColor: '#17789e', // El azul de tu sistema
+        backgroundColor: 'rgba(23, 120, 158, 0.1)',
+        fill: true,
+        tension: 0.4, // Curva suave para un look más moderno
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false } // El título ya dice qué es
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: (value) => '$' + value.toLocaleString()
+          }
+        }
+      }
+    }
+  });
+}
+
+
+private chartDona: Chart | null = null;
+generarGraficoDonaCumplimiento(): void {
+    const conteo = this.listaReportes.reduce((acc: any, item) => {
+      acc[item.estadoCredito] = (acc[item.estadoCredito] || 0) + 1;
+      return acc;
+    }, {});
+
+    const ctx = document.getElementById('chartDonaCumplimiento') as HTMLCanvasElement;
+    if (!ctx) return;
+    if (this.chartDona) this.chartDona.destroy();
+
+    this.chartDona = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(conteo),
+        datasets: [{
+          data: Object.values(conteo),
+          backgroundColor: ['#4caf50', '#ff9800', '#f44336', '#2196f3'],
+          hoverOffset: 15
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '65%',
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
   }
 }

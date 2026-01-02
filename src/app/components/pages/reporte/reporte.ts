@@ -87,8 +87,7 @@ export class ReporteComponent implements OnInit {
     'creditoId',
     'marca',
     'modelo',
-    'fotoContrato',
-    'fotoCelularEntregadoUrl',
+    
     'entrada',
     'montoTotal',
     'montoPendiente',
@@ -99,7 +98,8 @@ export class ReporteComponent implements OnInit {
     'estadoCredito',
     'estadoCuota',
     'abonadoTotal',
-    'abonadoCuota',
+    
+    'estadoDeComision',
     
     // FECHAS
     'fechaCreditoStr',

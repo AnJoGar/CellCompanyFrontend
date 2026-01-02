@@ -1,0 +1,120 @@
+.k {
+  padding: 20px;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0 40px 20px 40px;
+}
+
+.card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.filter-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.chip-color {
+  font-size: 0.8rem;
+  min-height: 24px;
+  padding: 4px 8px;
+}
+
+/* Estados */
+.estado-nuevo {
+  background-color: #2196f3;
+  color: white;
+}
+
+.estado-disponible {
+  background-color: #28a745;
+  color: white;
+}
+
+.estado-reservado {
+  background-color: #ff9800;
+  color: white;
+}
+
+.estado-vendido {
+  background-color: #dc3545;
+  color: white;
+}
+
+.estado-reparacion {
+  background-color: #6c757d;
+  color: white;
+}
+
+.estado-default {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Días en bodega */
+.dias-reciente {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.dias-normal {
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.dias-antiguo {
+  color: #f44336;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #17789e;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table-container {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+
+/* Estilo para la barra de desplazamiento */
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+.table-container::-webkit-scrollbar-thumb {
+  background: #17789e;
+  border-radius: 10px;
+}
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Evita que el texto de las celdas se amontone */
+th.mat-header-cell, td.mat-cell {
+  white-space: nowrap;
+  padding: 0 12px !important;
+}

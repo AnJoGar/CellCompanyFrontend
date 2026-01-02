@@ -60,6 +60,7 @@ export class ModalPago implements OnInit {
       creditoId: number, 
       montoPendiente?: number,
        nombreCliente?: string,
+      
        valorPorCuota?: number,
        cedula?: string,
     nombreTienda?: string,

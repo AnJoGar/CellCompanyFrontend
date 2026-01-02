@@ -1,0 +1,72 @@
+.header-info {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.loading-container, .no-data {
+  text-align: center;
+  padding: 30px;
+}
+
+/* Timeline Style */
+.timeline {
+  position: relative;
+  padding: 20px 0;
+  list-style: none;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 50px;
+}
+
+.timeline-badge {
+  position: absolute;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: #17789e;
+  z-index: 2;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 35px;
+  bottom: -20px;
+  width: 2px;
+  background: #e9ecef;
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+.timeline-content {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 5px;
+}
+
+.tipo { font-weight: bold; color: #17789e; }
+.fecha { font-size: 0.85rem; color: #666; }
+.usuario { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 4px; }
+.obs { background: #fffde7; padding: 5px; border-radius: 4px; font-size: 0.9rem; margin-top: 5px; }

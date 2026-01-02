@@ -1,0 +1,118 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h2 mat-dialog-title>
+      <mat-icon style="vertical-align: middle; margin-right: 8px; color: #17789e;">compare_arrows</mat-icon>
+      {{ tituloModal }}
+    </h2>
+    <button mat-icon-button (click)="cerrarModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-dialog-content>
+    <!-- Información del Producto -->
+    <mat-card class="producto-info">
+      <mat-card-content>
+        <div class="producto-detalle">
+          <mat-icon class="producto-icon">phone_iphone</mat-icon>
+          <div class="producto-texto">
+            <h3>{{ producto.marca }} {{ producto.modelo }}</h3>
+            <p><strong>Código:</strong> {{ producto.codigo }}</p>
+            <p *ngIf="producto.imei"><strong>IMEI:</strong> {{ producto.imei }}</p>
+            <p><strong>Color:</strong> {{ producto.color || 'N/A' }}</p>
+            <p><strong>Estado:</strong> <span class="badge-estado">{{ producto.estado }}</span></p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Formulario de Traslado -->
+    <form [formGroup]="formularioTraslado" class="form-traslado">
+      
+      <!-- Origen (Tienda actual del producto) -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tienda Origen</mat-label>
+        <input matInput [value]="tiendaOrigenNombre" readonly>
+        <mat-icon matPrefix>store</mat-icon>
+      </mat-form-field>
+
+      <!-- Flecha indicadora -->
+      <div class="arrow-container">
+        <mat-icon class="arrow-icon">arrow_downward</mat-icon>
+        <span class="arrow-text">Trasladar a</span>
+      </div>
+
+      <!-- Destino (Otras tiendas) -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tienda Destino *</mat-label>
+        <mat-select formControlName="tiendaDestinoId">
+          <mat-option *ngIf="isLoading" disabled>
+            Cargando tiendas...
+          </mat-option>
+          <mat-option *ngIf="!isLoading && tiendasDestino.length === 0" disabled>
+            No hay otras tiendas disponibles
+          </mat-option>
+          <mat-option *ngFor="let tienda of tiendasDestino" [value]="tienda.id">
+            {{ tienda.nombreTienda }}
+            <span *ngIf="tienda.ciudad" style="color: #666;"> - {{ tienda.ciudad }}</span>
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>store_mall_directory</mat-icon>
+        <mat-error *ngIf="formularioTraslado.get('tiendaDestinoId')?.hasError('required')">
+          Debe seleccionar una tienda destino
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Información de la tienda seleccionada -->
+      <mat-card *ngIf="tiendaSeleccionada" class="tienda-seleccionada">
+        <mat-card-content>
+          <p><mat-icon inline>store</mat-icon> <strong>Tienda:</strong> {{ tiendaSeleccionada.nombreTienda }}</p>
+          <p *ngIf="tiendaSeleccionada.direccion">
+            <mat-icon inline>location_on</mat-icon> <strong>Dirección:</strong> {{ tiendaSeleccionada.direccion }}
+          </p>
+          <p *ngIf="tiendaSeleccionada.telefono">
+            <mat-icon inline>phone</mat-icon> <strong>Teléfono:</strong> {{ tiendaSeleccionada.telefono }}
+          </p>
+          <p *ngIf="tiendaSeleccionada.ciudad">
+            <mat-icon inline>location_city</mat-icon> <strong>Ciudad:</strong> {{ tiendaSeleccionada.ciudad }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Observaciones -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Observaciones (Opcional)</mat-label>
+        <textarea 
+          matInput 
+          formControlName="observacion" 
+          rows="3"
+          placeholder="Ej: Traslado por solicitud de cliente">
+        </textarea>
+        <mat-icon matPrefix>note</mat-icon>
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-dialog-actions align="end">
+    <button 
+      mat-stroked-button 
+      (click)="cerrarModal()">
+      <mat-icon>cancel</mat-icon> Cancelar
+    </button>
+    
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="registrarTraslado()"
+      [disabled]="formularioTraslado.invalid || guardando || isLoading">
+      <mat-spinner *ngIf="guardando" diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+      <mat-icon *ngIf="!guardando">send</mat-icon>
+      {{ guardando ? 'Trasladando...' : 'Trasladar Producto' }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -56,3 +56,16 @@ th {
   background-color: #e0e0e0;
   color: #424242;
 }
+.mat-header-cell {
+  color: #333333 !important; /* Fuerza el color gris oscuro/negro */
+  font-weight: 700 !important; /* Ponlo en negrita */
+  font-size: 14px;
+  text-transform: uppercase; /* Opcional: para que se vea más como reporte */
+  background-color: #f8f9fa !important; /* Un fondo gris muy sutil para que resalte */
+}
+
+/* Alineación opcional para que no se peguen los textos */
+th.mat-header-cell {
+  padding: 12px !important;
+  border-bottom: 2px solid #17789e !important; /* Línea azul debajo (opcional) */
+}

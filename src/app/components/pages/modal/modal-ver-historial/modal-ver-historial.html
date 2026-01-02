@@ -1,0 +1,46 @@
+<h2 mat-dialog-title style="color: #17789e; display: flex; align-items: center; gap: 10px;">
+  <mat-icon>history</mat-icon> Historial de Movimientos
+</h2>
+
+<mat-dialog-content>
+  <div class="header-info">
+    <p><strong>Producto:</strong> {{producto.marca}} {{producto.modelo}}</p>
+    <p><strong>IMEI:</strong> {{producto.imei || producto.codigo}}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando historial...</p>
+  </div>
+
+  <div *ngIf="!loading && historial.length === 0" class="no-data">
+    <mat-icon style="font-size: 48px; height: 48px; width: 48px; color: #ccc;">info</mat-icon>
+    <p>No se encontraron movimientos para este producto.</p>
+  </div>
+
+  <div class="timeline" *ngIf="!loading && historial.length > 0">
+    <div class="timeline-item" *ngFor="let mov of historial">
+      <div class="timeline-badge" [ngClass]="mov.tipoMovimiento">
+        <mat-icon>{{ mov.tipoMovimiento === 'Traslado' ? 'local_shipping' : 'inventory' }}</mat-icon>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-header">
+          <span class="tipo">{{ mov.tipoMovimiento }}</span>
+          <span class="fecha">{{ mov.fechaRegistro | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <p class="detalle">
+          <strong>Origen:</strong> {{ mov.tiendaOrigen }} <br>
+          <strong>Destino:</strong> {{ mov.tiendaDestino }}
+        </p>
+        <p class="usuario"><mat-icon inline>person</mat-icon> {{ mov.usuarioRegistro }}</p>
+        <p class="obs" *ngIf="mov.observacion"><em>"{{ mov.observacion }}"</em></p>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="primary">Cerrar</button>
+</mat-dialog-actions>

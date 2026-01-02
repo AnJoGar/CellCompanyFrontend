@@ -1,0 +1,190 @@
+/* ============================================================================
+   ENCABEZADO DEL MODAL
+============================================================================ */
+
+h2[mat-dialog-title] {
+  color: #17789e;
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 20px 24px;
+  font-weight: 600;
+}
+
+/* ============================================================================
+   CONTENIDO DEL MODAL
+============================================================================ */
+
+mat-dialog-content {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* ============================================================================
+   GRID Y FORM FIELDS
+============================================================================ */
+
+mat-grid-list {
+  margin-bottom: 10px;
+}
+
+mat-grid-tile {
+  overflow: visible !important;
+}
+
+mat-form-field {
+  width: 95%;
+  font-size: 14px;
+}
+
+/* Alinear iconos correctamente */
+mat-icon[matSuffix] {
+  margin-left: 8px;
+}
+
+/* Prefijo del precio */
+span[matPrefix] {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* ============================================================================
+   CAJA DE INFORMACIÓN (MODO EDICIÓN)
+============================================================================ */
+
+.info-box {
+  background-color: #e3f2fd;
+  border-left: 4px solid #17789e;
+  padding: 16px;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.info-box p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.info-box strong {
+  color: #17789e;
+  margin-right: 8px;
+}
+
+/* ============================================================================
+   SPINNER DE CARGA
+============================================================================ */
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.loading-overlay p {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #17789e;
+  font-weight: 500;
+}
+
+/* ============================================================================
+   ACCIONES DEL MODAL
+============================================================================ */
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  gap: 10px;
+}
+
+mat-dialog-actions button {
+  min-width: 100px;
+}
+
+/* ============================================================================
+   INPUTS DE NÚMERO
+============================================================================ */
+
+/* Remover flechas en Chrome/Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remover flechas en Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ============================================================================
+   RESPONSIVE
+============================================================================ */
+
+@media (max-width: 600px) {
+  h2[mat-dialog-title] {
+    font-size: 1.2rem;
+    padding: 16px;
+  }
+
+  mat-dialog-content {
+    padding: 16px;
+  }
+
+  mat-grid-list {
+    margin-bottom: 5px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-dialog-actions {
+    padding: 12px 16px;
+    flex-direction: column;
+  }
+
+  mat-dialog-actions button {
+    width: 100%;
+  }
+
+  .info-box {
+    padding: 12px;
+  }
+
+  .info-box p {
+    font-size: 12px;
+  }
+}
+
+/* ============================================================================
+   ESTILOS ADICIONALES
+============================================================================ */
+
+/* Mejorar apariencia del select */
+mat-select {
+  font-weight: 500;
+}
+
+/* Validación de errores */
+mat-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Placeholder más sutil */
+::placeholder {
+  color: #999;
+  opacity: 1;
+}

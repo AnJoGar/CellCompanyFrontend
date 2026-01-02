@@ -1,0 +1,104 @@
+.modal-container {
+  max-width: 600px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #17789e;
+  display: flex;
+  align-items: center;
+}
+
+mat-dialog-content {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.producto-info {
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.producto-detalle {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.producto-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #17789e;
+}
+
+.producto-texto h3 {
+  margin: 0 0 8px 0;
+  color: #17789e;
+  font-size: 1.2rem;
+}
+
+.producto-texto p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.badge-estado {
+  background: #28a745;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.form-traslado {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.tienda-seleccionada {
+  background: #e3f2fd;
+  margin-top: 8px;
+}
+
+.tienda-seleccionada p {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tienda-seleccionada mat-icon {
+  color: #17789e;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+}
+
+mat-dialog-actions button {
+  margin-left: 8px;
+}
+
+/* Spinner dentro del botón */
+mat-dialog-actions mat-spinner {
+  vertical-align: middle;
+}

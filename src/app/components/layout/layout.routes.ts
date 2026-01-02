@@ -10,37 +10,50 @@ import{UbicacionComponent} from '../pages/ubicacion-component/ubicacion-componen
 import{TiendaComponent} from '../pages/tienda-component/tienda-component';
 import{PagosComponent} from '../pages/pagos-component/pagos-component';
 import{RegistroCompletoComponent} from '../pages/registro-completo-component/registro-completo-component';
-
+import{RegistrarBodegaComponent} from '../pages/registrar-bodega-component/registrar-bodega-component';
+import{EditarBodegaComponent} from '../pages/editar-bodega-component/editar-bodega-component';
 import{DasboardComponent} from '../pages/dasboard-component/dasboard-component';
-
-
+import{InventarioTiendaComponent} from '../pages/inventario-tienda-component/inventario-tienda-component';
 export const LAYOUT_ROUTES: Routes = [
     {
-       
         path: '',
-        component: Navegacion, // <--- AQUÍ DEBE IR EL DISEÑO, NO EL LOGIN
+        component: Navegacion, 
         children: [
-            { path: '', redirectTo: 'RegistrarBodega', pathMatch: 'full' },
-            { path: 'dashboard1S', component: Dashboard },
-            { path: 'movimientos', component: UsuarioComponent },
-            { path: 'reportes', component: ReporteComponent },  
-            { path: 'ubicacion', component: UbicacionComponent },
-            {path: 'pagos',component: PagosComponent},
-        {path: 'dashboard',component: DasboardComponent},
-           // 🆕 Agrupación para /pages/tienda/registrar
-            // Estructura que coincide con tu MenuAdmin
-           { 
-                path: 'tienda',  // ← SIN "pages/"
+            // 1. Redirección inicial (Apuntando a Dashboard por defecto)
+            { path: '', redirectTo: 'panel-control', pathMatch: 'full' },
+
+            // 2. Rutas Principales (Nivel 1)
+            { path: 'panel-control', component: DasboardComponent },
+            { path: 'gestion-administradores', component: UsuarioComponent }, // Usuarios Admin
+            { path: 'gestion-pagos', component: PagosComponent },
+            { path: 'geolocalizacion-tiendas', component: UbicacionComponent },
+            { path: 'historial-movimientos', component: InventarioTiendaComponent }, // Historial
+            { path: 'reportes-generales', component: ReporteComponent },
+
+            // 3. Rutas de Inventario / Registro (Nivel 2)
+            { 
+                path: 'registro-usuarios-app', 
                 children: [
-                    { path: 'registrar', component: TiendaComponent }
-                    
+                    // Coincide con MenuAdmin Url: "bodega/registrar"
+                    { path: 'nuevo', component: RegistroCompletoComponent }, 
+                    // Coincide con MenuAdmin Url: "bodega/editar"
+                   
+                ]
+            },
+             { 
+                path: 'inventario', 
+                children: [
+                    // Coincide con MenuAdmin Url: "bodega/registrar"
+                    { path: 'registro-bodega', component: RegistrarBodegaComponent }, 
+                    // Coincide con MenuAdmin Url: "bodega/editar"
+                    { path: 'configuracion-bodega', component: EditarBodegaComponent }    
                 ]
             },
             { 
-                path: 'bodega',  // ← SIN "pages/"
+                path: 'gestion-tiendas', 
                 children: [
-                    { path: 'registrar', component: RegistroCompletoComponent }
-                    
+                    // Coincide con MenuAdmin Url: "tienda/registrar"
+                    { path: 'nueva-sucursal', component: TiendaComponent }
                 ]
             }
         ]

@@ -155,10 +155,10 @@
           </ng-container>
           
           <!-- Columna Estado -->
-          <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <ng-container matColumnDef="estadoDeComision">
+            <th mat-header-cell *matHeaderCellDef> Estado de comision</th>
             <td mat-cell *matCellDef="let element"> 
-              {{element.esActivo == 1 ? 'Activo': 'No Activo'}} 
+              {{ element.cliente?.tiendaApps?.[0]?.estadoDeComision || 'Pendiente' }}
             </td>
           </ng-container>
           

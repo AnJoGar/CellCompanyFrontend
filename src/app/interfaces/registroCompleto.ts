@@ -33,6 +33,7 @@ export interface TiendaApp {
   estadoDeComision: string;
   fechaRegistro: string;
   clienteId: number;
+  
 }
 
 export interface CreditoRegistro {
