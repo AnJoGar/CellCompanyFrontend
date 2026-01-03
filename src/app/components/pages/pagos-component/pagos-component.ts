@@ -69,7 +69,7 @@ export class PagosComponent {
     'cedula',
     'telefonoCliente',
     'direccionCliente',
-    'fotoClienteUrl',
+    
     
     // TIENDA
     'tiendaId',
@@ -81,8 +81,7 @@ export class PagosComponent {
     'creditoId',
     'marca',
     'modelo',
-    'fotoContrato',
-    'fotoCelularEntregadoUrl',
+ 'capacidad',
     'entrada',
     'montoTotal',
     'montoPendiente',
@@ -437,12 +436,19 @@ exportarExcel() {
   }
 
   // ===== MÉTODOS DE FORMATEO =====
-  formatearFecha(fecha: string | Date): string {
-    if (typeof fecha === 'string') {
-      return fecha;
-    }
-    return moment(fecha).format('DD/MM/YYYY');
+// En tu archivo .component.ts
+formatearFecha(fecha: any): string {
+  if (!fecha) return '---'; // Maneja valores nulos o vacíos
+  
+  // moment() detecta automáticamente si es string ISO o Date y lo convierte
+  const fechaParseada = moment(fecha);
+  
+  if (!fechaParseada.isValid()) {
+    return 'Fecha inválida';
   }
+
+  return fechaParseada.format('DD/MM/YYYY');
+}
 
   formatearMoneda(monto: number): string {
     return `$${monto.toFixed(2)}`;

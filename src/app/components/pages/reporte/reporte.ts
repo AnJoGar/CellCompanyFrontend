@@ -75,7 +75,7 @@ export class ReporteComponent implements OnInit {
     'cedula',
     'telefonoCliente',
     'direccionCliente',
-    'fotoClienteUrl',
+   
     
     // TIENDA
     'tiendaId',
@@ -87,6 +87,7 @@ export class ReporteComponent implements OnInit {
     'creditoId',
     'marca',
     'modelo',
+    'capacidad',
     
     'entrada',
     'montoTotal',
@@ -494,12 +495,19 @@ exportarExcel() {
   }
 
   // ===== MÉTODOS DE FORMATEO =====
-  formatearFecha(fecha: string | Date): string {
-    if (typeof fecha === 'string') {
-      return fecha;
-    }
-    return moment(fecha).format('DD/MM/YYYY');
+formatearFecha(fecha: any): string {
+  if (!fecha) return '---'; // Maneja valores nulos o vacíos
+  
+  // moment() detecta automáticamente si es string ISO o Date y lo convierte
+  const fechaParseada = moment(fecha);
+  
+  if (!fechaParseada.isValid()) {
+    return 'Fecha inválida';
   }
+
+  return fechaParseada.format('DD/MM/YYYY');
+}
+
 
   formatearMoneda(monto: number): string {
     return `$${monto.toFixed(2)}`;

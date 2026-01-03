@@ -50,9 +50,7 @@ export class ModalProducto  implements OnInit, AfterViewInit {
 
   estadosProducto: string[] = [
     'Nuevo',
-    'Disponible',
-    'Reservado',
-    'Vendido',
+    
     'En Reparación'
   ];
 

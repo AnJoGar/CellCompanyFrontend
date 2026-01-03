@@ -62,7 +62,7 @@ export class ModalUsuarioSinV implements OnInit, AfterViewInit {
       this.accionBoton = "Actualizar";
     }
 
-    this._rolServicio.getRoles().subscribe({
+    this._rolServicio.getRolesAdmin().subscribe({
       next: (data) => {
         if (data.status) {
           this.listaRoles = data.value;
