@@ -1,67 +1,300 @@
+/* layout.component.css */
 
+/* Toolbar Styles */
+.custom-toolbar {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.toolbar-content {
+  padding: 0 24px;
+  height: 64px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 16px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.user-icon {
+  color: #ffffff;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-email {
+  font-size: 13px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.user-role {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.menu-toggle {
+  color: #ffffff;
+}
+
+/* Sidenav Container */
 .sidenav-container {
-    height: 100%;
+  height: calc(100vh - 64px);
+  background: #f5f7fa;
+}
+
+/* Sidenav Styles */
+.sidenav {
+  width: 280px;background: #f8f9fa; 
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  border-right: 1px solid #e0e0e0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-header {
+  padding: 32px 24px 24px;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.company-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.company-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: #ffffff;
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/* Menu List */
+.menu-list {
+  padding: 16px 8px 80px 8px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.menu-list::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-item {
+  margin: 4px 0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: #424242;
+}
+
+.menu-item:hover {
+  background: #ecf0f1;
+  color: #2c3e50;
+}
+
+.menu-item.active-link {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.menu-icon {
+  color: inherit;
+  margin-right: 16px;
+}
+
+.menu-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Sidenav Footer */
+.sidenav-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 16px 8px;
+  background: #f1f8f6;
+  border-top: 1px solid #e0e0e0;
+}
+
+.logout-button {
+  width: calc(100% - 16px);
+  margin: 0 8px;
+  border-radius: 8px;
+  color: #d32f2f;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.logout-icon {
+  color: inherit;
+  margin-right: 16px;
+}
+
+.logout-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Main Content */
+.main-content {
+  background: #f5f7fa;
+}
+
+.content-wrapper {
+  height: 100%;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .toolbar-content {
+    padding: 0 16px;
   }
-  
+
+  .app-title {
+    font-size: 16px;
+  }
+
+  .user-info {
+    display: none;
+  }
+
   .sidenav {
-    width: 200px;
-  }
-  
-  .sidenav .mat-toolbar {
-    background: inherit;
-    
-  }
-  
-  .mat-toolbar.mat-primary {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  
-
-  .mat-toolbar {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .content-container {
-    margin-top: 64px; /* Ajusta el valor según el tamaño de tu barra de herramientas */
-    position: relative;
-    z-index: 0;
-   
+    width: 240px;
   }
 
-  .mat-sidenav{
+  .content-wrapper {
+    padding: 16px;
+  }
+}
 
-    background-color:  #157E8E;
-
-
+@media (max-width: 480px) {
+  .logo-section {
+    gap: 8px;
   }
 
-  .mat-line {
-    color: white;
-  }
-  
-
-  .white-icon {
-    color: white;
+  .logo-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
   }
 
+  .app-title {
+    font-size: 14px;
+  }
+}
 
-  .menu-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 75%; /* Asegura que el contenedor ocupe todo el espacio vertical */
-  }
-  
-  .example-icon {
-    margin-top: auto; /* Mueve el botón hacia abajo */
-  }
-  .icon-display {
-    transform: scale(2);
- }
+/* Scrollbar Styles para el menu */
+.menu-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu-list::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 3px;
+}
+
+.menu-list::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+}
+
+/* Scrollbar Styles */
+.content-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb {
+  background: #3498db;
+  border-radius: 4px;
+}
+
+.content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #2980b9;
+}
+/* El contenedor debe ocupar todo el alto restante */
+.sidenav-container {
+  height: calc(100vh - 64px); /* 64px es el alto estándar del toolbar */
+}
+
+/* Evita que el contenido principal genere un segundo scroll externo */
+.main-content {
+  overflow: auto; /* Solo permite scroll aquí si el contenido desborda */
+  background-color: #f5f5f5; /* Opcional: un fondo gris claro para resaltar cards */
+}
+
+/* Elimina márgenes extra que puedan causar scroll en el wrapper */
+.content-wrapper {
+  padding: 20px;
+  min-height: 100%;
+  box-sizing: border-box;
+}

@@ -1,4 +1,4 @@
-<p>usuario-model works!</p>
+
 <h2 mat-dialog-title>{{accion}} Usuario</h2>
 <mat-dialog-content>
   <form [formGroup]="formUsuario">
@@ -41,10 +41,17 @@
     </mat-grid-list>
   </form>
 
+ <mat-dialog-content style="position: relative; min-height: 200px;">
+  <form [formGroup]="formUsuario">
+    </form>
+
   <div *ngIf="isLoading" class="loading-overlay">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>Enviando código de verificación...</p>
+    <div class="loading-container">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Enviando código de verificación...</p>
+    </div>
   </div>
+</mat-dialog-content>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close color="warn" [disabled]="isLoading">Volver</button>

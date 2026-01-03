@@ -33,3 +33,49 @@ mat-dialog-content {
   min-width: 600px;
   max-height: 80vh;
 }
+/* Contenedor principal del diálogo */
+mat-dialog-content.modal-simple {
+  max-height: 75vh !important; /* Limita la altura para que no se salga de la pantalla */
+  overflow-y: auto !important; /* Solo scroll vertical si es necesario */
+  overflow-x: hidden !important; /* ELIMINA LA BARRA HORIZONTAL */
+  min-width: 450px; /* Ajuste más flexible para pantallas pequeñas */
+  max-width: 800px;
+  padding: 20px !important;
+}
+
+/* Caja de cada sección */
+.section-box {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border-left: 5px solid #17789e;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* El Grid de los formularios */
+.grid-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+  gap: 16px;
+  width: 100%;
+}
+
+/* Para que los campos ocupen todo el ancho de su columna */
+mat-form-field {
+  width: 100%;
+}
+
+/* Título de sección más limpio */
+.section-title {
+  margin: 0 0 15px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #17789e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

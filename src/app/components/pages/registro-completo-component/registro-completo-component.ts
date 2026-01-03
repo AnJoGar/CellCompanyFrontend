@@ -62,7 +62,7 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     'estadoDeComision',
     'editar',
     'eliminar',
-    'consultar'
+    
   ];
   
   ELEMENT_DATA: UsuarioRegistro[] = [];

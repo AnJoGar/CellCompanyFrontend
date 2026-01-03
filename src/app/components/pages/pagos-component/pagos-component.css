@@ -1,58 +1,170 @@
-table {
-  width: 100%;
-}
-
+/* 1. CONTENEDOR Y TÍTULO */
 .page-title {
-  margin: 20px 0px 0px 40px;
-  color: white;
-}
-
-.btn-info {
-  background-color: #007bff;
-  color: #ffffff;
-}
-
-.mat-raised-button.btn-info {
-  background-color: #00BCD4;
-  /* Blue */
-  color: white;
-  border-color: #00BCD4;
-}
-
-.mat-raised-button.btn-info:hover {
-  background-color: #00A0CE;
-  /* Light blue */
-}
-
-.mat-raised-button.btn-info:active {
-  background-color: #00838F;
-  /* Dark blue */
-}
-
-th {
-  color: white;
-  background-color: #17789e;
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
 }
 
 .card {
   margin: 20px 40px 40px 40px;
   background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+  border: none !important;
+  overflow: hidden;
 }
+
+/* 2. FILTROS Y BUSCADOR */
+.filter-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.chip-group-container {
+  margin-bottom: 20px;
+}
+
+.chip-group-container h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
 .chip-container {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 8px;
   align-items: center;
 }
 
-.mat-mdc-chip.selected {
-  background-color: #1976d2 !important;
-  color: white !important;
+mat-chip {
+  transition: all 0.3s ease !important;
+  cursor: pointer;
+  background-color: #f0f0f0 !important;
 }
 
-.mat-mdc-chip:not(.selected) {
-  background-color: #e0e0e0;
-  color: #424242;
+mat-chip.selected {
+  background-color: #1976d2 !important;
+  color: white !important;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+/* 3. DASHBOARD / TARJETAS DE RESUMEN */
+.kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px !important;
+  margin: 20px 0;
+}
+
+.kpi-card {
+  border-radius: 12px !important;
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  transition: transform 0.2s;
+  padding: 15px !important;
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+}
+
+.kpi-card h3 { font-size: 14px; margin: 0; font-weight: 600; }
+.kpi-card p { font-size: 24px; font-weight: bold; margin: 10px 0 0 0; }
+
+/* Colores de las Tarjetas */
+.blue   { background-color: #e3f2fd; color: #1976d2; }
+.green  { background-color: #e8f5e9; color: #2e7d32; }
+.orange { background-color: #fff3e0; color: #ef6c00; }
+.purple { background-color: #f3e5f5; color: #7b1fa2; }
+
+/* 4. TABLA Y RESPONSIVIDAD (SOLUCIÓN AL TEXTO CORTADO) */
+.table-responsive {
+  border-radius: 8px;
+  overflow-x: auto; /* Scroll horizontal obligatorio */
+  background: white;
+  border: 1px solid #e0e0e0;
+  margin-top: 15px;
+}
+
+table {
+  width: 100%;
+  min-width: 1200px; /* IMPORTANTE: Ajusta este valor según cuántas columnas tengas */
+  border-collapse: collapse;
+}
+
+/* Encabezados: Aquí se arregla que no se vean los nombres */
+th.mat-header-cell {
+  background-color: #17789e !important; /* Azul oscuro */
+  color: white !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 15px !important;
+  white-space: nowrap; /* EVITA QUE EL TEXTO SE ROMPA EN VARIAS LÍNEAS */
+  text-align: left;
+}
+
+/* Celdas */
+td.mat-cell {
+  padding: 12px 15px !important;
+  font-size: 13.5px;
+  border-bottom: 1px solid #f0f0f0;
+  white-space: nowrap; /* Mantiene los datos en una sola línea */
+}
+
+tr.mat-row:hover {
+  background-color: #f1f8ff !important;
+}
+
+/* 5. ELEMENTOS DENTRO DE LA CELDA */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stack-cell {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.bold { font-weight: 600; color: #333; }
+.text-muted { font-size: 11px; color: #777; }
+
+/* 6. BADGES DE ESTADO */
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+/* Clases dinámicas para estados */
+.estado-activo    { background-color: #c8e6c9; color: #256029; }
+.estado-pendiente { background-color: #feedaf; color: #8a5340; }
+.estado-cancelado { background-color: #ffcdd2; color: #c63737; }
+
+/* 7. PAGINADOR */
+mat-paginator {
+  background-color: #f8f9fa !important;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* 8. BOTONES DE ACCIÓN */
+.mat-mdc-button-base {
+  margin: 0 2px;
 }

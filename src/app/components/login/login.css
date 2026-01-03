@@ -1,75 +1,197 @@
-/* Contenedor principal: Fondo sutil azulado */
 .login-container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
 }
 
-/* Tarjeta de Login */
 .login-card {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    max-width: 440px;
+    padding: 48px 40px;
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    background: #ffffff;
+    animation: fadeInUp 0.6s ease-out;
 }
 
-/* Cabecera de la tarjeta */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .login-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
-.login-header h1 {
-    color: #1565C0;
-    /* Azul Royal */
+.logo-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.logo-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+}
+
+.app-title {
+    font-size: 32px;
     font-weight: 700;
+    color: #1a202c;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+    font-size: 16px;
+    color: #718096;
     margin: 0;
-    font-size: 28px;
+    font-weight: 400;
 }
 
-.login-header p {
-    color: #78909c;
-    margin-top: 5px;
-}
-
-/* Campos de texto */
-mat-form-field {
+.full-width {
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-/* Botón principal */
+.full-width ::ng-deep .mat-form-field-outline {
+    color: #e2e8f0;
+}
+
+.full-width ::ng-deep .mat-form-field-outline-thick {
+    color: #667eea;
+}
+
+.full-width ::ng-deep .mat-form-field-label {
+    color: #4a5568;
+}
+
+.full-width ::ng-deep .mat-input-element {
+    color: #1a202c;
+}
+
+.full-width ::ng-deep .mat-icon {
+    color: #718096;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.forgot-password button {
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .btn-login {
     width: 100%;
-    background-color: #1565C0;
-    /* Azul Royal */
-    color: white;
-    padding: 8px;
-    font-size: 16px;
-    font-weight: 500;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     border-radius: 8px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
 }
 
-.btn-login:hover {
-    background-color: #0d47a1;
-    /* Azul más oscuro al hover */
+.btn-login:hover:not([disabled]) {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    transform: translateY(-2px);
 }
 
 .btn-login:disabled {
-    background-color: #90caf9;
+    background: #cbd5e0;
+    box-shadow: none;
 }
 
-/* Logo o Ícono opcional */
-.logo-icon {
-    font-size: 48px;
+.spinner-inline {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 32px 0;
+    color: #a0aec0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.divider span {
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-register {
+    width: 100%;
     height: 48px;
-    width: 48px;
-    color: #1565C0;
-    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 8px;
+    border: 2px solid #667eea;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    background: rgba(102, 126, 234, 0.05);
+    transform: translateY(-2px);
+}
+
+.btn-register mat-icon {
+    margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .login-card {
+        padding: 32px 24px;
+        border-radius: 12px;
+    }
+
+    .app-title {
+        font-size: 28px;
+    }
+
+    .logo-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logo-icon {
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+    }
 }

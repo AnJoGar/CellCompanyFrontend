@@ -1,58 +1,55 @@
-<mat-toolbar color="primary" style="background-color: #157E8E">
-  <mat-toolbar-row>
+<!-- layout.component.html -->
+<mat-toolbar class="custom-toolbar">
+  <mat-toolbar-row class="toolbar-content">
+    <div class="logo-section">
+      <mat-icon class="logo-icon">phone_android</mat-icon>
+      <h1 class="app-title">Sistema CellCompany</h1>
+    </div>
     
-    <h1>Sistema CellCompany</h1>
-    <button mat-icon-button (click)="drawer.toggle();" style="position: fixed; right: 20px;">
-      
-   <mat-icon >menu</mat-icon>
- 
+    <span class="toolbar-spacer"></span>
+    
+    <div class="user-info">
+      <mat-icon class="user-icon">account_circle</mat-icon>
+      <span class="user-details">
+        <span class="user-email">{{correoUsuario}}</span>
+        <span class="user-role">{{rolUsuario}}</span>
+      </span>
+    </div>
+    
+    <button mat-icon-button (click)="drawer.toggle()" class="menu-toggle">
+      <mat-icon>menu</mat-icon>
     </button>
-    
-    <span style="flex: 1 1 auto;">
-    </span>
-    <label style="font-size: 14px; margin-right: 60px;">
-      {{correoUsuario}} | {{rolUsuario}}
-
-    </label>
-   
-    
   </mat-toolbar-row>
- 
 </mat-toolbar>
 
-<div class="content-container"  style="margin-top: -7px;"  > <!-- Contenedor para el contenido principal -->
-  <mat-sidenav-container class="sidenav-container" style="background-image: url('./assets/ConsultorioDental6.jpg'); background-size: cover; background-position: center;" >
-    <mat-sidenav #drawer class="sidenav"  
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="true">
-      <!-- Contenido del sidenav -->
-
-      <mat-nav-list class="menu-list">
-  <mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.url" class="menu-item">
-    <mat-icon matListItemIcon>{{menu.icono}}</mat-icon>
-    <span matListItemTitle>{{menu.nombre}}</span>
-  </mat-list-item>
-
-  <div class="logout-container">
-    <button mat-list-item (click)="cerrarSession()" class="logout-button">
-      <mat-icon matListItemIcon>logout</mat-icon>
-      <span matListItemTitle>Cerrar Sesión</span>
-    </button>
-  </div>
-</mat-nav-list>
-    </mat-sidenav>
-
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" 
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="true">
+    
  
-  
-   
-    <!-- Contenido de la página principal -->
-    <mat-sidenav-content>
-      <div style="height: 91vh">
-        <router-outlet></router-outlet>
-    
-      </div>
-    
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+    <mat-nav-list class="menu-list">
+      <a mat-list-item *ngFor="let menu of listaMenu" 
+         [routerLink]="menu.url" 
+         routerLinkActive="active-link"
+         class="menu-item">
+        <mat-icon matListItemIcon class="menu-icon">{{menu.icono}}</mat-icon>
+        <span matListItemTitle class="menu-text">{{menu.nombre}}</span>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <button mat-list-item (click)="cerrarSession()" class="logout-button">
+        <mat-icon matListItemIcon class="logout-icon">logout</mat-icon>
+        <span matListItemTitle class="logout-text">Cerrar Sesión</span>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,54 +1,212 @@
-table {
-    width: 100%;
-   border:1px solid  black;
-   border-bottom: 1px solid  black;
-  }
-  .mat-form-field {
-    font-size: 14px;
-    width: 50%;
-  }
-  .page-title {
-    margin: 20px 0px 0px 40px;
-    color: white;
-  }
-  .card {
-    margin: 20px 40px 40px 40px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .btn-info {
-    background-color: #007bff;
-    color: #ffffff;
-  }
-  .mat-raised-button.btn-info {
-    background-color: #00BCD4;
-    color: white;
-    border-color: #00BCD4;
-  }
-  .mat-raised-button.btn-info:hover {
-    background-color: #00A0CE; 
-  }
-  .mat-raised-button.btn-info:active {
-    background-color: #00838F;
-  }
-  .custom-card {
-    border: 2px solid #17789e;
-    border-radius: 10px;
-    padding: 10px;
-    width: 20%;
-    background-color: #e7edd9;
-  }
-  th {
-    color: white;
-    background-color: #17789e;
-  }
-  .center-content {
-    display: flex;
-  justify-content: center;
+.usuarios-container {
+  padding: 20px;
+}
+
+.page-title {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.card {
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  padding: 20px 20px 16px;
+  margin: 0;
+}
+
+mat-card-title button {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
+
+mat-card-title button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(52, 152, 219, 0.4);
+}
+
+mat-card-title button mat-icon {
+  margin-right: 6px;
+}
+
+mat-divider {
+  margin-bottom: 20px;
+}
+
+.dashboard-card-content {
+  padding: 20px;
+}
+
+/* Búsqueda */
+.filter-field {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 16px;
+}
+
+/* Filtros */
+.filters-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.form-check-inline {
+  display: flex;
   align-items: center;
+  gap: 8px;
+}
+
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Tabla */
+.table-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  background: #f8f9fa;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 14px 12px;
+}
+
+td {
+  padding: 14px 12px;
+  color: #495057;
+}
+
+mat-row:hover {
+  background-color: #f8f9fa;
+}
+
+/* Badges */
+.id-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: #e9ecef;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #495057;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.activo {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.inactivo {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Sin datos */
+.no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px;
+  color: #7f8c8d;
+}
+
+.no-data mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+/* Paginador */
+mat-paginator {
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .usuarios-container {
+    padding: 12px;
   }
-  td{
-    color: black;
-    background-color: #e2e2e2;
+
+  .page-title {
+    font-size: 22px;
   }
+
+  .filter-field {
+    max-width: 100%;
+  }
+
+  .filters-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dashboard-card-content {
+    padding: 12px;
+  }
+
+  mat-card-title {
+    padding: 12px;
+  }
+
+  mat-card-title button {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+}
