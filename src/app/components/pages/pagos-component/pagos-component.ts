@@ -79,6 +79,7 @@ export class PagosComponent {
     
     // CRÉDITO
     'creditoId',
+    'nombrePropietario',
     'marca',
     'modelo',
  'capacidad',

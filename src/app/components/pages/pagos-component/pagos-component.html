@@ -172,6 +172,10 @@
           <th mat-header-cell *matHeaderCellDef> ID Crédito </th>
           <td mat-cell *matCellDef="let element"> {{element.creditoId}} </td>
         </ng-container>
+                 <ng-container matColumnDef="nombrePropietario">
+          <th mat-header-cell *matHeaderCellDef> Propietario del Credito </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombrePropietario}} </td>
+        </ng-container>
 
         <!-- Marca -->
         <ng-container matColumnDef="marca">

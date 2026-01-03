@@ -17,6 +17,7 @@ export interface ReporteInterface {
 
   // ===== CRÉDITO =====
   creditoId: number;
+  nombrePropietario:string;
   capacidad:number;
   marca: string;
   modelo: string;

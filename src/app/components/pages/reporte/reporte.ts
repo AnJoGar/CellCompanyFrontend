@@ -85,6 +85,7 @@ export class ReporteComponent implements OnInit {
     
     // CRÉDITO
     'creditoId',
+    'nombrePropietario',
     'marca',
     'modelo',
     'capacidad',
