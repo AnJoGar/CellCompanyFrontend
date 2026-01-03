@@ -1,4 +1,4 @@
-<h1 class="page-title" style="color: #17789e;">Reporte de Créditos</h1>
+<h1 class="page-title" style="color: #17789e;">Pago de Créditos</h1>
 <mat-card class="card" style="margin: 20px 40px 40px 40px">
   <mat-card-content class="dashboard-card-content">
     <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onSubmitForm()">
@@ -167,6 +167,11 @@
           <td mat-cell *matCellDef="let element"> {{element.telefonoTienda}} </td>
         </ng-container>
 
+        <!-- Teléfono Tienda -->
+        <ng-container matColumnDef="estadoDeComision">
+          <th mat-header-cell *matHeaderCellDef> Estado de comision </th>
+          <td mat-cell *matCellDef="let element"> {{element.estadoDeComision}} </td>
+        </ng-container>
         <!-- ID Crédito -->
         <ng-container matColumnDef="creditoId">
           <th mat-header-cell *matHeaderCellDef> ID Crédito </th>
@@ -279,24 +284,45 @@
           <td mat-cell *matCellDef="let element"> {{element.fechaCreditoStr}} </td>
         </ng-container>
 
-        <!-- Acciones -->
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button color="primary" matTooltip="Ver detalles"  (click)="abrirModalPago(element)">
-              <mat-icon>visibility</mat-icon>
-            </button>
-              <!-- Botón para ver calendario -->
+
+        <ng-container matColumnDef="pago">
+  <th mat-header-cell *matHeaderCellDef style="text-align: center; font-weight: 700;"> Registrar Pago </th>
+  <td mat-cell *matCellDef="let element" style="text-align: center;">
     <button 
       mat-icon-button 
-      color="accent" 
-      matTooltip="Ver calendario"
-      type="button"
-      (click)="verCalendarioPagos(element)">
+      (click)="abrirModalPago(element)"
+      matTooltip="Realizar un pago"
+      style="color: #2ecc71; background: rgba(46, 204, 113, 0.1); border-radius: 8px; transition: all 0.2s;">
+      <mat-icon>payments</mat-icon>
+    </button>
+  </td>
+</ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="calendario">
+  <th mat-header-cell *matHeaderCellDef style="text-align: center; font-weight: 700;"> Calendario de Pago </th>
+  <td mat-cell *matCellDef="let element" style="text-align: center;">
+    <button 
+      mat-icon-button 
+      (click)="verCalendarioPagos(element)"
+      matTooltip="Ver calendario de pagos"
+      style="color: #3498db; background: rgba(52, 152, 219, 0.1); border-radius: 8px; transition: all 0.2s;">
       <mat-icon>event_note</mat-icon>
     </button>
-          </td>
-        </ng-container>
+  </td>
+</ng-container>
+
+<ng-container matColumnDef="historialReal">
+  <th mat-header-cell *matHeaderCellDef> Historial de Pagos </th>
+  <td mat-cell *matCellDef="let element">
+    <button mat-icon-button color="accent" 
+            matTooltip="Ver historial de pagos reales"
+            (click)="verHistorialPagosReales(element)">
+      <mat-icon>receipt_long</mat-icon>
+    </button>
+  </td>
+</ng-container>
+
          <ng-container matColumnDef="eliminar">
           <th mat-header-cell *matHeaderCellDef> Eliminar Credito </th>
           <td mat-cell *matCellDef="let element">
@@ -311,6 +337,8 @@
           
           </td>
         </ng-container>
+
+
 
          <ng-container matColumnDef="registrarCredito">
           <th mat-header-cell *matHeaderCellDef> Registrar Credito </th>

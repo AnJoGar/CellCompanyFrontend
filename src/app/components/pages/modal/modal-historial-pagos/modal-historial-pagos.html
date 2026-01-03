@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Historial de Pagos Reales</h2>
+
+<mat-dialog-content>
+  <div class="table-container">
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" *ngIf="dataSource.data.length > 0">
+      
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaPagoStr}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef> Monto </th>
+        <td mat-cell *matCellDef="let element"> {{element.montoPagado | currency}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="metodo">
+        <th mat-header-cell *matHeaderCellDef> Método </th>
+        <td mat-cell *matCellDef="let element"> 
+          <span class="badge-metodo">{{element.metodoPago}}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      <mat-icon color="disabled">info</mat-icon>
+      <p>No hay registros de pagos para este crédito.</p>
+    </div>
+
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="primary">Cerrar</button>
+</mat-dialog-actions>

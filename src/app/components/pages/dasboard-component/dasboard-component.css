@@ -107,3 +107,189 @@
   background: #ffebee;
   color: #c62828;
 }
+
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* KPI Total Financiado - Azul */
+.kpi-card.total {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.kpi-card.total .kpi-info .label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.kpi-card.total .kpi-info .value {
+  color: white;
+}
+
+.kpi-card.total .kpi-icon {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.kpi-card.total mat-progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.kpi-card.total mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
+  background-color: white;
+}
+
+/* KPI Total Recaudado - Verde */
+.kpi-card.recaudado {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+}
+
+.kpi-card.recaudado .kpi-info .label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.kpi-card.recaudado .kpi-info .value {
+  color: white;
+}
+
+.kpi-card.recaudado .kpi-icon {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.kpi-card.recaudado mat-progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.kpi-card.recaudado mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
+  background-color: white;
+}
+
+/* KPI Mora - Rojo/Naranja */
+.kpi-card.mora {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.kpi-card.mora .kpi-info .label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.kpi-card.mora .kpi-info .value,
+.kpi-card.mora .text-danger {
+  color: white !important;
+}
+
+.kpi-card.mora .kpi-icon {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.kpi-card.mora mat-progress-bar {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.kpi-card.mora mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
+  background-color: white;
+}
+
+/* KPI Content */
+.kpi-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.kpi-info .label {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.kpi-info .value {
+  margin: 4px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.kpi-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: #cbd5e1;
+}
+
+/* Grids */
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-container {
+  width: 100%;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.stats-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stats-card mat-card-header {
+  background-color: #f8fafc;
+  padding: 16px;
+  border-radius: 12px 12px 0 0;
+}
+
+.chart-wrapper {
+  padding: 16px;
+  min-height: 300px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-wrapper {
+    padding: 16px;
+  }
+
+  .kpi-container {
+    grid-template-columns: 1fr;
+  }
+
+  .main-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-info .value {
+    font-size: 1.5rem;
+  }
+
+  .kpi-icon {
+    font-size: 36px;
+    height: 36px;
+    width: 36px;
+  }
+}

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 export interface DatosComprobante {
   numeroComprobante: string;
   creditoId: number;
+  codigoUnico: string;
   nombreCliente: string;
   cedula: string;
   montoPagado: number;

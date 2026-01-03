@@ -33,4 +33,8 @@ export class CreditoService {
   DeleteCredito(id: number): Observable<ResponseApi> {
     return this.http.delete<ResponseApi>(`${this.urlApi}Eliminar/${id}`);
   }
+
+  obtenerHistorialPagosRealizados(creditoId: number): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.urlApi}historial-pagos/${creditoId}`);
+}
 }

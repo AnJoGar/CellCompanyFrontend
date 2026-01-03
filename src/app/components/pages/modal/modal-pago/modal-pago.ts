@@ -56,7 +56,7 @@ export class ModalPago implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<ModalPago>,
     @Inject(MAT_DIALOG_DATA) public data: { 
-      
+      codigoUnico: string,
       creditoId: number, 
       montoPendiente?: number,
        nombreCliente?: string,
@@ -162,10 +162,11 @@ export class ModalPago implements OnInit {
         const datosComprobante: DatosComprobante = {
           numeroComprobante: numeroComprobante,
           creditoId: pago.creditoId,
+         codigoUnico: this.data.codigoUnico,
           nombreCliente: this.data.nombreCliente || 'N/A',
           cedula: this.data.cedula || 'N/A',
           montoPagado: pago.montoPagado,
-          metodoPago: pago.metodoPago,
+          metodoPago: this.formPago.value.metodoPago,
           fechaPago: new Date(),
           nombreTienda: this.data.nombreTienda,
           montoPendiente: nuevoMontoPendiente,

@@ -1,0 +1,6 @@
+.table-container { min-width: 400px; padding: 10px; }
+    .badge-metodo { 
+      background: #e3f2fd; color: #1976d2; 
+      padding: 4px 8px; border-radius: 4px; font-weight: 500;
+    }
+    .no-data { padding: 20px; text-align: center; color: gray; }

@@ -7,6 +7,7 @@ export interface HistoriaApp {
   clienteId: number;
   tiendaId?: number;
   creditoId: number;
+
 }
 
 

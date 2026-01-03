@@ -22,6 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCalendario } from '../modal/modal-calendario/modal-calendario';
 import { ModalAgregarCreditoComponent } from '../modal/modal-agregar-credito-component/modal-agregar-credito-component';
 import Swal from 'sweetalert2';
+import { ModalHistorialPagos } from '../modal/modal-historial-pagos/modal-historial-pagos';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -76,6 +77,7 @@ export class PagosComponent {
     'nombreTienda',
     'encargadoTienda',
     'telefonoTienda',
+    'estadoDeComision',
     
     // CRÉDITO
     'creditoId',
@@ -99,7 +101,10 @@ export class PagosComponent {
     'fechaCreditoStr',
     
     // ACCIONES
-    'acciones',
+   
+    'calendario',
+    'pago',
+    'historialReal',
     'registrarCredito',
     'eliminar'
   ];
@@ -657,6 +662,7 @@ abrirModalPago(element: ReporteInterface) {
     disableClose: true,
     width: '500px',
     data: {
+      codigoUnico: element.codigoUnico,
       creditoId: element.creditoId,
       montoPendiente: element.montoPendiente,
       nombreCliente: element.nombreCliente,
@@ -715,7 +721,10 @@ verCalendarioPagos(element: ReporteInterface) {
       clienteId: element.clienteId,
       codigoUnico: element.codigoUnico,
       nombreCliente: element.nombreCliente,
-      montoTotal: element.montoTotal
+      montoTotal: element.montoTotal,
+      cedula: element.cedula,
+      
+    
     }
   });
 
@@ -773,6 +782,16 @@ eliminarCredito(credito: ReporteInterface) {
           });
         }
       });
+    }
+  });
+}
+
+verHistorialPagosReales(element: ReporteInterface) {
+  this.dialog.open(ModalHistorialPagos, {
+    width: '600px',
+    data: {
+      creditoId: element.creditoId,
+      nombreCliente: element.nombreCliente
     }
   });
 }
