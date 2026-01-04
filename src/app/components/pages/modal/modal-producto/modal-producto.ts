@@ -40,6 +40,7 @@ export class ModalProducto  implements OnInit, AfterViewInit {
   // Opciones para los selects
   tiposProducto: string[] = [
     'Celular',
+    'Tv',
     'Tablet',
     'Laptop',
     'Accesorio',
@@ -119,9 +120,9 @@ export class ModalProducto  implements OnInit, AfterViewInit {
   tamano: this.formulario.value.tamano || "",
   estado: this.formulario.value.estado,
   precioCompra: parseFloat(this.formulario.value.precioCompra),
-  precioVenta: this.formulario.value.precioVenta 
-    ? parseFloat(this.formulario.value.precioVenta) 
-    : 0,
+  //precioVenta: this.formulario.value.precioVenta 
+    //? parseFloat(this.formulario.value.precioVenta) 
+    //: 0,
   fechaIngreso: new Date().toISOString(), // Envía la fecha actual en formato ISO
   diasEnBodega: 0     // Envíalo en 0
 };

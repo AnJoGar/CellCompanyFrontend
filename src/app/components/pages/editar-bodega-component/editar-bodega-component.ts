@@ -44,9 +44,11 @@ displayedColumns: string[] = [
     'modelo',
     'imei',
     'color',
+    'capacidad',
     'estado',
     'precioCompra',
-    'precioVenta',
+    
+    
     'fechaIngreso',
     'diasEnBodega',
     'acciones',

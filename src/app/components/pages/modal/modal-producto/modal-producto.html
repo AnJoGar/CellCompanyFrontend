@@ -41,7 +41,7 @@
     <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>IMEI (Opcional)</mat-label>
+          <mat-label>IMEI </mat-label>
           <input matInput autocomplete="off" formControlName="imei" placeholder="15 dígitos">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">smartphone</mat-icon>
         </mat-form-field>
@@ -49,8 +49,8 @@
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>Número de Serie (Opcional)</mat-label>
-          <input matInput autocomplete="off" formControlName="serie" placeholder="SN-2024-001">
+          <mat-label>Capacidad (Ram)</mat-label>
+          <input matInput autocomplete="off" formControlName="serie" placeholder="">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">tag</mat-icon>
         </mat-form-field>
       </mat-grid-tile>
@@ -60,7 +60,7 @@
     <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>Color (Opcional)</mat-label>
+          <mat-label>Color</mat-label>
           <input matInput autocomplete="off" formControlName="color" placeholder="Ej: Negro">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">color_lens</mat-icon>
         </mat-form-field>
@@ -68,7 +68,7 @@
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>Tamaño (Opcional)</mat-label>
+          <mat-label>Tamaño</mat-label>
           <input matInput autocomplete="off" formControlName="tamano" placeholder="Ej: 6.1 pulgadas">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">straighten</mat-icon>
         </mat-form-field>
@@ -91,10 +91,10 @@
     </mat-grid-list>
 
     <!-- Grid 6: Precios -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+    <mat-grid-list cols="1" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
-          <mat-label>Precio de Compra</mat-label>
+          <mat-label>Precio</mat-label>
           <input matInput type="number" formControlName="precioCompra" 
                  placeholder="0.00" step="0.01" min="0">
           <span matPrefix style="color: lightblue;">$&nbsp;</span>
@@ -102,15 +102,7 @@
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="outline">
-          <mat-label>Precio de Venta (Opcional)</mat-label>
-          <input matInput type="number" formControlName="precioVenta" 
-                 placeholder="0.00" step="0.01" min="0">
-          <span matPrefix style="color: lightblue;">$&nbsp;</span>
-          <mat-icon matSuffix style="font-size: 24px; color: lightblue;">sell</mat-icon>
-        </mat-form-field>
-      </mat-grid-tile>
+ 
     </mat-grid-list>
 
     <!-- Información adicional si es edición -->

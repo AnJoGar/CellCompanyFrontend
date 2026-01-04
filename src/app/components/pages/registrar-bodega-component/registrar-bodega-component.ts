@@ -46,9 +46,10 @@ export class RegistrarBodegaComponent  implements OnInit, AfterViewInit{
     'modelo',
     'imei',
     'color',
+    'capacidad',
     'estado',
     'precioCompra',
-    'precioVenta',
+    
     'fechaIngreso',
     'diasEnBodega',
     'Historial',

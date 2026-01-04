@@ -65,9 +65,13 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
     'modelo',
     'imei',
     'color',
+     'capacidad',
     'estado',
-    'precioCompra',
-    'precioVenta',
+   
+    'precio',
+    
+
+    
     'fechaIngreso',
     'diasEnBodega',
     
