@@ -59,7 +59,7 @@ export class InventarioTiendaComponent implements OnInit, AfterViewInit {
     'precio',
     'fechaIngreso',
     'diasEnBodega',
-    // 'acciones',
+   'acciones',
     'trasladar'
   ];
 

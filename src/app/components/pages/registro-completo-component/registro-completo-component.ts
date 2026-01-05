@@ -19,6 +19,7 @@ import { ModalRegistroCompleto } from '../modal/modal-registro-completo/modal-re
 
 
 import { MatChipsModule } from '@angular/material/chips';
+import { interval, Subscription } from 'rxjs';
 
 
 
@@ -57,6 +58,7 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     'plazoCuotas',
     'marca',
     'modelo',
+    'propietario',
     'imei',
     'capacidad',
     'estadoDeComision',
@@ -69,6 +71,9 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   searchValue: string = '';
   filtro: string = 'todos';
+ // 🔥 Propiedades para actualización automática
+  private refreshSubscription?: Subscription;
+  private focusListener?: () => void;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -81,6 +86,28 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.filtro = 'todos';
     this.mostrarRegistros();
+   // 🔥 Actualización automática cada 60 segundos (1 minuto)
+    this.refreshSubscription = interval(60000).subscribe(() => {
+      this.mostrarRegistrosSilencioso();
+    });
+
+    // 🔥 Actualizar cuando el usuario vuelve a la pestaña
+    this.focusListener = () => {
+      this.mostrarRegistrosSilencioso();
+    };
+    window.addEventListener('focus', this.focusListener);
+  }
+
+
+
+   ngOnDestroy(): void {
+    // 🔥 Limpiar suscripciones al destruir el componente
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+    if (this.focusListener) {
+      window.removeEventListener('focus', this.focusListener);
+    }
   }
 
   ngAfterViewInit() {
@@ -117,6 +144,33 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
       error: (e) => {
         console.error("Error al cargar registros:", e);
         this.mostrarAlerta("Error al cargar los datos del servidor", "Error");
+      }
+    });
+  }
+    // 🔥 Actualización manual con mensaje
+  actualizarTabla() {
+    this._snackBar.open('Actualizando registros...', '', { duration: 1000 });
+    this.mostrarRegistros();
+  }
+
+  // 🔥 Actualización silenciosa (sin mensajes de snackbar)
+  private mostrarRegistrosSilencioso() {
+    this._usuarioRegistroServicio.obtenerRegistroSinId().subscribe({
+      next: (data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          this.dataSource.data = data;
+          
+          // Reaplicar filtros si están activos
+          if (this.filtro !== 'todos') {
+            this.applyFilterEstado();
+          }
+        } else if (Array.isArray(data) && data.length === 0) {
+          this.dataSource.data = [];
+        }
+      },
+      error: (e) => {
+        console.error("Error al actualizar en segundo plano:", e);
+        // No mostrar snackbar en actualizaciones automáticas
       }
     });
   }
@@ -173,6 +227,8 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     return true;
   }
 
+
+ 
   applyFilterEstado() {
     switch (this.filtro) {
       case 'todos':

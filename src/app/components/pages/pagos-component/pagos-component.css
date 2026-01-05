@@ -594,3 +594,19 @@ td.mat-cell {
   opacity: 0.5;
   margin-bottom: 10px;
 }
+
+
+.right-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-actualizar {
+  background-color: #17789e !important;
+  color: white !important;
+}
+
+.btn-actualizar:hover {
+  background-color: #125d7a !important;
+}

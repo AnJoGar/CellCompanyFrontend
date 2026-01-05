@@ -23,7 +23,7 @@ import { ModalCalendario } from '../modal/modal-calendario/modal-calendario';
 import { ModalAgregarCreditoComponent } from '../modal/modal-agregar-credito-component/modal-agregar-credito-component';
 import Swal from 'sweetalert2';
 import { ModalHistorialPagos } from '../modal/modal-historial-pagos/modal-historial-pagos';
-
+import { interval, Subscription } from 'rxjs';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -111,7 +111,9 @@ export class PagosComponent {
   // Agrega estas propiedades después de displayedColumns
   filtroEstadoCredito: string = 'Todos';
   filtroEstadoCuota: string = 'Todos';
-
+ // 🔥 Propiedades para actualización automática
+  private refreshSubscription?: Subscription;
+  private focusListener?: () => void;
   dataSource = new MatTableDataSource<ReporteInterface>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -129,6 +131,23 @@ export class PagosComponent {
 
   ngOnInit(): void {
     this.cargarReportes();
+ 
+  this.refreshSubscription = interval(60000).subscribe(() => {
+      this.cargarReportesSilencioso();
+    });
+  this.focusListener = () => {
+      this.cargarReportesSilencioso();
+    };
+    window.addEventListener('focus', this.focusListener);
+  }
+    ngOnDestroy(): void {
+    // 🔥 Limpiar suscripciones al destruir el componente
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+    if (this.focusListener) {
+      window.removeEventListener('focus', this.focusListener);
+    }
   }
 
   ngAfterViewInit() {
@@ -152,6 +171,32 @@ export class PagosComponent {
       }
     });
   }
+actualizarTabla() {
+    this._snackBar.open('Actualizando datos...', '', { duration: 1000 });
+    this.cargarReportes();
+  }
+
+  // 🔥 Actualización silenciosa (sin mensajes de snackbar)
+  private cargarReportesSilencioso() {
+    this._ReporteServicio.reporteCreditosSinFecha().subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.ELEMENT_DATA = data.value;
+          this.dataSource.data = data.value;
+          
+          // Reaplicar filtros si están activos
+          if (this.filtroEstadoCredito !== 'Todos' || this.filtroEstadoCuota !== 'Todos') {
+            this.aplicarFiltrosCombinados();
+          }
+        }
+      },
+      error: (e) => {
+        console.error('Error al actualizar en segundo plano:', e);
+        // No mostrar snackbar en actualizaciones automáticas
+      }
+    });
+  }
+  
 
   onSubmitForm() {
     const _fechaInicio: any = moment(this.formGroup.value.fechaInicio).format('DD/MM/YYYY');

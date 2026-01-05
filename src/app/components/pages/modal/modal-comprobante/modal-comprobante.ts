@@ -55,6 +55,22 @@ export class ModalComprobante {
     });
   }
 
+    formatearSoloFecha(fechaStr: string): string {
+    if (!fechaStr) return 'N/A';
+    
+    const fecha = new Date(fechaStr);
+    
+    // Verificar si la fecha es válida
+    if (isNaN(fecha.getTime())) return fechaStr;
+    
+    return fecha.toLocaleDateString('es-EC', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+  }
+
+
   formatearMoneda(monto: number): string {
     return `$${monto.toFixed(2)}`;
   }

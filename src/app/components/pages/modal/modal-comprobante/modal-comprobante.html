@@ -45,8 +45,8 @@
           <span class="value">{{datos.codigoUnico}}</span>
         </div>
         <div class="info-item" *ngIf="datos.proximaCuota">
-          <span class="label">Próxima Cuota:</span>
-          <span class="value">{{datos.proximaCuota}}</span>
+          <span class="label">Cuota Pagada:</span>
+          <span class="value">{{formatearSoloFecha(datos.proximaCuota)}}</span>
         </div>
       </div>
     </div>

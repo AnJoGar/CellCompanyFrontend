@@ -61,7 +61,7 @@ export class DasboardComponent implements OnInit, AfterViewInit, AfterViewInit {
           this.cdr.detectChanges();
           // Esperar un momento para que el DOM se actualice
           setTimeout(() => {
-            this.generarGraficoRadar();
+            this.generarGraficoLineasCreditos();
             this.generarGraficoVentas();
              this.generarGraficoDonaCumplimiento(); 
           }, 100);
@@ -140,6 +140,260 @@ export class DasboardComponent implements OnInit, AfterViewInit, AfterViewInit {
     });
   }
 
+  
+generarGraficoRadar1(): void {
+  // Agrupar créditos por mes
+  const creditosPorMes: { [key: string]: number } = {};
+  
+  this.listaReportes.forEach(item => {
+    // Parsear la fecha del crédito
+    const fecha = new Date(item.fechaCreditoStr);
+    // Formato: "Ene 2025", "Feb 2025", etc.
+    const mesAnio = fecha.toLocaleString('es-ES', { month: 'short', year: 'numeric' });
+    
+    creditosPorMes[mesAnio] = (creditosPorMes[mesAnio] || 0) + 1;
+  });
+
+  // Ordenar los meses cronológicamente
+  const mesesOrdenados = Object.entries(creditosPorMes)
+    .sort((a, b) => {
+      const fechaA = new Date(a[0]);
+      const fechaB = new Date(b[0]);
+      return fechaA.getTime() - fechaB.getTime();
+    })
+    .reduce((acc, [mes, cantidad]) => {
+      acc[mes] = cantidad;
+      return acc;
+    }, {} as { [key: string]: number });
+
+  const ctx = document.getElementById('chartRadarEstados') as HTMLCanvasElement;
+  if (!ctx) {
+    console.error('No se encontró el canvas chartRadarEstados');
+    return;
+  }
+
+  // Destruir gráfico anterior si existe
+  if (this.chartRadar) {
+    this.chartRadar.destroy();
+  }
+
+  this.chartRadar = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: Object.keys(mesesOrdenados),
+      datasets: [{
+        label: 'Créditos Dados por Mes',
+        data: Object.values(mesesOrdenados),
+        fill: true,
+        backgroundColor: 'rgba(23, 120, 158, 0.2)', // Color de tu sistema
+        borderColor: '#17789e',
+        pointBackgroundColor: '#17789e',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#17789e',
+        pointRadius: 5,
+        pointHoverRadius: 7
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      elements: { 
+        line: { 
+          borderWidth: 3 
+        } 
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+            font: {
+              size: 12
+            }
+          },
+          pointLabels: {
+            font: {
+              size: 13,
+              weight: 'bold'
+            }
+          }
+        }
+      },
+      plugins: { 
+        legend: { 
+          display: true,
+          position: 'top',
+          labels: {
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label: function(context) {
+              return `${context.label}: ${context.parsed.r} crédito${context.parsed.r !== 1 ? 's' : ''}`;
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+generarGraficoLineasCreditos(): void {
+  // Agrupar créditos por mes
+  const creditosPorMes: { [key: string]: number } = {};
+  
+  this.listaReportes.forEach(item => {
+    // Parsear correctamente según el formato de tu fecha
+    let fecha: Date;
+    
+    // Si viene en formato DD/MM/YYYY
+    if (item.fechaCreditoStr.includes('/')) {
+      const [dia, mes, anio] = item.fechaCreditoStr.split('/');
+      fecha = new Date(parseInt(anio), parseInt(mes) - 1, parseInt(dia));
+    } else {
+      // Si viene en formato ISO
+      fecha = new Date(item.fechaCreditoStr);
+    }
+    
+    // Validar que la fecha sea válida
+    if (isNaN(fecha.getTime())) {
+      console.warn('Fecha inválida:', item.fechaCreditoStr);
+      return;
+    }
+    
+    // Formato: "ene. 2025"
+    const mesAnio = fecha.toLocaleString('es-ES', { 
+      month: 'short', 
+      year: 'numeric' 
+    }).replace('.', '');
+    
+    creditosPorMes[mesAnio] = (creditosPorMes[mesAnio] || 0) + 1;
+  });
+
+  console.log('Créditos por mes:', creditosPorMes); // Debug
+
+  // Ordenar cronológicamente
+  const mesesOrdenados = Object.entries(creditosPorMes)
+    .sort((a, b) => {
+      // Parsear de vuelta para ordenar correctamente
+      const [mesA, anioA] = a[0].split(' ');
+      const [mesB, anioB] = b[0].split(' ');
+      
+      const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 
+                     'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+      
+      const fechaA = new Date(parseInt(anioA), meses.indexOf(mesA.toLowerCase().substring(0, 3)));
+      const fechaB = new Date(parseInt(anioB), meses.indexOf(mesB.toLowerCase().substring(0, 3)));
+      
+      return fechaA.getTime() - fechaB.getTime();
+    })
+    .reduce((acc, [mes, cantidad]) => {
+      acc[mes] = cantidad;
+      return acc;
+    }, {} as { [key: string]: number });
+
+  const ctx = document.getElementById('chartRadarEstados') as HTMLCanvasElement;
+  if (!ctx) {
+    console.error('No se encontró el canvas chartRadarEstados');
+    return;
+  }
+
+  // Destruir gráfico anterior si existe
+  if (this.chartRadar) {
+    this.chartRadar.destroy();
+  }
+
+  this.chartRadar = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(mesesOrdenados),
+      datasets: [{
+        label: 'Créditos Dados por Mes',
+        data: Object.values(mesesOrdenados),
+        borderColor: '#17789e',
+        backgroundColor: 'rgba(23, 120, 158, 0.1)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointBackgroundColor: '#17789e',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#17789e',
+        borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            font: {
+              size: 14,
+              weight: 'bold'
+            },
+            usePointStyle: true,
+            padding: 15
+          }
+        },
+        tooltip: {
+          enabled: true,
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          padding: 12,
+          titleFont: {
+            size: 14,
+            weight: 'bold'
+          },
+          bodyFont: {
+            size: 13
+          },
+          callbacks: {
+            label: function(context) {
+              const cantidad = context.parsed.y;
+              return `${cantidad} crédito${cantidad !== 1 ? 's' : ''} otorgado${cantidad !== 1 ? 's' : ''}`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+            font: {
+              size: 12
+            }
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)',
+            //drawBorder: false
+          }
+        },
+        x: {
+          ticks: {
+            font: {
+              size: 12,
+              weight: 'bold'
+            }
+          },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+}
   generarGraficoVentas(): void {
     const dataTiendas = this.listaReportes.reduce((acc: any, item) => {
       acc[item.nombreTienda] = (acc[item.nombreTienda] || 0) + item.montoTotal;
