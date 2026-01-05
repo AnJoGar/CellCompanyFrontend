@@ -1,4 +1,4 @@
-<div class="title-container">
+<!-- <div class="title-container">
     <h1>Ver usuario</h1>
 </div>
 
@@ -15,11 +15,88 @@
                 <p class="large-font"><strong>esActivo:</strong> {{ usuario.esActivo === 1 ? 'Activo' : 'Inactivo' }} </p>
             </mat-card-content>
             <mat-card-actions>
-                <!-- Agrega acciones aquí si es necesario -->
             </mat-card-actions>
             <mat-card-actions class="button-container">
                 <button mat-raised-button mat-dialog-close color="warn">Volver</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-list>
+</div> -->
+
+<div class="modal-container">
+
+    <div class="modal-header">
+        <h2 mat-dialog-title>Perfil de Usuario</h2>
+        <button mat-icon-button mat-dialog-close class="close-btn">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <mat-dialog-content class="content-wrapper">
+
+        <div *ngIf="loading" class="loading-box">
+            <mat-spinner diameter="40"></mat-spinner>
+            <p>Cargando información...</p>
+        </div>
+
+        <div *ngIf="!loading && usuario" class="profile-card">
+
+            <div class="profile-hero">
+                <div class="avatar-large">
+                    {{ usuario.nombreApellidos.charAt(0).toUpperCase() }}
+                </div>
+                <h3 class="user-name">{{ usuario.nombreApellidos }}</h3>
+                <span class="role-badge">{{ usuario.rolDescripcion }}</span>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="info-grid">
+
+                <div class="info-item">
+                    <div class="icon-box blue">
+                        <mat-icon>email</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Correo Electrónico</label>
+                        <p>{{ usuario.correo }}</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon-box" [ngClass]="usuario.esActivo === 1 ? 'green' : 'red'">
+                        <mat-icon>{{ usuario.esActivo === 1 ? 'check_circle' : 'cancel' }}</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Estado de Cuenta</label>
+                        <span class="status-pill" [class.active]="usuario.esActivo === 1">
+                            {{ usuario.esActivo === 1 ? 'Activo' : 'Inactivo' }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="info-item full-width-item">
+                    <div class="icon-box gray">
+                        <mat-icon>badge</mat-icon>
+                    </div>
+                    <div class="info-text">
+                        <label>Identificación en Sistema</label>
+                        <p>
+                            <strong>ID Usuario:</strong> #{{ usuario.id }}
+                            <span class="separator">|</span>
+                            <strong>Nivel de Acceso:</strong> Rol {{ usuario.rolAdminId }}
+                        </p>
+                        <small class="helper-text">Este ID es único y se usa para auditorías y registros.</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end" class="modal-footer">
+        <button mat-stroked-button mat-dialog-close color="primary">Cerrar</button>
+    </mat-dialog-actions>
+
 </div>

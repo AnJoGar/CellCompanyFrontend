@@ -106,13 +106,13 @@
 
   <header class="page-header">
     <div class="header-left">
-      <h1 style="margin-bottom: 10px;" class="page-title">Ubicaciones de Usuarios</h1>
+      <h1 style="margin-bottom: 10px;" class="page-title">Ubicaciones de usuarios</h1>
       <p class="page-subtitle">Monitoreo geográfico y registro de actividad</p>
     </div>
     <div class="header-right">
       <button mat-flat-button color="primary" class="btn-refresh" (click)="cargarTodasLasUbicaciones()">
         <mat-icon>refresh</mat-icon>
-        Actualizar Datos
+        Actualizar datos
       </button>
     </div>
   </header>
@@ -176,19 +176,23 @@
             </td>
           </ng-container>
 
-          <ng-container matColumnDef="acciones" stickyEnd>
-            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Acciones </th>
+          <ng-container matColumnDef="verMapa" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky header-icon-col"> Ubicación en mapa </th>
             <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
-              <div class="action-buttons">
-                <button mat-icon-button class="action-btn map-btn" (click)="verEnMapa(element)"
-                  matTooltip="Ver en Mapa">
-                  <mat-icon>map</mat-icon>
-                </button>
-                <button mat-icon-button class="action-btn copy-btn" (click)="copiarCoordenadas(element)"
-                  matTooltip="Copiar Coordenadas">
-                  <mat-icon>content_copy</mat-icon>
-                </button>
-              </div>
+              <button mat-icon-button class="action-btn map-btn" (click)="verEnMapa(element)"
+                matTooltip="Abrir en Google Maps">
+                <mat-icon>map</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="copiar" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky header-icon-col"> Copiar coordenadas</th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn copy-btn" (click)="copiarCoordenadas(element)"
+                matTooltip="Copiar Lat/Long">
+                <mat-icon>content_copy</mat-icon>
+              </button>
             </td>
           </ng-container>
 

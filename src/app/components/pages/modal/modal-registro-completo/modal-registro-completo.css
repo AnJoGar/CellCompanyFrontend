@@ -1,4 +1,4 @@
-.modal-simple {
+/* .modal-simple {
   max-height: 70vh;
   padding: 10px;
 }
@@ -32,19 +32,19 @@
 mat-dialog-content {
   min-width: 600px;
   max-height: 80vh;
-}
+} */
 /* Contenedor principal del diálogo */
-mat-dialog-content.modal-simple {
-  max-height: 75vh !important; /* Limita la altura para que no se salga de la pantalla */
-  overflow-y: auto !important; /* Solo scroll vertical si es necesario */
-  overflow-x: hidden !important; /* ELIMINA LA BARRA HORIZONTAL */
-  min-width: 450px; /* Ajuste más flexible para pantallas pequeñas */
+/* mat-dialog-content.modal-simple {
+  max-height: 75vh !important; 
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-width: 450px; 
   max-width: 800px;
   padding: 20px !important;
-}
+} */
 
 /* Caja de cada sección */
-.section-box {
+/* .section-box {
   background: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
@@ -52,23 +52,23 @@ mat-dialog-content.modal-simple {
   margin-bottom: 24px;
   border-left: 5px solid #17789e;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+} */
 
 /* El Grid de los formularios */
-.grid-form {
+/* .grid-form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   width: 100%;
-}
+} */
 
 /* Para que los campos ocupen todo el ancho de su columna */
-mat-form-field {
+/* mat-form-field {
   width: 100%;
-}
+} */
 
 /* Título de sección más limpio */
-.section-title {
+/* .section-title {
   margin: 0 0 15px 0;
   font-size: 1rem;
   font-weight: 600;
@@ -78,4 +78,143 @@ mat-form-field {
   gap: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+} */
+
+/* --- CONTENEDOR MODAL --- */
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  /* Altura máxima del viewport */
+}
+
+/* --- HEADER --- */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  color: #17789e;
+  /* Color corporativo */
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.close-btn {
+  color: #94a3b8;
+}
+
+.close-btn:hover {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+/* --- CONTENIDO SCROLLABLE --- */
+.modal-content-scroll {
+  padding: 24px !important;
+  overflow-y: auto;
+  background-color: #f8fafc;
+}
+
+/* --- SECCIONES DEL FORMULARIO --- */
+.form-section {
+  margin-bottom: 8px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.section-header mat-icon {
+  color: #64748b;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Grid de Inputs */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Dos columnas */
+  gap: 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+  /* Ocupa todo el ancho */
+}
+
+/* Divisor sutil */
+.section-divider {
+  margin: 24px 0 !important;
+  border-top-color: #e2e8f0;
+}
+
+/* Iconos dentro de inputs */
+mat-icon[matPrefix] {
+  color: #94a3b8;
+  margin-right: 8px;
+}
+
+/* --- FOOTER --- */
+.modal-footer {
+  padding: 16px 24px !important;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+.btn-save {
+  min-width: 160px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.spinner-white ::ng-deep circle {
+  stroke: white !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    /* Una columna en móvil */
+  }
 }

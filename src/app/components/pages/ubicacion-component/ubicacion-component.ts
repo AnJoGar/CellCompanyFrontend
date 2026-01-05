@@ -14,7 +14,7 @@ import { UbicacionService } from '../../../services/UbicacionService';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-ubicacion-component',
-  imports: [ CommonModule,
+  imports: [CommonModule,
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
@@ -28,7 +28,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './ubicacion-component.html',
   styleUrl: './ubicacion-component.css',
 })
-export class UbicacionComponent  implements OnInit {
+export class UbicacionComponent implements OnInit {
   displayedColumns: string[] = [
     'usuarioId',
     'nombreUsuario',
@@ -36,7 +36,8 @@ export class UbicacionComponent  implements OnInit {
     'latitud',
     'longitud',
     'fecha',
-    'acciones'
+    'verMapa',
+    'copiar'
   ];
 
   dataSource = new MatTableDataSource<ubicacion>();
@@ -47,7 +48,7 @@ export class UbicacionComponent  implements OnInit {
   constructor(
     private _ubicacionService: UbicacionService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarTodasLasUbicaciones();
@@ -62,15 +63,15 @@ export class UbicacionComponent  implements OnInit {
     // Por ahora simulo la carga de un usuario específico
     // Ajusta esto según tu API
     this._snackBar.open('Cargando ubicaciones...', 'Info', { duration: 2000 });
-    
+
     // Ejemplo: cargar ubicaciones de usuario ID 1
     // Deberías tener un método en tu servicio que obtenga TODAS las ubicaciones
     this._ubicacionService.obtenerUbicacionesPorUsuario().subscribe({
       next: (response) => {
         if (response.isSuccess) {
           this.dataSource.data = response.data;
-          this._snackBar.open(`${response.data.length} ubicaciones cargadas`, 'Éxito', { 
-            duration: 2000 
+          this._snackBar.open(`${response.data.length} ubicaciones cargadas`, 'Éxito', {
+            duration: 2000
           });
         } else {
           this.dataSource.data = [];
@@ -90,10 +91,10 @@ export class UbicacionComponent  implements OnInit {
     }
 
     const usuarioId = parseInt(this.searchValue);
-    
+
     if (isNaN(usuarioId)) {
-      this._snackBar.open('Ingrese un ID de usuario válido', 'Advertencia', { 
-        duration: 2000 
+      this._snackBar.open('Ingrese un ID de usuario válido', 'Advertencia', {
+        duration: 2000
       });
       return;
     }
@@ -102,13 +103,13 @@ export class UbicacionComponent  implements OnInit {
       next: (response) => {
         if (response.isSuccess) {
           this.dataSource.data = response.data;
-          this._snackBar.open(`${response.data.length} ubicaciones encontradas`, 'Éxito', { 
-            duration: 2000 
+          this._snackBar.open(`${response.data.length} ubicaciones encontradas`, 'Éxito', {
+            duration: 2000
           });
         } else {
           this.dataSource.data = [];
-          this._snackBar.open('No se encontraron ubicaciones', 'Info', { 
-            duration: 2000 
+          this._snackBar.open('No se encontraron ubicaciones', 'Info', {
+            duration: 2000
           });
         }
       },
@@ -142,8 +143,8 @@ export class UbicacionComponent  implements OnInit {
   copiarCoordenadas(ubicacion: ubicacion) {
     const coordenadas = `${ubicacion.latitud}, ${ubicacion.longitud}`;
     navigator.clipboard.writeText(coordenadas).then(() => {
-      this._snackBar.open('Coordenadas copiadas al portapapeles', 'Éxito', { 
-        duration: 2000 
+      this._snackBar.open('Coordenadas copiadas al portapapeles', 'Éxito', {
+        duration: 2000
       });
     });
   }

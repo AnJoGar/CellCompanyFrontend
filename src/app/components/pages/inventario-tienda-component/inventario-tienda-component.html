@@ -242,7 +242,7 @@
 
   <header class="page-header">
     <div class="header-left">
-      <h1 style="margin-bottom: 10px;" class="page-title">Inventario por Tienda</h1>
+      <h1 style="margin-bottom: 10px;" class="page-title">Inventario por tienda</h1>
       <p class="page-subtitle">Control de stock y movimientos entre sucursales</p>
     </div>
   </header>
@@ -285,7 +285,7 @@
         <button mat-flat-button color="primary" class="btn-refresh" (click)="cargarProductosPorTienda()"
           [disabled]="!tiendaSeleccionada || isLoadingProductos">
           <mat-icon [class.spin]="isLoadingProductos">refresh</mat-icon>
-          {{ isLoadingProductos ? 'Cargando...' : 'Actualizar Datos' }}
+          {{ isLoadingProductos ? 'Cargando...' : 'Actualizar datos' }}
         </button>
 
       </div>
@@ -425,7 +425,7 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="acciones" stickyEnd>
+            <!-- <ng-container matColumnDef="acciones" stickyEnd>
               <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Gestión </th>
               <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
                 <div class="actions-row">
@@ -438,10 +438,10 @@
                   </button>
                 </div>
               </td>
-            </ng-container>
+            </ng-container> -->
 
-            <ng-container matColumnDef="trasladar" stickyEnd>
-              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Mover </th>
+            <ng-container style="text-align: center;" matColumnDef="trasladar" stickyEnd>
+              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Trasladar </th>
               <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
                 <button mat-icon-button class="btn-icon move" (click)="trasladarProducto(element)"
                   matTooltip="Trasladar">

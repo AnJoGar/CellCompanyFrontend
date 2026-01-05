@@ -38,7 +38,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatChipsModule,
     CurrencyPipe,
     CommonModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -49,16 +49,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 })
 export class ModalHistorialPagos implements OnInit {
   displayedColumns: string[] = ['fecha', 'monto', 'metodo'];
-  
+
   // 1. Cambiamos el array por un DataSource
   dataSource = new MatTableDataSource<PagoRealizado>([]);
+
+  // Variable para el total
+  totalPagado: number = 0;
 
   constructor(
     private dialogRef: MatDialogRef<ModalHistorialPagos>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _creditoService: CreditoService,
     private cdRef: ChangeDetectorRef // Asegúrate de tenerlo inyectado
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarHistorial();
@@ -71,6 +74,9 @@ export class ModalHistorialPagos implements OnInit {
           // 2. Usamos setTimeout y asignamos al data source
           setTimeout(() => {
             this.dataSource.data = res.value;
+
+            this.totalPagado = res.value.reduce((sum: number, item: PagoRealizado) => sum + (item.montoPagado || 0), 0);
+
             this.cdRef.detectChanges();
           }, 0);
         }
@@ -78,4 +84,15 @@ export class ModalHistorialPagos implements OnInit {
       error: (e) => console.error("Error API:", e)
     });
   }
+
+  // Helper para iconos de métodos de pago
+  getIconoMetodo(metodo: string): string {
+    const m = metodo.toLowerCase();
+    if (m.includes('efectivo')) return 'payments';
+    if (m.includes('transferencia')) return 'account_balance';
+    if (m.includes('tarjeta')) return 'credit_card';
+    if (m.includes('depósito') || m.includes('deposito')) return 'savings';
+    return 'receipt'; // Default
+  }
+
 }

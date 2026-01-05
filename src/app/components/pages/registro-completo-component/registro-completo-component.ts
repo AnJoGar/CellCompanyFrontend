@@ -27,7 +27,7 @@ import { MatChipsModule } from '@angular/material/chips';
 @Component({
   selector: 'app-registro-completo-component',
   imports: [CommonModule,
-   MatCardModule,
+    MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
@@ -36,7 +36,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatFormFieldModule,
     CommonModule,
     FormsModule,
-    MatPaginatorModule ],
+    MatPaginatorModule],
   templateUrl: './registro-completo-component.html',
   styleUrl: './registro-completo-component.css',
 })
@@ -49,7 +49,7 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     'cedula',
     'telefono',
     'direccion',
-    'nombrePropietario',
+    //'nombrePropietario',
     'cedulaEncargado',
     'montoTotal',
     'entrada',
@@ -62,21 +62,21 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     'estadoDeComision',
     'editar',
     'eliminar',
-    
+
   ];
-  
+
   ELEMENT_DATA: UsuarioRegistro[] = [];
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   searchValue: string = '';
   filtro: string = 'todos';
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _usuarioRegistroServicio: UsuarioRegistroService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.filtro = 'todos';
@@ -99,27 +99,27 @@ export class RegistroCompletoComponent implements OnInit, AfterViewInit {
     }
   }
 
-mostrarRegistros() {
-  this._usuarioRegistroServicio.obtenerRegistroSinId().subscribe({
-    next: (data) => {
-      // Como la API devuelve el JSON directo [...] (según tu imagen)
-      // verificamos si data es un array y si tiene elementos
-      if (Array.isArray(data) && data.length > 0) {
-        this.dataSource.data = data; 
-      } else if (Array.isArray(data) && data.length === 0) {
-        this._snackBar.open("Cargando usuarios", '', { duration: 2000 });
-        this.dataSource.data = [];
-      } else {
-        // En caso de que la respuesta sea nula o inesperada
-        this._snackBar.open("Error en el formato de datos", 'Oops!', { duration: 2000 });
+  mostrarRegistros() {
+    this._usuarioRegistroServicio.obtenerRegistroSinId().subscribe({
+      next: (data) => {
+        // Como la API devuelve el JSON directo [...] (según tu imagen)
+        // verificamos si data es un array y si tiene elementos
+        if (Array.isArray(data) && data.length > 0) {
+          this.dataSource.data = data;
+        } else if (Array.isArray(data) && data.length === 0) {
+          this._snackBar.open("Cargando usuarios", '', { duration: 2000 });
+          this.dataSource.data = [];
+        } else {
+          // En caso de que la respuesta sea nula o inesperada
+          this._snackBar.open("Error en el formato de datos", 'Oops!', { duration: 2000 });
+        }
+      },
+      error: (e) => {
+        console.error("Error al cargar registros:", e);
+        this.mostrarAlerta("Error al cargar los datos del servidor", "Error");
       }
-    },
-    error: (e) => {
-      console.error("Error al cargar registros:", e);
-      this.mostrarAlerta("Error al cargar los datos del servidor", "Error");
-    }
-  });
-}
+    });
+  }
 
   defaultFilterPredicate(data: UsuarioRegistro, filter: string): boolean {
     const filterValue = filter.trim().toLowerCase();
@@ -199,7 +199,7 @@ mostrarRegistros() {
         this.dataSource.filterPredicate = this.defaultFilterPredicate;
         break;
     }
-    
+
     if (this.filtro !== 'todos' && this.dataSource.filteredData.length === 0) {
       console.log('No existe registro con el filtro seleccionado.');
     }
@@ -239,28 +239,63 @@ mostrarRegistros() {
 
   eliminarRegistro(registro: UsuarioRegistro) {
     Swal.fire({
-      title: "¿Desea eliminar el registro?",
-      text: registro.nombreApellidos,
+      title: '¿Estás seguro?',
+      text: `Se eliminará permanentemente el registro de ${registro.nombreApellidos}. Esta acción no se puede deshacer.`,
       icon: 'warning',
-      confirmButtonColor: '#3085d6',
       showCancelButton: true,
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ef4444', // Rojo moderno (Tailwind red-500)
+      cancelButtonColor: '#94a3b8', // Gris moderno (Slate-400)
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
+      cancelButtonText: 'Cancelar',
+      background: '#ffffff',
+      customClass: {
+        title: 'swal2-title-custom', // Puedes definir estos estilos en styles.css global
+        popup: 'swal2-popup-custom',
+        confirmButton: 'swal2-confirm-btn',
+        cancelButton: 'swal2-cancel-btn'
+      },
+      reverseButtons: true // Pone el botón de cancelar primero (patrón UX más seguro)
+    }).then((result) => {
       if (result.isConfirmed) {
+
+        // Mostrar loading mientras elimina
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Por favor espere',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
         this._usuarioRegistroServicio.eliminar(registro.id).subscribe({
           next: (data) => {
             if (data.status) {
-              this.mostrarAlerta("El registro fue eliminado", "Listo!");
+              // Éxito con estilo
+              Swal.fire({
+                title: '¡Eliminado!',
+                text: 'El registro ha sido eliminado correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#1e293b' // Azul oscuro corporativo
+              });
               this.mostrarRegistros();
             } else {
-              this.mostrarAlerta("No se pudo eliminar el registro", "Error");
+              Swal.fire({
+                title: 'Error',
+                text: 'No se pudo eliminar el registro. Intente nuevamente.',
+                icon: 'error',
+                confirmButtonColor: '#1e293b'
+              });
             }
           },
           error: (e) => {
             console.error("Error al eliminar:", e);
-            this.mostrarAlerta("Error al eliminar el registro", "Error");
+            Swal.fire({
+              title: 'Error de Servidor',
+              text: 'Ocurrió un problema al conectar con el servidor.',
+              icon: 'error',
+              confirmButtonColor: '#1e293b'
+            });
           }
         });
       }

@@ -1,4 +1,4 @@
-<div class="modal-container">
+<!-- <div class="modal-container">
   <div class="modal-header">
     <h2 mat-dialog-title>
       <mat-icon style="vertical-align: middle; margin-right: 8px; color: #17789e;">compare_arrows</mat-icon>
@@ -11,9 +11,9 @@
 
   <mat-divider></mat-divider>
 
-  <mat-dialog-content>
-    <!-- Información del Producto -->
-    <mat-card class="producto-info">
+  <mat-dialog-content> -->
+<!-- Información del Producto -->
+<!-- <mat-card class="producto-info">
       <mat-card-content>
         <div class="producto-detalle">
           <mat-icon class="producto-icon">phone_iphone</mat-icon>
@@ -26,26 +26,26 @@
           </div>
         </div>
       </mat-card-content>
-    </mat-card>
+    </mat-card> -->
 
-    <!-- Formulario de Traslado -->
-    <form [formGroup]="formularioTraslado" class="form-traslado">
-      
-      <!-- Origen (Tienda actual del producto) -->
-      <mat-form-field appearance="outline" class="full-width">
+<!-- Formulario de Traslado -->
+<!-- <form [formGroup]="formularioTraslado" class="form-traslado"> -->
+
+<!-- Origen (Tienda actual del producto) -->
+<!-- <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tienda Origen</mat-label>
         <input matInput [value]="tiendaOrigenNombre" readonly>
         <mat-icon matPrefix>store</mat-icon>
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <!-- Flecha indicadora -->
-      <div class="arrow-container">
+<!-- Flecha indicadora -->
+<!-- <div class="arrow-container">
         <mat-icon class="arrow-icon">arrow_downward</mat-icon>
         <span class="arrow-text">Trasladar a</span>
-      </div>
+      </div> -->
 
-      <!-- Destino (Otras tiendas) -->
-      <mat-form-field appearance="outline" class="full-width">
+<!-- Destino (Otras tiendas) -->
+<!-- <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tienda Destino *</mat-label>
         <mat-select formControlName="tiendaDestinoId">
           <mat-option *ngIf="isLoading" disabled>
@@ -63,10 +63,10 @@
         <mat-error *ngIf="formularioTraslado.get('tiendaDestinoId')?.hasError('required')">
           Debe seleccionar una tienda destino
         </mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <!-- Información de la tienda seleccionada -->
-      <mat-card *ngIf="tiendaSeleccionada" class="tienda-seleccionada">
+<!-- Información de la tienda seleccionada -->
+<!-- <mat-card *ngIf="tiendaSeleccionada" class="tienda-seleccionada">
         <mat-card-content>
           <p><mat-icon inline>store</mat-icon> <strong>Tienda:</strong> {{ tiendaSeleccionada.nombreTienda }}</p>
           <p *ngIf="tiendaSeleccionada.direccion">
@@ -79,10 +79,10 @@
             <mat-icon inline>location_city</mat-icon> <strong>Ciudad:</strong> {{ tiendaSeleccionada.ciudad }}
           </p>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
 
-      <!-- Observaciones -->
-      <mat-form-field appearance="outline" class="full-width">
+<!-- Observaciones -->
+<!-- <mat-form-field appearance="outline" class="full-width">
         <mat-label>Observaciones (Opcional)</mat-label>
         <textarea 
           matInput 
@@ -115,4 +115,122 @@
       {{ guardando ? 'Trasladando...' : 'Trasladar Producto' }}
     </button>
   </mat-dialog-actions>
+</div> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">compare_arrows</mat-icon>
+      <h2>Traslado entre tiendas</h2>
+    </div>
+    <button mat-icon-button (click)="cerrarModal()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div class="product-summary">
+      <div class="product-icon">
+        <mat-icon>smartphone</mat-icon>
+      </div>
+      <div class="product-info">
+        <h3>{{ producto.marca }} {{ producto.modelo }}</h3>
+        <div class="product-meta">
+          <span class="code-badge">COD: {{ producto.codigo }}</span>
+          <span class="imei-text" *ngIf="producto.imei">IMEI: {{ producto.imei }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="transfer-flow">
+
+      <div class="flow-point origin">
+        <span class="point-label">DESDE</span>
+        <div class="point-card">
+          <mat-icon>store</mat-icon>
+          <div class="point-details">
+            <strong>{{ tiendaOrigenNombre }}</strong>
+            <small>Ubicación actual</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">
+        <mat-icon>arrow_forward</mat-icon>
+      </div>
+
+      <div class="flow-point destination">
+        <span class="point-label">HACIA</span>
+        <div class="point-card target" [class.empty]="!tiendaSeleccionada">
+          <mat-icon>store_mall_directory</mat-icon>
+          <div class="point-details">
+            <strong *ngIf="tiendaSeleccionada">{{ tiendaSeleccionada.nombreTienda }}</strong>
+            <strong *ngIf="!tiendaSeleccionada" class="placeholder-text">Seleccione destino...</strong>
+            <small *ngIf="tiendaSeleccionada">{{ tiendaSeleccionada.ciudad }}</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <form [formGroup]="formularioTraslado" class="form-layout">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Seleccionar tienda destino</mat-label>
+        <mat-select formControlName="tiendaDestinoId" [disabled]="isLoading || guardando"
+          placeholder="Elija una sucursal">
+          <mat-option *ngIf="isLoading" disabled class="loading-option">
+            <mat-spinner diameter="20"></mat-spinner> Cargando sucursales...
+          </mat-option>
+          <mat-option *ngIf="!isLoading && tiendasDestino.length === 0" disabled>
+            No hay otras tiendas disponibles
+          </mat-option>
+          <mat-option *ngFor="let tienda of tiendasDestino" [value]="tienda.id">
+            <div class="store-option">
+              <span class="store-name">{{ tienda.nombreTienda }}</span>
+              <span class="store-city" *ngIf="tienda.ciudad">({{ tienda.ciudad }})</span>
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>login</mat-icon>
+        <mat-error *ngIf="formularioTraslado.get('tiendaDestinoId')?.hasError('required')">Requerido</mat-error>
+      </mat-form-field>
+
+      <div class="store-detail-box" *ngIf="tiendaSeleccionada">
+        <div class="detail-row">
+          <mat-icon>place</mat-icon>
+          <span>{{ tiendaSeleccionada.direccion || 'Dirección no registrada' }}</span>
+        </div>
+        <div class="detail-row" *ngIf="tiendaSeleccionada.telefono">
+          <mat-icon>phone</mat-icon>
+          <span>{{ tiendaSeleccionada.telefono }}</span>
+        </div>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Observaciones (Opcional)</mat-label>
+        <textarea matInput formControlName="observacion" rows="2" placeholder="Motivo del movimiento..."
+          [disabled]="guardando"></textarea>
+        <mat-icon matPrefix>edit_note</mat-icon>
+      </mat-form-field>
+
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button (click)="cerrarModal()" [disabled]="guardando" color="warn">
+      Cancelar
+    </button>
+
+    <button mat-flat-button color="primary" class="btn-transfer" (click)="registrarTraslado()"
+      [disabled]="formularioTraslado.invalid || guardando || isLoading">
+      <mat-icon *ngIf="!guardando">send</mat-icon>
+      <mat-spinner *ngIf="guardando" diameter="20" class="spinner-white"></mat-spinner>
+      <span>{{ guardando ? 'Transfiriendo...' : 'Confirmar movimiento' }}</span>
+    </button>
+  </mat-dialog-actions>
+
 </div>

@@ -39,16 +39,16 @@ export class ModalCalendario implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<ModalCalendario>,
-    @Inject(MAT_DIALOG_DATA) public data: { 
+    @Inject(MAT_DIALOG_DATA) public data: {
       creditoId: number,
-       codigoUnico?: string, 
+      codigoUnico?: string,
       clienteId: number,
       nombreCliente?: string,
       montoTotal?: number
     },
     private _calendarioService: CalendarioService,
     private cdr: ChangeDetectorRef  // ← AGREGAR ESTO
-  ) {}
+  ) { }
 
   async ngOnInit() {
     await this.cargarCalendario();
@@ -58,11 +58,11 @@ export class ModalCalendario implements OnInit {
     try {
       this.isLoading = true;
       this.cdr.detectChanges();  // ← Forzar detección ANTES de cargar
-      
+
       const response = await firstValueFrom(
         this._calendarioService.obtenerCalendarioPagos(this.data.creditoId, this.data.clienteId)
       );
-      
+
       if (response && response.length > 0) {
         this.calendarioPagos = response;
         this.calcularEstadisticas();
@@ -81,33 +81,37 @@ export class ModalCalendario implements OnInit {
     }
   }
 
-calcularEstadisticas() {
-  // Creamos una lista que ignora la primera cuota (Entrada)
-  // .slice(1) toma desde el índice 1 hasta el final
-  const cuotasFinanciadas = this.calendarioPagos.slice(1);
+  calcularEstadisticas() {
+    // 1. Obtener el monto total del crédito (Deuda original)
+    // Nos aseguramos de que sea un número
+    const montoTotalCredito = this.data.montoTotal || 0;
 
-  // 1. Total de cuotas (sin contar la entrada)
-  this.totalCuotas = cuotasFinanciadas.length;
+    // 2. Calcular TOTAL PAGADO (Incluyendo la Entrada/Abono Inicial)
+    // Recorremos TODO el calendario (incluyendo el índice 0)
+    // Sumamos 'abonadoCuota' solo si el estado es 'Pagado'
+    this.totalPagado = this.calendarioPagos
+      .filter(c => c.estadoCuota === 'Pagado')
+      .reduce((sum, c) => sum + (c.abonadoCuota || 0), 0);
 
-  // 2. Conteo de cuotas según su estado (sin contar la entrada)
-  this.cuotasPagadas = cuotasFinanciadas.filter(c => c.estadoCuota === 'Pagado').length;
-  this.cuotasPendientes = cuotasFinanciadas.filter(c => c.estadoCuota === 'Pendiente').length;
-  
-  // 3. Suma de lo abonado (solo de las cuotas financiadas)
-  this.totalPagado = cuotasFinanciadas
-    .filter(c => c.estadoCuota === 'Pagado')
-    .reduce((sum, c) => sum + c.abonadoCuota, 0);
-  
-  // 4. Monto pendiente total
-  // Seguimos usando la lógica del saldo de la última cuota del calendario completo
-  // ya que el saldo pendiente es acumulativo e incluye la deuda total.
-  const ultimaCuota = this.calendarioPagos[this.calendarioPagos.length - 1];
-  this.totalPendiente = ultimaCuota ? ultimaCuota.montoPendiente : 0;
+    // 3. Calcular SALDO PENDIENTE (Dinámico)
+    // Es simplemente la resta del Total menos lo que ya se pagó.
+    // A medida que 'totalPagado' suba, 'totalPendiente' bajará.
+    this.totalPendiente = montoTotalCredito - this.totalPagado;
 
-  // Si notas que los valores no se refrescan en el HTML de inmediato, 
-  // añade la siguiente línea (requiere inyectar ChangeDetectorRef en el constructor):
-  this.cdr.detectChanges();
-}
+    // Evitar números negativos por errores de decimales
+    if (this.totalPendiente < 0) this.totalPendiente = 0;
+
+    // 4. Conteos de Cuotas (Para mostrar "5 de 12 cuotas")
+    // Aquí sí ignoramos la entrada (index 0) para contar solo las letras/cuotas reales
+    const cuotasReales = this.calendarioPagos.slice(1);
+
+    this.totalCuotas = cuotasReales.length;
+    this.cuotasPagadas = cuotasReales.filter(c => c.estadoCuota === 'Pagado').length;
+    this.cuotasPendientes = cuotasReales.filter(c => c.estadoCuota !== 'Pagado').length;
+
+    // Refrescar la vista
+    this.cdr.detectChanges();
+  }
 
   formatearFecha(fecha: string): string {
     const date = new Date(fecha + 'T00:00:00');

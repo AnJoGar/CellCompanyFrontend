@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{accion}} Crédito</h2>
+<!-- <h2 mat-dialog-title>{{accion}} Crédito</h2>
 <mat-dialog-content>
   <form [formGroup]="formCredito">
     <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
@@ -105,4 +105,122 @@
     <span *ngIf="!isLoading">{{accionBoton}}</span>
     <span *ngIf="isLoading">Procesando...</span>
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">{{ accion === 'Editar' ? 'edit_note' : 'add_card' }}</mat-icon>
+      <h2>{{accion}} Crédito</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <form [formGroup]="formCredito" class="form-layout">
+
+      <div class="form-section">
+        <h3 class="section-title">Datos del Dispositivo</h3>
+
+        <div class="input-row">
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Marca</mat-label>
+            <input matInput formControlName="marca" placeholder="Ej. Samsung">
+            <mat-icon matPrefix>branding_watermark</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Modelo</mat-label>
+            <input matInput formControlName="modelo" placeholder="Ej. Galaxy S23">
+            <mat-icon matPrefix>smartphone</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="input-row">
+          <mat-form-field appearance="outline" class="flex-small">
+            <mat-label>Capacidad</mat-label>
+            <input matInput type="number" formControlName="capacidad">
+            <span matSuffix>GB</span>
+            <mat-icon matPrefix>sd_storage</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-large">
+            <mat-label>IMEI</mat-label>
+            <input matInput formControlName="imei" placeholder="Número de serie">
+            <mat-icon matPrefix>qr_code</mat-icon>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <div class="form-section">
+        <h3 class="section-title">Condiciones financieras</h3>
+        <div class="form-grid two-col">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Monto total</mat-label>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput type="number" formControlName="montoTotal" class="amount-input">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Entrada inicial</mat-label>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput type="number" formControlName="entrada" class="amount-input">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Plazo (cuotas)</mat-label>
+            <input matInput type="number" formControlName="plazoCuotas">
+            <mat-icon matPrefix>format_list_numbered</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Frecuencia</mat-label>
+            <mat-select formControlName="frecuenciaPago">
+              <mat-option value="Semanal">Semanal</mat-option>
+              <mat-option value="Quincenal">Quincenal</mat-option>
+              <mat-option value="Mensual">Mensual</mat-option>
+            </mat-select>
+            <mat-icon matPrefix>update</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Inicio de pago</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="diaPago">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Método de pago</mat-label>
+            <mat-select formControlName="metodoPago">
+              <mat-option value="Efectivo">Efectivo</mat-option>
+              <mat-option value="Transferencia">Transferencia</mat-option>
+            </mat-select>
+            <mat-icon matPrefix>payment</mat-icon>
+          </mat-form-field>
+
+        </div>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+
+    <button mat-flat-button color="primary" class="btn-save" [disabled]="formCredito.invalid || isLoading"
+      (click)="guardarEditarCredito()">
+      <span *ngIf="!isLoading">{{accionBoton}}</span>
+      <span *ngIf="isLoading">Guardando...</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

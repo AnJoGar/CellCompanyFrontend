@@ -16,6 +16,8 @@ import { PagoCredito } from '../../../../interfaces/Pago';
 import { CreditoService } from '../../../../services/Pago-Service'; // Asume que tienes este servicio
 import { ModalComprobante, DatosComprobante } from '../modal-comprobante/modal-comprobante';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+
 @Component({
   selector: 'app-modal-pago',
   imports: [
@@ -29,21 +31,19 @@ import { MatDialog } from '@angular/material/dialog';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ],
   templateUrl: './modal-pago.html',
   styleUrl: './modal-pago.css',
 })
 export class ModalPago implements OnInit {
 
-
-
-
- formPago: FormGroup;
+  formPago: FormGroup;
   accion: string = 'Registrar Pago';
   accionBoton: string = 'Guardar Pago';
   isLoading: boolean = false;
-  
+
   metodosPago: string[] = [
     'Efectivo',
     'Transferencia',
@@ -53,22 +53,35 @@ export class ModalPago implements OnInit {
     'Cheque'
   ];
 
+  getIconoMetodo(metodo: string): string {
+    const iconos: { [key: string]: string } = {
+      'Efectivo': 'payments',
+      'Transferencia': 'account_balance',
+      'Tarjeta de Crédito': 'credit_card',
+      'Tarjeta de Débito': 'credit_card',
+      'Depósito Bancario': 'account_balance_wallet',
+      'Cheque': 'receipt'
+    };
+    return iconos[metodo] || 'payment';
+  }
+
   constructor(
     private dialogRef: MatDialogRef<ModalPago>,
-    @Inject(MAT_DIALOG_DATA) public data: { 
+    @Inject(MAT_DIALOG_DATA) public data: {
       codigoUnico: string,
-      creditoId: number, 
+      creditoId: number,
       montoPendiente?: number,
-       nombreCliente?: string,
-      
-       valorPorCuota?: number,
-       cedula?: string,
-    nombreTienda?: string,
-    proximaCuota?: string },
+      nombreCliente?: string,
+
+      valorPorCuota?: number,
+      cedula?: string,
+      nombreTienda?: string,
+      proximaCuota?: string
+    },
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private _pagoService: CreditoService,
-     private dialog: MatDialog  // ←  // Descomenta cuando tengas el servicio
+    private dialog: MatDialog  // ←  // Descomenta cuando tengas el servicio
   ) {
     this.formPago = this.fb.group({
       montoPagado: ['', [Validators.required, Validators.min(0.01)]],
@@ -93,7 +106,7 @@ export class ModalPago implements OnInit {
         duration: 3000
       });
       return;
-      
+
     }
     const pago: PagoCredito = {
       creditoId: this.data.creditoId,
@@ -104,7 +117,7 @@ export class ModalPago implements OnInit {
     this.isLoading = true;
 
     // Descomenta cuando tengas el servicio
-    
+
     this._pagoService.registrarPago(pago).subscribe({
       next: (response) => {
         if (response.status) {
@@ -121,7 +134,7 @@ export class ModalPago implements OnInit {
         this.isLoading = false;
       }
     });
-    
+
 
     // TEMPORAL: Simula respuesta exitosa (elimina esto cuando tengas el servicio)
     setTimeout(() => {
@@ -132,71 +145,71 @@ export class ModalPago implements OnInit {
   }
 
   registrarPago() {
-  if (this.formPago.invalid) {
-    this._snackBar.open('Por favor complete todos los campos correctamente', 'Error', {
-      duration: 3000
-    });
-    return;
-  }
+    if (this.formPago.invalid) {
+      this._snackBar.open('Por favor complete todos los campos correctamente', 'Error', {
+        duration: 3000
+      });
+      return;
+    }
 
-  const pago: PagoCredito = {
-    creditoId: this.data.creditoId,
-    montoPagado: this.formPago.value.montoPagado,
-    metodoPago: this.formPago.value.metodoPago
-  };
+    const pago: PagoCredito = {
+      creditoId: this.data.creditoId,
+      montoPagado: this.formPago.value.montoPagado,
+      metodoPago: this.formPago.value.metodoPago
+    };
 
-  this.isLoading = true;
+    this.isLoading = true;
 
-  this._pagoService.registrarPago(pago).subscribe({
-    next: (response) => {
-      if (response.status) {
-        this.mostrarAlerta('Pago registrado correctamente', 'Éxito');
-        
-        // Generar número de comprobante
-        const numeroComprobante = `PAG-${Date.now()}`;
-        
-        // Calcular nuevo monto pendiente
-        const nuevoMontoPendiente = (this.data.montoPendiente || 0) - pago.montoPagado;
-        
-        // Preparar datos del comprobante
-        const datosComprobante: DatosComprobante = {
-          numeroComprobante: numeroComprobante,
-          creditoId: pago.creditoId,
-         codigoUnico: this.data.codigoUnico,
-          nombreCliente: this.data.nombreCliente || 'N/A',
-          cedula: this.data.cedula || 'N/A',
-          montoPagado: pago.montoPagado,
-          metodoPago: this.formPago.value.metodoPago,
-          fechaPago: new Date(),
-          nombreTienda: this.data.nombreTienda,
-          montoPendiente: nuevoMontoPendiente,
-          proximaCuota: this.data.proximaCuota
-        };
-        
-        // Cerrar este modal
-        this.dialogRef.close('pagado');
-        
-        // Abrir comprobante
-        this.dialog.open(ModalComprobante, {
-           width: '600px',  // ← Cambiar de 800px a 600px
-  maxHeight: '90vh',  // ← AGREGAR esto
-          //width: '800px',
-          data: datosComprobante,
-          disableClose: false
-        });
-        
-      } else {
-        this.mostrarAlerta(response.msg || 'No se pudo registrar el pago', 'Error');
+    this._pagoService.registrarPago(pago).subscribe({
+      next: (response) => {
+        if (response.status) {
+          this.mostrarAlerta('Pago registrado correctamente', 'Éxito');
+
+          // Generar número de comprobante
+          const numeroComprobante = `PAG-${Date.now()}`;
+
+          // Calcular nuevo monto pendiente
+          const nuevoMontoPendiente = (this.data.montoPendiente || 0) - pago.montoPagado;
+
+          // Preparar datos del comprobante
+          const datosComprobante: DatosComprobante = {
+            numeroComprobante: numeroComprobante,
+            creditoId: pago.creditoId,
+            codigoUnico: this.data.codigoUnico,
+            nombreCliente: this.data.nombreCliente || 'N/A',
+            cedula: this.data.cedula || 'N/A',
+            montoPagado: pago.montoPagado,
+            metodoPago: this.formPago.value.metodoPago,
+            fechaPago: new Date(),
+            nombreTienda: this.data.nombreTienda,
+            montoPendiente: nuevoMontoPendiente,
+            proximaCuota: this.data.proximaCuota
+          };
+
+          // Cerrar este modal
+          this.dialogRef.close('pagado');
+
+          // Abrir comprobante
+          this.dialog.open(ModalComprobante, {
+            width: '600px',  // ← Cambiar de 800px a 600px
+            maxHeight: '90vh',  // ← AGREGAR esto
+            //width: '800px',
+            data: datosComprobante,
+            disableClose: false
+          });
+
+        } else {
+          this.mostrarAlerta(response.msg || 'No se pudo registrar el pago', 'Error');
+          this.isLoading = false;
+        }
+      },
+      error: (e) => {
+        console.error('Error:', e);
+        this.mostrarAlerta('Error de conexión con el servidor', 'Error');
         this.isLoading = false;
       }
-    },
-    error: (e) => {
-      console.error('Error:', e);
-      this.mostrarAlerta('Error de conexión con el servidor', 'Error');
-      this.isLoading = false;
-    }
-  });
-}
+    });
+  }
 
   mostrarAlerta(mensaje: string, tipo: string) {
     this._snackBar.open(mensaje, tipo, {
@@ -207,8 +220,8 @@ export class ModalPago implements OnInit {
   }
 
 
-public comprobante(){
+  public comprobante() {
 
 
-}
+  }
 }

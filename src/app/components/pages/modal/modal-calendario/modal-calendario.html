@@ -1,36 +1,36 @@
 <!-- components/pages/modal/modal-calendario-pagos/modal-calendario-pagos.html -->
-<div class="calendario-container">
-  
-  <!-- Header -->
-  <div class="header no-print">
+<!-- <div class="calendario-container"> -->
+
+<!-- Header -->
+<!-- <div class="header no-print">
     <h2 mat-dialog-title>
       <mat-icon>event_note</mat-icon>
-      Calendario de Pagos
+      Calendario de pagos
     </h2>
     <button mat-icon-button (click)="cerrar()" class="close-button">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
-  <mat-dialog-content>
-    
-    <!-- Loading -->
-    <div *ngIf="isLoading" class="loading-container">
+  <mat-dialog-content> -->
+
+<!-- Loading -->
+<!-- <div *ngIf="isLoading" class="loading-container">
       <mat-spinner diameter="50"></mat-spinner>
       <p>Cargando calendario...</p>
-    </div>
+    </div> -->
 
-    <!-- Error -->
-    <div *ngIf="error && !isLoading" class="error-container">
+<!-- Error -->
+<!-- <div *ngIf="error && !isLoading" class="error-container">
       <mat-icon color="warn">error</mat-icon>
       <p>{{ error }}</p>
-    </div>
+    </div> -->
 
-    <!-- Contenido -->
-    <div *ngIf="!isLoading && !error">
-      
-      <!-- Información del crédito -->
-      <mat-card class="info-card">
+<!-- Contenido -->
+<!-- <div *ngIf="!isLoading && !error"> -->
+
+<!-- Información del crédito -->
+<!-- <mat-card class="info-card">
         <mat-card-content>
           <div class="info-header">
             <div class="info-item">
@@ -50,21 +50,21 @@
             <div class="info-item" *ngIf="data.montoTotal">
               <mat-icon>attach_money</mat-icon>
               <div>
-                <span class="label">Monto Total</span>
+                <span class="label">Monto total</span>
                 <strong>{{ formatearMoneda(data.montoTotal) }}</strong>
               </div>
             </div>
           </div>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
 
-      <!-- Estadísticas -->
-      <div class="stats-container">
+<!-- Estadísticas -->
+<!-- <div class="stats-container">
         <mat-card class="stat-card pagadas">
           <mat-card-content>
             <mat-icon>check_circle</mat-icon>
             <div class="stat-info">
-              <span class="stat-label">Cuotas Pagadas</span>
+              <span class="stat-label">Cuotas pagadas</span>
               <span class="stat-value">{{ cuotasPagadas }} / {{ totalCuotas }}</span>
               <span class="stat-monto">{{ formatearMoneda(totalPagado) }}</span>
             </div>
@@ -75,48 +75,48 @@
           <mat-card-content>
             <mat-icon>pending</mat-icon>
             <div class="stat-info">
-              <span class="stat-label">Cuotas Pendientes</span>
+              <span class="stat-label">Cuotas pendientes</span>
               <span class="stat-value">{{ cuotasPendientes }} / {{ totalCuotas }}</span>
               <span class="stat-monto">{{ formatearMoneda(totalPendiente) }}</span>
             </div>
           </mat-card-content>
         </mat-card>
 
-      
-      </div>
 
-      <!-- Tabla de calendario -->
-      <div class="table-container">
-        <table mat-table [dataSource]="calendarioPagos" class="calendario-table">
-          
-          <!-- Número -->
-          <ng-container matColumnDef="numero">
+      </div> -->
+
+<!-- Tabla de calendario -->
+<!-- <div class="table-container">
+        <table mat-table [dataSource]="calendarioPagos" class="calendario-table"> -->
+
+<!-- Número -->
+<!-- <ng-container matColumnDef="numero">
             <th mat-header-cell *matHeaderCellDef> # </th>
             <td mat-cell *matCellDef="let element; let i = index"> {{ i + 1 }} </td>
-          </ng-container>
+          </ng-container> -->
 
-          <!-- Fecha -->
-          <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef> Fecha de Pago </th>
+<!-- Fecha -->
+<!-- <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha de pago </th>
             <td mat-cell *matCellDef="let element"> {{ formatearFecha(element.proximaCuotaStr) }} </td>
-          </ng-container>
+          </ng-container> -->
 
-          <!-- Monto Cuota -->
-          <ng-container matColumnDef="montoCuota">
-            <th mat-header-cell *matHeaderCellDef> Monto Cuota </th>
+<!-- Monto Cuota -->
+<!-- <ng-container matColumnDef="montoCuota">
+            <th mat-header-cell *matHeaderCellDef> Monto cuota </th>
             <td mat-cell *matCellDef="let element"> {{ formatearMoneda(element.abonadoCuota) }} </td>
-          </ng-container>
+          </ng-container> -->
 
-          <!-- Monto Pendiente -->
-          <ng-container matColumnDef="montoPendiente">
-            <th mat-header-cell *matHeaderCellDef> Saldo Pendiente </th>
+<!-- Monto Pendiente -->
+<!-- <ng-container matColumnDef="montoPendiente">
+            <th mat-header-cell *matHeaderCellDef> Saldo pendiente </th>
             <td mat-cell *matCellDef="let element" [style.color]="element.montoPendiente === 0 ? '#388e3c' : '#f57c00'">
               {{ formatearMoneda(element.montoPendiente) }}
             </td>
-          </ng-container>
+          </ng-container> -->
 
-          <!-- Estado -->
-          <ng-container matColumnDef="estado">
+<!-- Estado -->
+<!-- <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef> Estado </th>
             <td mat-cell *matCellDef="let element">
               <span class="estado-badge" [style.background-color]="obtenerColorEstado(element.estadoCuota)">
@@ -133,10 +133,10 @@
 
     </div>
 
-  </mat-dialog-content>
+  </mat-dialog-content> -->
 
-  <!-- Botones -->
-  <mat-dialog-actions align="end" class="no-print">
+<!-- Botones -->
+<!-- <mat-dialog-actions align="end" class="no-print">
     <button mat-raised-button (click)="imprimir()">
       <mat-icon>print</mat-icon>
       Imprimir
@@ -144,6 +144,143 @@
     <button mat-raised-button color="primary" (click)="cerrar()">
       <mat-icon>close</mat-icon>
       Cerrar
+    </button>
+  </mat-dialog-actions>
+
+</div> -->
+
+<div class="modal-container">
+
+  <div class="modal-header no-print">
+    <div class="header-content">
+      <h2 class="title">Estado de cuenta</h2>
+      <span class="subtitle">Detalle de amortización y pagos</span>
+    </div>
+    <button mat-icon-button (click)="cerrar()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div *ngIf="isLoading" class="state-box">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Consultando calendario...</p>
+    </div>
+
+    <div *ngIf="error && !isLoading" class="state-box error">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="!isLoading && !error" class="finance-body">
+
+      <div class="client-strip">
+        <div class="strip-item">
+          <label>Cliente</label>
+          <strong>{{ data.nombreCliente || 'Consumidor Final' }}</strong>
+        </div>
+        <div style="align-items: center;" class="strip-item">
+          <label>Crédito #</label>
+          <span style="margin-left: -30px;" class="code">{{ data.codigoUnico }}</span>
+        </div>
+      </div>
+
+      <div class="finance-summary">
+
+        <div class="finance-card total">
+          <span class="card-label">Monto Financiado</span>
+          <div class="card-value">{{ formatearMoneda(data.montoTotal || 0) }}</div>
+          <div class="progress-bg">
+            <div class="progress-bar" [style.width.%]="100"></div>
+          </div>
+        </div>
+
+        <div class="finance-card paid">
+          <div class="card-header">
+            <span class="card-label">Abonado / Pagado</span>
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <div class="card-value">{{ formatearMoneda(totalPagado) }}</div>
+          <div class="progress-bg">
+            <div class="progress-bar" [style.width.%]="obtenerPorcentajePagado()"></div>
+          </div>
+          <span class="card-sub">{{ cuotasPagadas }} de {{ totalCuotas }} cuotas</span>
+        </div>
+
+        <div class="finance-card pending">
+          <div class="card-header">
+            <span class="card-label">Saldo Pendiente</span>
+            <mat-icon>warning</mat-icon>
+          </div>
+          <div class="card-value">{{ formatearMoneda(totalPendiente) }}</div>
+          <div class="progress-bg">
+            <div class="progress-bar" [style.width.%]="100 - obtenerPorcentajePagado()"></div>
+          </div>
+          <span class="card-sub">{{ cuotasPendientes }} cuotas restantes</span>
+        </div>
+
+      </div>
+
+      <h3 class="section-title">Calendario de pagos</h3>
+
+      <div class="table-frame mat-elevation-z0">
+        <table mat-table [dataSource]="calendarioPagos" class="finance-table">
+
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef class="col-xs text-center"> # </th>
+            <td mat-cell *matCellDef="let element; let i = index" class="col-xs text-center text-muted">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef class="col-md"> Fecha Vencimiento </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="date-text">{{ formatearFecha(element.proximaCuotaStr) }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="montoCuota">
+            <th mat-header-cell *matHeaderCellDef class="col-md text-right"> Valor Cuota </th>
+            <td mat-cell *matCellDef="let element" class="col-md text-right">
+              <span class="mono-text">{{ formatearMoneda(element.abonadoCuota) }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="montoPendiente">
+            <th mat-header-cell *matHeaderCellDef class="col-md text-right"> Saldo Restante </th>
+            <td mat-cell *matCellDef="let element" class="col-md text-right">
+              <span class="mono-text" [class.debt-text]="element.montoPendiente > 0"
+                [class.zero-text]="element.montoPendiente === 0">
+                {{ formatearMoneda(element.montoPendiente) }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef class="col-sm text-center"> Estado </th>
+            <td mat-cell *matCellDef="let element" class="col-sm text-center">
+              <span class="badge" [ngClass]="element.estadoCuota === 'Pagado' ? 'badge-success' : 'badge-warning'">
+                {{ element.estadoCuota }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover-row"></tr>
+        </table>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer no-print">
+    <button mat-stroked-button (click)="imprimir()" class="btn-secondary">
+      <mat-icon>print</mat-icon> Imprimir
+    </button>
+    <button mat-flat-button color="primary" (click)="cerrar()" class="btn-primary">
+      Entendido
     </button>
   </mat-dialog-actions>
 

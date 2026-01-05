@@ -372,7 +372,7 @@
 
   <header class="page-header">
     <div class="header-left">
-      <h1 style="margin-bottom: 10px;" class="page-title">Pago de Créditos</h1>
+      <h1 style="margin-bottom: 10px;" class="page-title">Pago de créditos</h1>
       <p class="page-subtitle">Gestión de cobranza y estado de cuentas</p>
     </div>
   </header>
@@ -386,7 +386,7 @@
           <mat-icon>receipt_long</mat-icon>
         </div>
         <div class="card-data">
-          <span class="label">Total Créditos</span>
+          <span class="label">Total créditos</span>
           <h2 class="value">{{ dataSource.filteredData.length }}</h2>
         </div>
       </mat-card>
@@ -396,7 +396,7 @@
           <mat-icon>monetization_on</mat-icon>
         </div>
         <div class="card-data">
-          <span class="label">Monto Total</span>
+          <span class="label">Monto total</span>
           <h2 class="value">{{ formatearMoneda(calcularMontoTotal()) }}</h2>
         </div>
       </mat-card>
@@ -436,7 +436,7 @@
       <div class="filters-section">
 
         <div class="filter-group">
-          <span class="filter-label">Estado Crédito:</span>
+          <span class="filter-label">Estado crédito:</span>
           <div class="chip-group">
             <div class="chip" [class.active]="filtroEstadoCredito === 'Todos'"
               (click)="aplicarFiltroEstadoCredito('Todos')">Todos</div>
@@ -448,7 +448,7 @@
         </div>
 
         <div class="filter-group">
-          <span class="filter-label">Estado Cuota:</span>
+          <span class="filter-label">Estado cuota:</span>
           <div class="chip-group">
             <div class="chip" [class.active]="filtroEstadoCuota === 'Todos'"
               (click)="aplicarFiltroEstadoCuota('Todos')">Todos</div>
@@ -663,7 +663,7 @@
           </ng-container>
 
           <ng-container matColumnDef="eliminar" stickyEnd>
-            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> </th>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky">Eliminar crédito</th>
             <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
               <button mat-icon-button class="action-btn delete" (click)="eliminarCredito(element)"
                 matTooltip="Eliminar">
@@ -673,7 +673,7 @@
           </ng-container>
 
           <ng-container matColumnDef="registrarCredito" stickyEnd>
-            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> </th>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky">Registrar crédito</th>
             <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
               <button mat-icon-button class="action-btn primary" (click)="abrirModalCredito(element)"
                 matTooltip="Nuevo Crédito">

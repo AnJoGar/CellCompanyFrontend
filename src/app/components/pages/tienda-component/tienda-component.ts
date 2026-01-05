@@ -44,7 +44,7 @@ export class TiendaComponent {
     'fechaRegistro',
     'acciones',
     'eliminar',
-    
+
   ];
 
   ELEMENT_DATA: Tienda[] = [];
@@ -57,7 +57,7 @@ export class TiendaComponent {
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _tiendaService: TiendaService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarTiendas();
@@ -118,35 +118,66 @@ export class TiendaComponent {
   }
 
   eliminarTienda(tienda: Tienda) {
-    // LOG 1: Verificar qué objeto llega al hacer clic
-  console.log("--- Intento de eliminación ---");
-  console.log("Objeto tienda recibido:", tienda);
-  console.log("ID a enviar:", tienda.id);
     Swal.fire({
-      title: '¿Desea eliminar la tienda?',
-      text: tienda.nombreTienda,
+      title: '¿Eliminar Sucursal?',
+      html: `
+      <div style="text-align: left; font-size: 14px; color: #334155; line-height: 1.6;">
+        <p style="margin: 0;"><strong>Nombre:</strong> ${tienda.nombreTienda}</p>
+        <p style="margin: 0;"><strong>Encargado:</strong> ${tienda.nombreEncargado}</p>
+        <p style="margin: 0;"><strong>Dirección:</strong> <span style="color: #64748b;">${tienda.direccion || 'No registrada'}</span></p>
+      </div>
+      <p style="margin-top: 15px; font-size: 13px; color: #ef4444; font-weight: 500;">
+        ⚠️ Esta acción eliminará la tienda y podría afectar el historial asociado.
+      </p>
+    `,
       icon: 'warning',
-      confirmButtonColor: '#3085d6',
       showCancelButton: true,
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ef4444', // Rojo para acción destructiva
+      cancelButtonColor: '#94a3b8', // Gris neutro
       confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true, // Botón cancelar a la izquierda (Mejor UX)
+      focusCancel: true // Foco en cancelar por seguridad
     }).then(result => {
       if (result.isConfirmed) {
-        this._tiendaService.eliminarTienda(tienda.id).subscribe({
 
-          
+        // Feedback de carga
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Procesando solicitud',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        this._tiendaService.eliminarTienda(tienda.id).subscribe({
           next: (data) => {
             if (data.status) {
-              this._snackBar.open('La tienda fue eliminada', 'Éxito', { duration: 2000 });
+              Swal.fire({
+                title: '¡Eliminado!',
+                text: 'La sucursal ha sido eliminada correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#1e293b'
+              });
               this.cargarTiendas();
             } else {
-              this._snackBar.open('No se pudo eliminar la tienda', 'Error', { duration: 3000 });
+              Swal.fire({
+                title: 'Error',
+                text: data.msg || 'No se pudo eliminar la tienda.',
+                icon: 'error',
+                confirmButtonColor: '#1e293b'
+              });
             }
           },
           error: (e) => {
             console.error('Error:', e);
-            this._snackBar.open('Error al eliminar', 'Error', { duration: 3000 });
+            Swal.fire({
+              title: 'Error de Servidor',
+              text: 'Ocurrió un problema de conexión al intentar eliminar.',
+              icon: 'error',
+              confirmButtonColor: '#1e293b'
+            });
           }
         });
       }

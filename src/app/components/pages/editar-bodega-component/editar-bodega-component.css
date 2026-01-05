@@ -697,6 +697,129 @@
    margin-bottom: 10px;
  }
 
+ /* --- COLUMNA ACCIONES --- */
+ .header-actions {
+   width: 140px;
+   /* Espacio suficiente para 3 botones */
+   color: #1e293b;
+   font-weight: 700;
+ }
+
+ .action-buttons-group {
+   display: flex;
+   justify-content: center;
+   gap: 4px;
+ }
+
+ .action-btn {
+   width: 34px;
+   height: 34px;
+   line-height: 34px;
+   border-radius: 8px;
+   transition: all 0.2s ease;
+ }
+
+ .action-btn mat-icon {
+   font-size: 18px;
+   width: 18px;
+   height: 18px;
+ }
+
+ /* Colores Específicos */
+ .action-btn.info {
+   color: #0284c7;
+   /* Azul transporte */
+ }
+
+ .action-btn.info:hover {
+   background-color: #e0f2fe;
+ }
+
+ .action-btn.edit {
+   color: #64748b;
+   /* Gris azulado */
+ }
+
+ .action-btn.edit:hover {
+   background-color: #f1f5f9;
+   color: #334155;
+ }
+
+ .action-btn.delete {
+   color: #ef4444;
+   /* Rojo */
+ }
+
+ .action-btn.delete:hover {
+   background-color: #fef2f2;
+ }
+
+ /* Sticky Background Fix */
+ .bg-sticky {
+   background-color: white !important;
+   border-left: 1px solid #f1f5f9;
+   z-index: 100;
+ }
+
+ .table-row:hover .bg-sticky {
+   background-color: #f8fafc !important;
+   /* Mismo color hover de la fila */
+ }
+
+ /* --- COLORES DE BOTONES --- */
+
+ /* Trasladar (Naranja) */
+ .action-btn.transfer {
+   color: #d97706;
+   background-color: #fffbeb;
+ }
+
+ .action-btn.transfer:hover {
+   background-color: #fcd34d;
+   color: #b45309;
+ }
+
+ /* Editar (Azul) */
+ .action-btn.edit {
+   color: #3b82f6;
+   background-color: #eff6ff;
+ }
+
+ .action-btn.edit:hover {
+   background-color: #dbeafe;
+   color: #1d4ed8;
+ }
+
+ /* Eliminar (Rojo) */
+ .action-btn.delete {
+   color: #ef4444;
+   background-color: #fef2f2;
+ }
+
+ .action-btn.delete:hover {
+   background-color: #fee2e2;
+   color: #b91c1c;
+ }
+
+ /* Tamaño de botones unificado */
+ .action-btn {
+   width: 36px;
+   height: 36px;
+   line-height: 36px;
+   border-radius: 8px;
+   transition: all 0.2s ease;
+ }
+
+ .action-btn mat-icon {
+   font-size: 20px;
+   width: 20px;
+   height: 20px;
+ }
+
+ .mat-column-trasladar {
+   border-left: none !important;
+ }
+
  /* Responsive */
  @media (max-width: 768px) {
    .search-container {

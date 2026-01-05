@@ -1,22 +1,95 @@
-w {
-  background-color: yellow;
+/* Contenedor Principal */
+.confirm-container {
+  padding: 24px 32px 32px;
+  /* Espaciado interno generoso */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  /* Ancho máximo para que no se estire */
 }
 
-.btn-info {
-  background-color: #007bff;
-  color: #ffffff;
+/* Círculo del Icono */
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background-color: #fee2e2;
+  /* Fondo rojo muy suave */
+  color: #ef4444;
+  /* Icono rojo alerta */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.mat-raised-button.btn-info {
-  background-color: #00BCD4;
-  color: white;
-  border-color: #00BCD4;
+.icon-wrapper mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
 }
 
-.mat-raised-button.btn-info:hover {
-  background-color: #00A0CE; 
+/* Título */
+h2[mat-dialog-title] {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  /* Gris muy oscuro */
 }
 
-.mat-raised-button.btn-info:active {
-  background-color: #00838F;
+/* Texto Principal */
+.confirm-text {
+  font-size: 16px;
+  color: #374151;
+  margin: 0 0 8px 0;
+  line-height: 1.5;
+}
+
+.confirm-text strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Subtexto (Explicación) */
+.sub-text {
+  font-size: 13px;
+  color: #6b7280;
+  /* Gris medio */
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Botones */
+mat-dialog-actions {
+  margin-top: 24px;
+  margin-bottom: 0;
+  padding: 0;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-confirm {
+  min-width: 120px;
+  height: 44px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+  /* Sombra roja sutil */
+}
+
+.btn-cancel {
+  min-width: 100px;
+  height: 44px;
+  border-radius: 8px;
+  color: #6b7280;
+  border-color: #d1d5db;
+}
+
+.btn-cancel:hover {
+  background-color: #f9fafb;
+  color: #374151;
 }

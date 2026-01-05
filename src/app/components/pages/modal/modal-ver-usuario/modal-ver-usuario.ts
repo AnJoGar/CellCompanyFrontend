@@ -7,6 +7,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-modal-ver-usuario',
@@ -15,7 +18,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatDividerModule
   ],
   templateUrl: './modal-ver-usuario.html',
   styleUrl: './modal-ver-usuario.css',
@@ -30,7 +36,7 @@ export class ModalVerUsuario implements OnInit {
     private cdr: ChangeDetectorRef,
     public dialogRef: MatDialogRef<ModalVerUsuario>,
     @Inject(MAT_DIALOG_DATA) public data: { usuario: Usuario }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Ejecuta en el próximo ciclo usando Promise.resolve()

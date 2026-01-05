@@ -5,16 +5,18 @@ import { Usuario } from '../../../../interfaces/usuario';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-modal-eliminar-usuario',
-  imports: [CommonModule,     
+  imports: [CommonModule,
     MatDialogModule,  // Para que el HTML reconozca mat-dialog-content, etc.
-    MatButtonModule],
+    MatButtonModule,
+    MatIconModule],
   templateUrl: './modal-eliminar-usuario.html',
   styleUrl: './modal-eliminar-usuario.css',
 })
 export class ModalEliminarUsuario {
- constructor(
+  constructor(
     private dialogoReferencia: MatDialogRef<ModalEliminarUsuario>,
     @Inject(MAT_DIALOG_DATA) public usuarioEliminar: Usuario
   ) {
@@ -24,9 +26,9 @@ export class ModalEliminarUsuario {
   ngOnInit(): void {
   }
 
-   eliminarUsuario() {
-     if (this.usuarioEliminar) {
+  eliminarUsuario() {
+    if (this.usuarioEliminar) {
       this.dialogoReferencia.close('eliminar')
-     }
+    }
   }
 }

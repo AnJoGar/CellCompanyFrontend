@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Historial de Pagos Reales</h2>
+<!-- <h2 mat-dialog-title>Historial de Pagos Reales</h2>
 
 <mat-dialog-content>
   <div class="table-container">
@@ -36,4 +36,80 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close color="primary">Cerrar</button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">history_edu</mat-icon>
+      <div>
+        <h2>Historial de pagos</h2>
+        <span class="subtitle">Registro de transacciones realizadas</span>
+      </div>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div class="summary-card" *ngIf="dataSource.data.length > 0">
+      <div class="summary-icon">
+        <mat-icon>savings</mat-icon>
+      </div>
+      <div class="summary-info">
+        <label>Total Abonado en Historial</label>
+        <span class="total-amount">{{ totalPagado | currency }}</span>
+      </div>
+    </div>
+
+    <div class="table-wrapper mat-elevation-z0" *ngIf="dataSource.data.length > 0">
+      <table mat-table [dataSource]="dataSource" class="history-table">
+
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha Transacción </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="date-cell">
+              <mat-icon class="tiny-icon">calendar_today</mat-icon>
+              {{element.fechaPagoStr}}
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef class="text-right"> Monto Pagado </th>
+          <td mat-cell *matCellDef="let element" class="text-right">
+            <span class="money-text">{{element.montoPagado | currency}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="metodo">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Método </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <span class="method-badge">
+              <mat-icon class="badge-icon">{{ getIconoMetodo(element.metodoPago) }}</mat-icon>
+              {{element.metodoPago}}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+      </table>
+    </div>
+
+    <div *ngIf="dataSource.data.length === 0" class="empty-state">
+      <mat-icon>receipt_long</mat-icon>
+      <h3>Sin Movimientos</h3>
+      <p>Aún no se han registrado pagos para este crédito.</p>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="primary">Cerrar</button>
+  </mat-dialog-actions>
+
+</div>

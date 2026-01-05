@@ -1,5 +1,4 @@
-
-<h2 mat-dialog-title>{{accion}} Usuario</h2>
+<!-- <h2 mat-dialog-title>{{accion}} Usuario</h2>
 <mat-dialog-content>
   <form [formGroup]="formUsuario">
     <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
@@ -62,4 +61,84 @@
     <span *ngIf="!isLoading">{{accionBoton}}</span>
     <span *ngIf="isLoading">Procesando...</span>
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <h2 mat-dialog-title>{{accion}} Usuario</h2>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content">
+
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="spinner-box">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Procesando solicitud...</p>
+      </div>
+    </div>
+
+    <form [formGroup]="formUsuario" class="form-layout">
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre y Apellidos</mat-label>
+          <input matInput autocomplete="off" formControlName="nombreApellido" placeholder="Ej. Juan Pérez">
+          <mat-icon matPrefix>account_circle</mat-icon>
+          <mat-error *ngIf="formUsuario.get('nombreApellido')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput autocomplete="off" formControlName="correo" type="email" placeholder="ejemplo@correo.com">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="formUsuario.get('correo')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="clave"
+            placeholder="Ingrese una contraseña segura">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" type="button">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="formUsuario.get('clave')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="esActivo">
+            <mat-option value="1">
+              <span class="status-active">Activo</span>
+            </mat-option>
+            <mat-option value="0">
+              <span class="status-inactive">Inactivo</span>
+            </mat-option>
+          </mat-select>
+          <mat-icon matPrefix>toggle_on</mat-icon>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-actions">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+
+    <button mat-flat-button color="primary" [disabled]="formUsuario.invalid || isLoading"
+      (click)="agregarEditarUsuario()">
+      <span *ngIf="!isLoading">{{accionBoton}}</span>
+      <span *ngIf="isLoading">Procesando...</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

@@ -11,9 +11,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { TiendaService } from '../../../../services/Tienda-Service';
 import { Tienda } from '../../../../interfaces/Tienda';
+import { MatDivider } from "@angular/material/divider";
 @Component({
   selector: 'app-modal-tienda',
-  imports: [ CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatGridListModule,
@@ -22,12 +23,12 @@ import { Tienda } from '../../../../interfaces/Tienda';
     MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule],
+    MatSnackBarModule, MatDivider],
   templateUrl: './modal-tienda.html',
   styleUrl: './modal-tienda.css',
 })
-export class ModalTienda  implements OnInit {
- formTienda: FormGroup;
+export class ModalTienda implements OnInit {
+  formTienda: FormGroup;
   accion: string = 'Agregar';
   accionBoton: string = 'Guardar';
   isLoading: boolean = false;
@@ -45,7 +46,7 @@ export class ModalTienda  implements OnInit {
       nombreEncargado: ['', Validators.required],
       cedulaEncargado: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-       //id: ['', Validators.required],
+      //id: ['', Validators.required],
       // fechaRegistro: ['', Validators.required]
     });
 
@@ -76,7 +77,7 @@ export class ModalTienda  implements OnInit {
     }
 
     const tienda: Tienda = {
-     id: this.tiendaEditar == null ? 0 : this.tiendaEditar.id,
+      id: this.tiendaEditar == null ? 0 : this.tiendaEditar.id,
       nombreTienda: this.formTienda.value.nombreTienda,
       direccion: this.formTienda.value.direccion,
       nombreEncargado: this.formTienda.value.nombreEncargado,

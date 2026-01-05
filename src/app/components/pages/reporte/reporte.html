@@ -605,7 +605,7 @@
             </ng-container>
 
             <ng-container matColumnDef="registrarCredito" stickyEnd>
-              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Nuevo </th>
+              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Nuevo crédito</th>
               <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
                 <button mat-icon-button class="action-btn primary" (click)="abrirModalCredito(element)"
                   matTooltip="Registrar Nuevo Crédito">
@@ -615,7 +615,7 @@
             </ng-container>
 
             <ng-container matColumnDef="eliminar" stickyEnd>
-              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> </th>
+              <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky">Eliminar crédito</th>
               <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
                 <button mat-icon-button class="action-btn delete" (click)="eliminarCredito(element)"
                   matTooltip="Eliminar">

@@ -1,4 +1,4 @@
-.header-info {
+/* .header-info {
   background: #f8f9fa;
   padding: 10px;
   border-radius: 4px;
@@ -8,10 +8,10 @@
 .loading-container, .no-data {
   text-align: center;
   padding: 30px;
-}
+} */
 
 /* Timeline Style */
-.timeline {
+/* .timeline {
   position: relative;
   padding: 20px 0;
   list-style: none;
@@ -69,4 +69,330 @@
 .tipo { font-weight: bold; color: #17789e; }
 .fecha { font-size: 0.85rem; color: #666; }
 .usuario { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 4px; }
-.obs { background: #fffde7; padding: 5px; border-radius: 4px; font-size: 0.9rem; margin-top: 5px; }
+.obs { background: #fffde7; padding: 5px; border-radius: 4px; font-size: 0.9rem; margin-top: 5px; } */
+
+/* --- LAYOUT GLOBAL --- */
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+}
+
+/* --- HEADER --- */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  color: #17789e;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.close-btn {
+  color: #94a3b8;
+}
+
+.close-btn:hover {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+/* --- CONTENIDO --- */
+.modal-content-scroll {
+  padding: 24px !important;
+  overflow-y: auto;
+  background-color: #f8fafc;
+}
+
+/* Resumen Producto */
+.product-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.summary-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background-color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+
+.summary-details h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.codes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge-code {
+  font-family: monospace;
+  font-size: 12px;
+  background-color: #eff6ff;
+  color: #1e40af;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #dbeafe;
+}
+
+.badge-code.secondary {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border-color: #e5e7eb;
+}
+
+/* --- TIMELINE --- */
+.timeline-container {
+  padding-left: 10px;
+  /* Espacio para los marcadores */
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 40px;
+  /* Espacio desde el marcador al contenido */
+  margin-bottom: 24px;
+}
+
+/* Línea Conectora */
+.timeline-line {
+  position: absolute;
+  left: 14px;
+  /* Centrado con el marcador (30px / 2 - 1px) */
+  top: 30px;
+  bottom: -30px;
+  /* Conecta con el siguiente */
+  width: 2px;
+  background-color: #e2e8f0;
+  z-index: 0;
+}
+
+/* Marcador (Círculo) */
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background-color: white;
+  border: 2px solid #cbd5e1;
+  color: #64748b;
+}
+
+.timeline-marker mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Estilos de Marcador por Tipo */
+.timeline-marker.traslado {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.timeline-marker.ingreso {
+  border-color: #10b981;
+  color: #10b981;
+  background-color: #ecfdf5;
+}
+
+.timeline-marker.salida {
+  border-color: #f59e0b;
+  color: #f59e0b;
+  background-color: #fffbeb;
+}
+
+/* Tarjeta del Evento */
+.timeline-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.card-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fcfcfc;
+}
+
+.mov-type {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mov-type.traslado {
+  color: #2563eb;
+}
+
+.mov-type.ingreso {
+  color: #059669;
+}
+
+.mov-type.salida {
+  color: #d97706;
+}
+
+.mov-date {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+/* Ruta (Origen -> Destino) */
+.route-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  background-color: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+}
+
+.point .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.point strong {
+  font-size: 13px;
+  color: #334155;
+}
+
+.arrow-icon {
+  color: #cbd5e1;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Usuario */
+.meta-info {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #64748b;
+  background-color: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.user-badge mat-icon {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+/* Observación */
+.observation {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.observation mat-icon {
+  color: #f59e0b;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.observation p {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* States */
+.state-box {
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.state-box.empty mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+
+/* Footer */
+.modal-footer {
+  padding: 16px 24px;
+  background-color: white;
+  border-top: 1px solid #e0e0e0;
+}

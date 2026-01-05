@@ -15,33 +15,35 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { MAT_DIALOG_DATA,  } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, } from '@angular/material/dialog';
 @Component({
   selector: 'app-modal-registro-completo',
-  imports: [CommonModule, 
-    ReactiveFormsModule, 
+  imports: [CommonModule,
+    ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './modal-registro-completo.html',
   styleUrl: './modal-registro-completo.css',
 })
 export class ModalRegistroCompleto implements OnInit {
-formUsuario: FormGroup;
+  formUsuario: FormGroup;
   formCliente: FormGroup;
   formCredito: FormGroup;
   isLoading = false;
-tituloAccion: string = "Agregar";
+  tituloAccion: string = "Agregar";
 
   botonAccion: string = "Guardar";
   constructor(
@@ -66,9 +68,9 @@ tituloAccion: string = "Agregar";
       direccion: ['', Validators.required],
       cedulaEncargado: ['', Validators.required],
       estadoDeComision: ['', Validators.required],
-      
-  // 🔥 AGREGA ESTA LÍNEA:
-  nombrePropietario: ['']// Para TiendaApps
+
+      // 🔥 AGREGA ESTA LÍNEA:
+      nombrePropietario: ['']// Para TiendaApps
     });
 
     // Paso 3: Crédito
@@ -91,7 +93,7 @@ tituloAccion: string = "Agregar";
   ngOnInit(): void {
 
 
-if (this.data && this.data.usuario) {
+    if (this.data && this.data.usuario) {
       const u = this.data.usuario; // Alias para acortar el código
       this.tituloAccion = "Editar";
       this.botonAccion = "Actualizar";
@@ -112,7 +114,7 @@ if (this.data && this.data.usuario) {
           direccion: u.cliente.detalleCliente?.direccion,
           nombrePropietario: u.cliente.detalleCliente?.nombrePropietario,
           cedulaEncargado: u.cliente.tiendaApps?.[0]?.cedulaEncargado,
-            estadoDeComision: u.cliente.tiendaApps?.[0]?.estadoDeComision // Sacamos el valor del array
+          estadoDeComision: u.cliente.tiendaApps?.[0]?.estadoDeComision // Sacamos el valor del array
         });
 
         // 5. RELLENAR FORMULARIO CRÉDITO (Sacamos datos del primer crédito)
@@ -134,75 +136,76 @@ if (this.data && this.data.usuario) {
 
   }
 
-registrarTodo() {
+  registrarTodo() {
     if (this.formUsuario.invalid || this.formCliente.invalid || this.formCredito.invalid) {
       this.mostrarAlerta("Por favor, complete todos los campos obligatorios", "Validación");
       return;
     }
 
-   // this.isLoading = true;
+    // this.isLoading = true;
     const fechaISO = new Date().toISOString();
-    
+
     // Cálculos de montos
     const total = Number(this.formCredito.value.montoTotal);
     const entrada = Number(this.formCredito.value.entrada);
     const pendiente = total - entrada;
 
-   const usuarioDTO = {
-    id: this.data?.usuario?.id || 0,
-    nombreApellidos: this.formUsuario.value.nombreApellidos,
-    correo: this.formUsuario.value.correo,
-    rolId: Number(this.formUsuario.value.rolId),
-    rolDescripcion: "",
-    clave: this.formUsuario.value.clave,
-    esActivo: 1,
-    cliente: {
-     id: this.data?.usuario?.cliente?.id || 0,
-     usuarioId: this.data?.usuario?.id || 0,
-     detalleClienteID: this.data?.usuario?.cliente?.detalleClienteID || 0,
-      detalleCliente: {
-       id: this.data?.usuario?.cliente?.detalleCliente?.id || 0,
-        numeroCedula: this.formCliente.value.numeroCedula,
-        nombreApellidos: this.formUsuario.value.nombreApellidos,
-        nombrePropietario: this.formCliente.value.nombrePropietario || "", // 👈 Agregado
-        telefono: this.formCliente.value.telefono,
-        direccion: this.formCliente.value.direccion
-      },
-      tiendaApps: [{
-       id: this.data?.usuario?.cliente?.tiendaApps?.[0]?.id || 0,
-        cedulaEncargado: this.formCliente.value.cedulaEncargado,
-        estadoDeComision:this.formCliente.value.estadoDeComision,
-        fechaRegistro: fechaISO,
-        clienteId: 0
-      }],
-      creditos: [{
-       id: this.data?.usuario?.cliente?.creditos?.[0]?.id || 0,
-        entrada: Number(this.formCredito.value.entrada),
-        montoTotal: Number(this.formCredito.value.montoTotal),
-        montoPendiente: Number(this.formCredito.value.montoTotal) - Number(this.formCredito.value.entrada),
-        plazoCuotas: Number(this.formCredito.value.plazoCuotas),
-        frecuenciaPago: this.formCredito.value.frecuenciaPago || "Semanal", // 👈 ESTE FALTABA
-        diaPago: fechaISO,
-        valorPorCuota: 0,
-        proximaCuota: fechaISO,
-        proximaCuotaStr: "",
-        estado: "Activo",
-        metodoPago: "Efectivo",
-        marca: this.formCredito.value.marca,
-        modelo: this.formCredito.value.modelo,
-        imei: this.formCredito.value.imei,
-        tipoProducto: "Celular",
-        capacidad: Number(this.formCredito.value.capacidad) || 0,
-        abonadoTotal: 0,
-        abonadoCuota: 0,
-        estadoCuota: "Pendiente",
-        fechaCreacion: fechaISO,
-        clienteId: 0,
-        tiendaAppId: 0
-      }]
-    }
-  };
-this.isLoading = true;
+    const usuarioDTO = {
+      id: this.data?.usuario?.id || 0,
+      nombreApellidos: this.formUsuario.value.nombreApellidos,
+      correo: this.formUsuario.value.correo,
+      rolId: Number(this.formUsuario.value.rolId),
+      rolDescripcion: "",
+      clave: this.formUsuario.value.clave,
+      esActivo: 1,
+      cliente: {
+        id: this.data?.usuario?.cliente?.id || 0,
+        usuarioId: this.data?.usuario?.id || 0,
+        detalleClienteID: this.data?.usuario?.cliente?.detalleClienteID || 0,
+        detalleCliente: {
+          id: this.data?.usuario?.cliente?.detalleCliente?.id || 0,
+          numeroCedula: this.formCliente.value.numeroCedula,
+          nombreApellidos: this.formUsuario.value.nombreApellidos,
+          //nombrePropietario: this.formCliente.value.nombrePropietario || "", // 👈 Agregado
+          telefono: this.formCliente.value.telefono,
+          direccion: this.formCliente.value.direccion
+        },
+        tiendaApps: [{
+          id: this.data?.usuario?.cliente?.tiendaApps?.[0]?.id || 0,
+          cedulaEncargado: this.formCliente.value.cedulaEncargado,
+          estadoDeComision: this.formCliente.value.estadoDeComision,
+          fechaRegistro: fechaISO,
+          clienteId: 0
+        }],
+        creditos: [{
+          id: this.data?.usuario?.cliente?.creditos?.[0]?.id || 0,
+          nombrePropietario: this.formCliente.value.nombrePropietario || "", // 👈 Agregado
+          entrada: Number(this.formCredito.value.entrada),
+          montoTotal: Number(this.formCredito.value.montoTotal),
+          montoPendiente: Number(this.formCredito.value.montoTotal) - Number(this.formCredito.value.entrada),
+          plazoCuotas: Number(this.formCredito.value.plazoCuotas),
+          frecuenciaPago: this.formCredito.value.frecuenciaPago || "Semanal", // 👈 ESTE FALTABA
+          diaPago: fechaISO,
+          valorPorCuota: 0,
+          proximaCuota: fechaISO,
+          proximaCuotaStr: "",
+          estado: "Activo",
+          metodoPago: "Efectivo",
+          marca: this.formCredito.value.marca,
+          modelo: this.formCredito.value.modelo,
+          imei: this.formCredito.value.imei,
+          tipoProducto: "Celular",
+          capacidad: Number(this.formCredito.value.capacidad) || 0,
+          abonadoTotal: 0,
+          abonadoCuota: 0,
+          estadoCuota: "Pendiente",
+          fechaCreacion: fechaISO,
+          clienteId: 0,
+          tiendaAppId: 0
+        }]
+      }
+    };
+    this.isLoading = true;
 
     if (this.data && this.data.usuario) {
       // LLAMAR A EDITAR

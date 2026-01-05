@@ -1,37 +1,37 @@
-<h2 mat-dialog-title>{{accion}} Tienda</h2>
+<!-- <h2 mat-dialog-title>{{accion}} Tienda</h2>
 <mat-dialog-content>
   <form [formGroup]="formTienda">
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
-      
-      <!-- Nombre Tienda -->
-      <mat-grid-tile>
+    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px"> -->
+
+<!-- Nombre Tienda -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Nombre de la Tienda</mat-label>
           <input matInput autocomplete="off" formControlName="nombreTienda">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">store</mat-icon>
         </mat-form-field>
-      </mat-grid-tile>
-      
-      <!-- Dirección -->
-      <mat-grid-tile>
+      </mat-grid-tile> -->
+
+<!-- Dirección -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Dirección</mat-label>
           <input matInput autocomplete="off" formControlName="direccion">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">location_on</mat-icon>
         </mat-form-field>
-      </mat-grid-tile>
-      
-      <!-- Nombre Encargado -->
-      <mat-grid-tile>
+      </mat-grid-tile> -->
+
+<!-- Nombre Encargado -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Nombre del Encargado</mat-label>
           <input matInput autocomplete="off" formControlName="nombreEncargado">
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">person</mat-icon>
         </mat-form-field>
-      </mat-grid-tile>
-      
-      <!-- Cédula -->
-      <mat-grid-tile>
+      </mat-grid-tile> -->
+
+<!-- Cédula -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Cédula del Encargado</mat-label>
           <input matInput autocomplete="off" formControlName="cedulaEncargado" maxlength="10">
@@ -40,10 +40,10 @@
             La cédula debe tener 10 dígitos
           </mat-error>
         </mat-form-field>
-      </mat-grid-tile>
-      
-      <!-- Teléfono -->
-      <mat-grid-tile [colspan]="2">
+      </mat-grid-tile> -->
+
+<!-- Teléfono -->
+<!-- <mat-grid-tile [colspan]="2">
         <mat-form-field appearance="outline">
           <mat-label>Teléfono</mat-label>
           <input matInput autocomplete="off" formControlName="telefono" maxlength="10">
@@ -73,4 +73,90 @@
     <span *ngIf="!isLoading">{{accionBoton}}</span>
     <span *ngIf="isLoading">Procesando...</span>
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">{{ accion === 'Editar' ? 'store_mall_directory' : 'add_business' }}</mat-icon>
+      <h2>{{accion}} Tienda</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn" [disabled]="isLoading">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="spinner-box">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Guardando información...</p>
+      </div>
+    </div>
+
+    <form [formGroup]="formTienda" class="form-layout">
+
+      <div class="form-section">
+        <h3 class="section-title">Información de la sucursal</h3>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre comercial</mat-label>
+          <input matInput autocomplete="off" formControlName="nombreTienda" placeholder="Ej. Sucursal Centro">
+          <mat-icon matPrefix>storefront</mat-icon>
+          <mat-error *ngIf="formTienda.get('nombreTienda')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección física</mat-label>
+          <input matInput autocomplete="off" formControlName="direccion" placeholder="Calle Principal #123">
+          <mat-icon matPrefix>place</mat-icon>
+          <mat-error *ngIf="formTienda.get('direccion')?.hasError('required')">Requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <div class="form-section">
+        <h3 class="section-title">Contacto y responsable</h3>
+
+        <div class="input-row">
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Nombre encargado</mat-label>
+            <input matInput autocomplete="off" formControlName="nombreEncargado" placeholder="Juan Pérez">
+            <mat-icon matPrefix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Cédula</mat-label>
+            <input matInput autocomplete="off" formControlName="cedulaEncargado" maxlength="10"
+              placeholder="10 dígitos">
+            <mat-icon matPrefix>badge</mat-icon>
+            <mat-error *ngIf="formTienda.get('cedulaEncargado')?.hasError('pattern')">10 dígitos requeridos</mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono de contacto</mat-label>
+          <input matInput autocomplete="off" formControlName="telefono" maxlength="10" placeholder="0991234567">
+          <mat-icon matPrefix>phone_iphone</mat-icon>
+          <mat-error *ngIf="formTienda.get('telefono')?.hasError('pattern')">10 dígitos requeridos</mat-error>
+        </mat-form-field>
+      </div>
+
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+    <button mat-flat-button color="primary" class="btn-save" [disabled]="formTienda.invalid || isLoading"
+      (click)="agregarEditarTienda()">
+      <mat-icon *ngIf="!isLoading">save</mat-icon>
+      <span *ngIf="!isLoading">{{accionBoton}}</span>
+      <span *ngIf="isLoading">Procesando...</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

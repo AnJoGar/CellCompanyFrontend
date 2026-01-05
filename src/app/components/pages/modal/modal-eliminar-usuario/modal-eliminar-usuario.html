@@ -1,9 +1,27 @@
+<div class="confirm-container">
 
-<h1 mat-dialog-title>Eliminar Usuario</h1>
-<div mat-dialog-content>
-  ¿Desea eliminar el usuario "{{usuarioEliminar.nombreApellidos}}"?
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close>No,volver</button>
-  <button mat-raised-button style="background-color:goldenrod" cdkFocusInitial (click)="eliminarUsuario()">Si, eliminar</button>
+  <div class="icon-wrapper">
+    <mat-icon>warning_amber</mat-icon>
+  </div>
+
+  <h2 mat-dialog-title>¿Eliminar Usuario?</h2>
+
+  <mat-dialog-content>
+    <p class="confirm-text">
+      Estás a punto de eliminar a <strong>{{usuarioEliminar.nombreApellidos}}</strong>.
+    </p>
+    <p class="sub-text">
+      Esta acción eliminará el acceso del usuario al sistema de forma permanente.
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <button mat-stroked-button mat-dialog-close class="btn-cancel">
+      Cancelar
+    </button>
+    <button mat-flat-button color="warn" (click)="eliminarUsuario()" class="btn-confirm" cdkFocusInitial>
+      Sí, Eliminar
+    </button>
+  </mat-dialog-actions>
+
 </div>

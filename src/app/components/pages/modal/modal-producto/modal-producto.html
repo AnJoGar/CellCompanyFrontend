@@ -1,10 +1,10 @@
-<h2 mat-dialog-title>{{accion}} Producto en Bodega</h2>
+<!-- <h2 mat-dialog-title>{{accion}} Producto en Bodega</h2>
 
 <mat-dialog-content>
-  <form [formGroup]="formulario">
-    
-    <!-- Grid 1: Tipo de Producto (ocupa 2 columnas) -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+  <form [formGroup]="formulario"> -->
+
+<!-- Grid 1: Tipo de Producto (ocupa 2 columnas) -->
+<!-- <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile [colspan]="2">
         <mat-form-field appearance="outline">
           <mat-label>Tipo de Producto</mat-label>
@@ -16,10 +16,10 @@
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Grid 2: Marca y Modelo -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+<!-- Grid 2: Marca y Modelo -->
+<!-- <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Marca</mat-label>
@@ -35,10 +35,10 @@
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">category</mat-icon>
         </mat-form-field>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Grid 3: IMEI y Serie -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+<!-- Grid 3: IMEI y Serie -->
+<!-- <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>IMEI </mat-label>
@@ -54,10 +54,10 @@
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">tag</mat-icon>
         </mat-form-field>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Grid 4: Color y Tamaño -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+<!-- Grid 4: Color y Tamaño -->
+<!-- <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Color</mat-label>
@@ -73,10 +73,10 @@
           <mat-icon matSuffix style="font-size: 24px; color: lightblue;">straighten</mat-icon>
         </mat-form-field>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Grid 5: Estado (ocupa 2 columnas) -->
-    <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+<!-- Grid 5: Estado (ocupa 2 columnas) -->
+<!-- <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile [colspan]="2">
         <mat-form-field appearance="outline">
           <mat-label>Estado</mat-label>
@@ -88,10 +88,10 @@
           </mat-select>
         </mat-form-field>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Grid 6: Precios -->
-    <mat-grid-list cols="1" rowHeight="80px" gutterSize="10px">
+<!-- Grid 6: Precios -->
+<!-- <mat-grid-list cols="1" rowHeight="80px" gutterSize="10px">
       <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Precio</mat-label>
@@ -103,19 +103,19 @@
       </mat-grid-tile>
 
  
-    </mat-grid-list>
+    </mat-grid-list> -->
 
-    <!-- Información adicional si es edición -->
-    <div *ngIf="datosProducto != null" class="info-box">
+<!-- Información adicional si es edición -->
+<!-- <div *ngIf="datosProducto != null" class="info-box">
       <p><strong>Código:</strong> {{datosProducto.codigo}}</p>
       <p><strong>Fecha Ingreso:</strong> {{datosProducto.fechaIngreso | date: 'dd/MM/yyyy'}}</p>
       <p><strong>Días en Bodega:</strong> {{datosProducto.diasEnBodega}} días</p>
     </div>
 
-  </form>
+  </form> -->
 
-  <!-- Spinner de carga -->
-  <div *ngIf="isLoading" class="loading-overlay">
+<!-- Spinner de carga -->
+<!-- <div *ngIf="isLoading" class="loading-overlay">
     <mat-spinner diameter="50"></mat-spinner>
     <p>Guardando producto...</p>
   </div>
@@ -132,4 +132,130 @@
     <span *ngIf="!isLoading">{{accionBoton}}</span>
     <span *ngIf="isLoading">Procesando...</span>
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">{{ accion === 'Editar' ? 'edit' : 'add_box' }}</mat-icon>
+      <h2>{{accion}} producto</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn" [disabled]="isLoading">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="spinner-box">
+        <mat-spinner diameter="50"></mat-spinner>
+        <p>Guardando cambios...</p>
+      </div>
+    </div>
+
+    <div *ngIf="datosProducto" class="meta-box">
+      <div class="meta-item">
+        <span class="label">Código sistema</span>
+        <span class="value code">{{datosProducto.codigo}}</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Ingreso</span>
+        <span class="value">{{datosProducto.fechaIngreso | date: 'dd/MM/yyyy'}}</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Antigüedad</span>
+        <span class="value">{{datosProducto.diasEnBodega}} días</span>
+      </div>
+    </div>
+
+    <form [formGroup]="formulario" class="form-grid">
+
+      <div class="section-label">Identificación del Producto</div>
+
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Tipo de producto</mat-label>
+        <mat-select formControlName="tipoProducto">
+          <mat-option *ngFor="let tipo of tiposProducto" [value]="tipo">
+            {{tipo}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>devices_other</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Marca</mat-label>
+        <input matInput autocomplete="off" formControlName="marca" placeholder="Ej: Samsung">
+        <mat-icon matPrefix>branding_watermark</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <input matInput autocomplete="off" formControlName="modelo" placeholder="Ej: Galaxy S23">
+        <mat-icon matPrefix>smartphone</mat-icon>
+      </mat-form-field>
+
+      <div class="section-label">Especificaciones Técnicas</div>
+
+      <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>IMEI / Serial</mat-label>
+        <input matInput autocomplete="off" formControlName="imei" placeholder="Número único de identificación">
+        <mat-icon matPrefix>fingerprint</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Capacidad / Serie</mat-label>
+        <input matInput autocomplete="off" formControlName="serie" placeholder="Ej. 128GB / Serie XYZ">
+        <mat-icon matPrefix>memory</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Color</mat-label>
+        <input matInput autocomplete="off" formControlName="color" placeholder="Ej: Negro Phantom">
+        <mat-icon matPrefix>palette</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tamaño</mat-label>
+        <input matInput autocomplete="off" formControlName="tamano" placeholder="Ej: 6.1 pulgadas">
+        <mat-icon matPrefix>aspect_ratio</mat-icon>
+      </mat-form-field>
+
+      <div class="section-label">Inventario y Costos</div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado físico</mat-label>
+        <mat-select formControlName="estado">
+          <mat-option *ngFor="let estado of estadosProducto" [value]="estado">
+            <div class="status-option">
+              <span class="status-dot"
+                [ngClass]="{'new': estado === 'Nuevo', 'repair': estado === 'En Reparación'}"></span>
+              {{estado}}
+            </div>
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix>verified</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Precio de compra</mat-label>
+        <span matPrefix>$&nbsp;</span>
+        <input matInput type="number" formControlName="precioCompra" class="price-input" placeholder="0.00" min="0">
+      </mat-form-field>
+
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+    <button mat-flat-button color="primary" class="btn-save" [disabled]="formulario.invalid || isLoading"
+      (click)="agregarEditarProducto()">
+      <mat-icon *ngIf="!isLoading">save</mat-icon>
+      <span *ngIf="!isLoading">{{accionBoton}}</span>
+      <span *ngIf="isLoading">Procesando...</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

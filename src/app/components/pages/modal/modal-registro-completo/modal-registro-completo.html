@@ -1,4 +1,4 @@
-<h2 mat-dialog-title style="color: #17789e; border-bottom: 2px solid #17789e;">
+<!-- <h2 mat-dialog-title style="color: #17789e; border-bottom: 2px solid #17789e;">
   <mat-icon style="vertical-align: middle; margin-right: 8px;">person_add</mat-icon>
   Registro Integral de Cliente y Crédito
 </h2>
@@ -120,4 +120,178 @@
     <mat-icon *ngIf="!isLoading">save</mat-icon>
     {{ isLoading ? 'Guardando...' : 'Finalizar Registro' }}
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">add_task</mat-icon>
+      <h2>Registro completo</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div class="form-section">
+      <div class="section-header">
+        <mat-icon>account_circle</mat-icon>
+        <h3>Datos de Cuenta</h3>
+      </div>
+      <form [formGroup]="formUsuario" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombres y apellidos</mat-label>
+          <input matInput formControlName="nombreApellidos" placeholder="Ej. Carlos Ruiz">
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correo" type="email" placeholder="carlos@email.com">
+          <mat-icon matPrefix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="clave" type="password">
+          <mat-icon matPrefix>lock</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Rol de Usuario</mat-label>
+          <mat-select formControlName="rolId">
+            <mat-option [value]="2">Cliente</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>admin_panel_settings</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <mat-divider class="section-divider"></mat-divider>
+
+    <div class="form-section">
+      <div class="section-header">
+        <mat-icon>badge</mat-icon>
+        <h3>Información del cliente y tienda</h3>
+      </div>
+      <form [formGroup]="formCliente" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Cédula cliente</mat-label>
+          <input matInput formControlName="numeroCedula" maxlength="10">
+          <mat-icon matPrefix>fingerprint</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono">
+          <mat-icon matPrefix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cédula encargado de la tienda</mat-label>
+          <input matInput formControlName="cedulaEncargado">
+          <mat-icon matPrefix>supervisor_account</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estado comisión</mat-label>
+          <mat-select formControlName="estadoDeComision">
+            <mat-option value="Pendiente">Pendiente</mat-option>
+            <mat-option value="Pagado">Pagado</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>payments</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre propietario del crédito</mat-label>
+          <input matInput formControlName="nombrePropietario">
+          <mat-icon matPrefix>person_pin</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección domiciliaria</mat-label>
+          <input matInput formControlName="direccion">
+          <mat-icon matPrefix>home</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <mat-divider class="section-divider"></mat-divider>
+
+    <div class="form-section">
+      <div class="section-header">
+        <mat-icon>shopping_bag</mat-icon>
+        <h3>Detalles del crédito</h3>
+      </div>
+      <form [formGroup]="formCredito" class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Monto total</mat-label>
+          <span matPrefix>$&nbsp;</span>
+          <input matInput type="number" formControlName="montoTotal">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Entrada inicial</mat-label>
+          <span matPrefix>$&nbsp;</span>
+          <input matInput type="number" formControlName="entrada">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marca</mat-label>
+          <input matInput formControlName="marca">
+          <mat-icon matPrefix>branding_watermark</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Modelo</mat-label>
+          <input matInput formControlName="modelo">
+          <mat-icon matPrefix>smartphone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>IMEI</mat-label>
+          <input matInput formControlName="imei">
+          <mat-icon matPrefix>qr_code</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Capacidad (GB)</mat-label>
+          <input matInput type="number" formControlName="capacidad">
+          <span matSuffix>GB</span>
+          <mat-icon matPrefix>sd_storage</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Plazo (Cuotas)</mat-label>
+          <input matInput type="number" formControlName="plazoCuotas">
+          <mat-icon matPrefix>calendar_today</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Frecuencia pago</mat-label>
+          <mat-select formControlName="frecuenciaPago">
+            <mat-option value="Semanal">Semanal</mat-option>
+            <mat-option value="Quincenal">Quincenal</mat-option>
+            <mat-option value="Mensual">Mensual</mat-option>
+          </mat-select>
+          <mat-icon matPrefix>update</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+    <button mat-flat-button color="primary" class="btn-save" (click)="registrarTodo()"
+      [disabled]="isLoading || formUsuario.invalid || formCliente.invalid || formCredito.invalid">
+      <mat-icon *ngIf="!isLoading">save</mat-icon>
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner-white"></mat-spinner>
+      <span>{{ isLoading ? 'Guardando...' : 'Finalizar Registro' }}</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

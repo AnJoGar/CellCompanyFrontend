@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-modal-agregar-credito-component',
@@ -33,7 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDivider
   ],
   templateUrl: './modal-agregar-credito-component.html',
   styleUrl: './modal-agregar-credito-component.css',
@@ -99,42 +101,42 @@ export class ModalAgregarCreditoComponent implements OnInit, AfterViewInit {
     if (this.formCredito.invalid) return;
 
     // 3. Construcción del objeto igual que el de Usuario
-   const fechaHoy = new Date().toISOString(); // Formato ISO para C# DateTime
-const idDelCliente = this.datos.clienteId || this.datos.id || 0; 
+    const fechaHoy = new Date().toISOString(); // Formato ISO para C# DateTime
+    const idDelCliente = this.datos.clienteId || this.datos.id || 0;
 
-  if (!idDelCliente || isNaN(idDelCliente)) {
-    this.mostrarAlerta("Error: No se encontró el ID del cliente", "Error");
-    console.error("Los datos recibidos en el modal son:", this.datos);
-    return;
-  }
-  const _credito: any = {
-    id: this.datos.creditoEditar == null ? 0 : this.datos.creditoEditar.id,
-    montoTotal: Number(this.formCredito.value.montoTotal),
-    entrada: Number(this.formCredito.value.entrada),
-    plazoCuotas: Number(this.formCredito.value.plazoCuotas),
-    frecuenciaPago: this.formCredito.value.frecuenciaPago,
-    diaPago: new Date(this.formCredito.value.diaPago).toISOString(),
-    marca: this.formCredito.value.marca,
-    modelo: this.formCredito.value.modelo,
-    imei: this.formCredito.value.imei,
-    tipoProducto: this.formCredito.value.tipoProducto,
-    capacidad: Number(this.formCredito.value.capacidad),
-    metodoPago: this.formCredito.value.metodoPago,
-    ClienteId: Number(idDelCliente),
-    
-    // CAMPOS OBLIGATORIOS PARA EL DTO DE C# (Bad Request si faltan)
-    montoPendiente: 0,
-    valorPorCuota: 0,
-    proximaCuota: fechaHoy, // C# requiere un DateTime válido
-    proximaCuotaStr: "",
-    estado: "Activo",
-    abonadoTotal: 0,
-    abonadoCuota: 0,
-    estadoCuota: "Pendiente",
-    fechaCreacion: fechaHoy, // Agregado: Es requerido en tu DTO
-    tiendaAppId: this.datos.tiendaAppId || null
-  };
-  console.log("OBJETO ENVIADO A LA API:", _credito); // R
+    if (!idDelCliente || isNaN(idDelCliente)) {
+      this.mostrarAlerta("Error: No se encontró el ID del cliente", "Error");
+      console.error("Los datos recibidos en el modal son:", this.datos);
+      return;
+    }
+    const _credito: any = {
+      id: this.datos.creditoEditar == null ? 0 : this.datos.creditoEditar.id,
+      montoTotal: Number(this.formCredito.value.montoTotal),
+      entrada: Number(this.formCredito.value.entrada),
+      plazoCuotas: Number(this.formCredito.value.plazoCuotas),
+      frecuenciaPago: this.formCredito.value.frecuenciaPago,
+      diaPago: new Date(this.formCredito.value.diaPago).toISOString(),
+      marca: this.formCredito.value.marca,
+      modelo: this.formCredito.value.modelo,
+      imei: this.formCredito.value.imei,
+      tipoProducto: this.formCredito.value.tipoProducto,
+      capacidad: Number(this.formCredito.value.capacidad),
+      metodoPago: this.formCredito.value.metodoPago,
+      ClienteId: Number(idDelCliente),
+
+      // CAMPOS OBLIGATORIOS PARA EL DTO DE C# (Bad Request si faltan)
+      montoPendiente: 0,
+      valorPorCuota: 0,
+      proximaCuota: fechaHoy, // C# requiere un DateTime válido
+      proximaCuotaStr: "",
+      estado: "Activo",
+      abonadoTotal: 0,
+      abonadoCuota: 0,
+      estadoCuota: "Pendiente",
+      fechaCreacion: fechaHoy, // Agregado: Es requerido en tu DTO
+      tiendaAppId: this.datos.tiendaAppId || null
+    };
+    console.log("OBJETO ENVIADO A LA API:", _credito); // R
 
     this.isLoading = true;
 

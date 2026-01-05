@@ -1,9 +1,9 @@
 <!-- components/pages/modal/modal-pago-credito/modal-pago-credito.html -->
-<h2 mat-dialog-title>{{accion}}</h2>
+<!-- <h2 mat-dialog-title>{{accion}}</h2> -->
 
-<mat-dialog-content>
-  <!-- Información del crédito -->
-  <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+<!-- <mat-dialog-content> -->
+<!-- Información del crédito -->
+<!-- <div style="background-color: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
     <p style="margin: 0; color: #1976d2; font-weight: bold;">
       <mat-icon style="vertical-align: middle;">info</mat-icon>
       Crédito ID: {{data.creditoId}}
@@ -21,9 +21,9 @@
 
   <form [formGroup]="formPago">
     <mat-grid-list cols="1" rowHeight="80px" gutterSize="10px">
-      
-      <!-- Monto Pagado -->
-      <mat-grid-tile>
+       -->
+<!-- Monto Pagado -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Monto a Pagar</mat-label>
           <input matInput type="number" step="0.01" autocomplete="off" formControlName="montoPagado">
@@ -34,15 +34,15 @@
           </mat-error>
           <mat-error *ngIf="formPago.get('montoPagado')?.hasError('min')">
             El monto debe ser mayor a 0
-          </mat-error>
-          <!--<mat-error *ngIf="formPago.get('montoPagado')?.hasError('max')">
+          </mat-error> -->
+<!--<mat-error *ngIf="formPago.get('montoPagado')?.hasError('max')">
             El monto no puede ser mayor al pendiente
           </mat-error>-->
-        </mat-form-field>
-      </mat-grid-tile>
-      
-      <!-- Método de Pago -->
-      <mat-grid-tile>
+<!-- </mat-form-field>
+      </mat-grid-tile> -->
+
+<!-- Método de Pago -->
+<!-- <mat-grid-tile>
         <mat-form-field appearance="outline">
           <mat-label>Método de Pago</mat-label>
           <mat-select formControlName="metodoPago">
@@ -76,4 +76,101 @@
     <span *ngIf="!isLoading">{{accionBoton}}</span>
     <span *ngIf="isLoading">Procesando...</span>
   </button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">payments</mat-icon>
+      <h2>Registrar pago</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content">
+
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Procesando transacción...</p>
+    </div>
+
+    <div class="credit-summary">
+      <div class="summary-row">
+        <div class="summary-item">
+          <label>Cliente</label>
+          <span class="value-text">{{data.nombreCliente || 'Consumidor Final'}}</span>
+        </div>
+        <div class="summary-item text-right">
+          <label>Crédito ID</label>
+          <span class="code-badge">{{data.codigoUnico}}</span>
+        </div>
+      </div>
+
+      <mat-divider class="summary-divider"></mat-divider>
+
+      <div class="summary-row highlight">
+        <div class="summary-item">
+          <label>Saldo Pendiente</label>
+          <span class="amount-text pending">{{ data.montoPendiente | currency }}</span>
+        </div>
+        <div class="summary-item text-right" *ngIf="data.valorPorCuota">
+          <label>Valor cuota</label>
+          <span class="amount-text">{{ data.valorPorCuota | currency }}</span>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="formPago" class="payment-form">
+
+      <mat-form-field appearance="outline" class="full-width amount-field">
+        <mat-label>Monto a pagar</mat-label>
+        <span matPrefix>$&nbsp;</span>
+        <input matInput type="number" step="0.01" formControlName="montoPagado" placeholder="0.00">
+        <mat-icon matSuffix>attach_money</mat-icon>
+        <mat-error *ngIf="formPago.get('montoPagado')?.hasError('required')">El monto es obligatorio</mat-error>
+        <mat-error *ngIf="formPago.get('montoPagado')?.hasError('min')">Debe ser mayor a 0</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Método de Pago</mat-label>
+
+        <mat-select formControlName="metodoPago" placeholder="Seleccione un método">
+
+          <mat-select-trigger>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <mat-icon style="margin: 0; font-size: 20px; width: 20px; height: 20px; color: #64748b;">
+                {{ getIconoMetodo(formPago.get('metodoPago')?.value) }}
+              </mat-icon>
+              <span style="vertical-align: middle;">
+                {{ formPago.get('metodoPago')?.value }}
+              </span>
+            </div>
+          </mat-select-trigger>
+          <mat-option *ngFor="let metodo of metodosPago" [value]="metodo">
+            <div class="method-option">
+              <mat-icon class="method-icon">{{ getIconoMetodo(metodo) }}</mat-icon>
+              <span>{{metodo}}</span>
+            </div>
+          </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="formPago.get('metodoPago')?.hasError('required')">Seleccione método</mat-error>
+      </mat-form-field>
+
+    </form>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="warn" [disabled]="isLoading">Cancelar</button>
+    <button mat-flat-button color="primary" class="btn-pay" [disabled]="formPago.invalid || isLoading"
+      (click)="registrarPago()">
+      <span *ngIf="!isLoading">Confirmar Pago</span>
+      <span *ngIf="isLoading">Procesando...</span>
+    </button>
+  </mat-dialog-actions>
+
+</div>

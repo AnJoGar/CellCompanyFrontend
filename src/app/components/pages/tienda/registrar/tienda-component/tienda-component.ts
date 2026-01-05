@@ -44,7 +44,7 @@ export class TiendaComponent {
     'fechaRegistro',
     'acciones',
     'eliminar',
-    
+
   ];
 
   ELEMENT_DATA: Tienda[] = [];
@@ -57,7 +57,7 @@ export class TiendaComponent {
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _tiendaService: TiendaService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarTiendas();

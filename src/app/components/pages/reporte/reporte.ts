@@ -39,7 +39,7 @@ export const MY_DATE_FORMATS = {
 
 @Component({
   selector: 'app-reporte',
-  imports: [    CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
@@ -53,9 +53,9 @@ export const MY_DATE_FORMATS = {
     MatGridListModule,
     MatSnackBarModule,
     MatTooltipModule,
-     MatGridListModule,
-       MatChipsModule  //
-],
+    MatGridListModule,
+    MatChipsModule  //
+  ],
   templateUrl: './reporte.html',
   styleUrl: './reporte.css',
   providers: [
@@ -65,31 +65,31 @@ export const MY_DATE_FORMATS = {
 export class ReporteComponent implements OnInit {
   formGroup: FormGroup;
   ELEMENT_DATA: ReporteInterface[] = [];
-  
+
   // Columnas COMPLETAS para la tabla con TODOS los campos
   displayedColumns: string[] = [
-     'codigoUnico',
+    'codigoUnico',
     // CLIENTE
     'clienteId',
     'nombreCliente',
     'cedula',
     'telefonoCliente',
     'direccionCliente',
-   
-    
+
+
     // TIENDA
     'tiendaId',
     'nombreTienda',
     'encargadoTienda',
     'telefonoTienda',
-    
+
     // CRÉDITO
     'creditoId',
     'nombrePropietario',
     'marca',
     'modelo',
     'capacidad',
-    
+
     'entrada',
     'montoTotal',
     'montoPendiente',
@@ -100,21 +100,21 @@ export class ReporteComponent implements OnInit {
     'estadoCredito',
     'estadoCuota',
     'abonadoTotal',
-    
+
     'estadoDeComision',
-    
+
     // FECHAS
     'fechaCreditoStr',
-    
+
     // ACCIONES
     'registrarCredito',
     'eliminar'
-    
+
 
   ];
-// Agrega estas propiedades después de displayedColumns
-filtroEstadoCredito: string = 'Todos';
-filtroEstadoCuota: string = 'Todos';
+  // Agrega estas propiedades después de displayedColumns
+  filtroEstadoCredito: string = 'Todos';
+  filtroEstadoCuota: string = 'Todos';
 
   dataSource = new MatTableDataSource<ReporteInterface>(this.ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -123,7 +123,7 @@ filtroEstadoCuota: string = 'Todos';
     private fb: FormBuilder,
     private _ReporteServicio: ReportService,
     private _snackBar: MatSnackBar,
-     private dialog: MatDialog
+    private dialog: MatDialog
   ) {
     this.formGroup = this.fb.group({
       fechaInicio: ['', Validators.required],
@@ -160,7 +160,7 @@ filtroEstadoCuota: string = 'Todos';
   onSubmitForm() {
     const _fechaInicio: any = moment(this.formGroup.value.fechaInicio).format('DD/MM/YYYY');
     const _fechaFin: any = moment(this.formGroup.value.fechaFin).format('DD/MM/YYYY');
-    
+
     if (_fechaInicio === "Invalid date" || _fechaFin === "Invalid date") {
       this._snackBar.open("Debe ingresar ambas fechas", 'Oops!', { duration: 2000 });
       this.cargarReportes();
@@ -172,14 +172,14 @@ filtroEstadoCuota: string = 'Todos';
         if (data.status) {
           this.ELEMENT_DATA = data.value;
           this.dataSource.data = data.value;
-          this._snackBar.open(`Se encontraron ${data.value.length} registros`, 'Éxito', { 
-            duration: 2000 
+          this._snackBar.open(`Se encontraron ${data.value.length} registros`, 'Éxito', {
+            duration: 2000
           });
         } else {
           this.ELEMENT_DATA = [];
           this.dataSource.data = [];
           this._snackBar.open("No se encontraron datos", 'Info', { duration: 2000 });
-        } 
+        }
       },
       error: (e) => {
         console.error('Error al buscar reportes:', e);
@@ -188,61 +188,79 @@ filtroEstadoCuota: string = 'Todos';
     });
   }
 
-eliminarCredito(credito: ReporteInterface) {
-  Swal.fire({
-    title: "¿Desea eliminar el crédito?",
-    html: `
-      <strong>Cliente:</strong> ${credito.nombreCliente}<br>
-      <strong>Crédito ID:</strong> ${credito.creditoId}<br>
-      <strong>Monto Total:</strong> $${credito.montoTotal.toFixed(2)}<br>
-      <strong>Pendiente:</strong> $${credito.montoPendiente.toFixed(2)}
+  eliminarCredito(credito: ReporteInterface) {
+    Swal.fire({
+      title: '¿Eliminar Crédito?',
+      html: `
+      <div style="text-align: left; font-size: 14px; color: #334155; line-height: 1.6;">
+        <p style="margin: 0;"><strong>Cliente:</strong> ${credito.nombreCliente}</p>
+        <p style="margin: 0;"><strong>Crédito ID:</strong> <span style="font-family: monospace;">${credito.creditoId}</span></p>
+        <p style="margin: 0;"><strong>Monto Total:</strong> <span style="color: #059669;">$${credito.montoTotal.toFixed(2)}</span></p>
+        <p style="margin: 0;"><strong>Pendiente:</strong> <span style="color: #d97706;">$${credito.montoPendiente.toFixed(2)}</span></p>
+      </div>
+      <p style="margin-top: 15px; font-size: 13px; color: #ef4444; font-weight: 500;">
+        ⚠️ Esta acción eliminará el historial financiero asociado permanentemente.
+      </p>
     `,
-    icon: 'warning',
-    confirmButtonColor: '#3085d6',
-    showCancelButton: true,
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Sí, eliminar',
-    cancelButtonText: 'Cancelar'
-  }).then(result => {
-    if (result.isConfirmed) {
-      this._ReporteServicio.eliminarCredito(credito.creditoId).subscribe({
-        next: (data) => {
-          if (data.status) {
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444', // Rojo moderno
+      cancelButtonColor: '#94a3b8', // Gris moderno
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true, // Pone Cancelar a la izquierda (mejor UX)
+      focusCancel: true // Pone el foco en cancelar para evitar clics accidentales
+    }).then(result => {
+      if (result.isConfirmed) {
+
+        // Mostrar estado de carga
+        Swal.fire({
+          title: 'Eliminando...',
+          text: 'Procesando la solicitud',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        this._ReporteServicio.eliminarCredito(credito.creditoId).subscribe({
+          next: (data) => {
+            if (data.status) {
+              Swal.fire({
+                title: '¡Eliminado!',
+                text: 'El crédito ha sido eliminado correctamente.',
+                icon: 'success',
+                confirmButtonColor: '#1e293b' // Azul oscuro corporativo
+              });
+              this.cargarReportes();
+            } else {
+              Swal.fire({
+                title: 'Error',
+                text: data.msg || 'No se pudo eliminar el crédito.',
+                icon: 'error',
+                confirmButtonColor: '#1e293b'
+              });
+            }
+          },
+          error: (e) => {
+            console.error('Error al eliminar:', e);
             Swal.fire({
-              title: '¡Eliminado!',
-              text: 'El crédito fue eliminado correctamente',
-              icon: 'success',
-              confirmButtonColor: '#3085d6'
-            });
-            this.cargarReportes();
-          } else {
-            Swal.fire({
-              title: 'Error',
-              text: data.msg || 'No se pudo eliminar el crédito',
+              title: 'Error de Servidor',
+              text: 'Ocurrió un problema de conexión al intentar eliminar.',
               icon: 'error',
-              confirmButtonColor: '#3085d6'
+              confirmButtonColor: '#1e293b'
             });
           }
-        },
-        error: (e) => {
-          console.error('Error al eliminar:', e);
-          Swal.fire({
-            title: 'Error',
-            text: 'Error de conexión al intentar eliminar el crédito',
-            icon: 'error',
-            confirmButtonColor: '#3085d6'
-          });
-        }
-      });
-    }
-  });
-}
+        });
+      }
+    });
+  }
 
   // Filtro local (alternativo si no quieres hacer petición al servidor)
   onSubmitFormLocal() {
     const _fechaInicio = moment(this.formGroup.value.fechaInicio, 'DD/MM/YYYY');
     const _fechaFin = moment(this.formGroup.value.fechaFin, 'DD/MM/YYYY');
-    
+
     if (!_fechaInicio.isValid() || !_fechaFin.isValid()) {
       this._snackBar.open("Debe ingresar ambas fechas válidas", 'Oops!', { duration: 2000 });
       this.dataSource.data = this.ELEMENT_DATA;
@@ -253,11 +271,11 @@ eliminarCredito(credito: ReporteInterface) {
       const fechaCredito = moment(item.fechaCreditoStr, 'DD/MM/YYYY');
       return fechaCredito.isBetween(_fechaInicio, _fechaFin, 'day', '[]');
     });
-  
+
     if (filteredData.length > 0) {
       this.dataSource.data = filteredData;
-      this._snackBar.open(`Se encontraron ${filteredData.length} registros`, 'Éxito', { 
-        duration: 2000 
+      this._snackBar.open(`Se encontraron ${filteredData.length} registros`, 'Éxito', {
+        duration: 2000
       });
     } else {
       this.dataSource.data = [];
@@ -277,88 +295,88 @@ eliminarCredito(credito: ReporteInterface) {
     this._snackBar.open("Filtros limpiados", 'Info', { duration: 1500 });
   }
 
-aplicarFiltroEstadoCredito(estado: string) {
-  this.filtroEstadoCredito = estado;
-  this.aplicarFiltrosCombinados();
-}
-
-aplicarFiltroEstadoCuota(estado: string) {
-  this.filtroEstadoCuota = estado;
-  this.aplicarFiltrosCombinados();
-}
-
-aplicarFiltrosCombinados() {
-  let datosFiltrados = [...this.ELEMENT_DATA];
-
-  // Filtrar por estado de crédito
-  if (this.filtroEstadoCredito !== 'Todos') {
-    datosFiltrados = datosFiltrados.filter(
-      item => item.estadoCredito === this.filtroEstadoCredito
-    );
+  aplicarFiltroEstadoCredito(estado: string) {
+    this.filtroEstadoCredito = estado;
+    this.aplicarFiltrosCombinados();
   }
 
-  // Filtrar por estado de cuota
-  if (this.filtroEstadoCuota !== 'Todos') {
-    datosFiltrados = datosFiltrados.filter(
-      item => item.estadoCuota === this.filtroEstadoCuota
-    );
+  aplicarFiltroEstadoCuota(estado: string) {
+    this.filtroEstadoCuota = estado;
+    this.aplicarFiltrosCombinados();
   }
 
-  this.dataSource.data = datosFiltrados;
-  
-  // Mensaje informativo
-  const mensaje = `Mostrando ${datosFiltrados.length} de ${this.ELEMENT_DATA.length} créditos`;
-  this._snackBar.open(mensaje, 'Info', { duration: 2000 });
-}
+  aplicarFiltrosCombinados() {
+    let datosFiltrados = [...this.ELEMENT_DATA];
 
-// Modifica el método limpiarFiltros para incluir los nuevos filtros
-limpiarFiltros() {
-  this.formGroup.reset();
-  this.filtroEstadoCredito = 'Todos';
-  this.filtroEstadoCuota = 'Todos';
-  this.cargarReportes();
-  this._snackBar.open("Filtros limpiados", 'Info', { duration: 1500 });
-}
-
-exportarExcel() {
-  const _fechaInicio = this.formGroup.value.fechaInicio 
-    ? moment(this.formGroup.value.fechaInicio).format('DD/MM/YYYY') 
-    : undefined;
-  const _fechaFin = this.formGroup.value.fechaFin 
-    ? moment(this.formGroup.value.fechaFin).format('DD/MM/YYYY') 
-    : undefined;
-
-  this._snackBar.open('Generando archivo Excel...', 'Espere', { duration: 2000 });
-
-  this._ReporteServicio.exportarExcel(_fechaInicio, _fechaFin).subscribe({
-    next: (blob) => {
-      // Crear un enlace temporal para descargar el archivo
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      
-      // Nombre del archivo con fecha actual
-      const fechaActual = moment().format('YYYY-MM-DD_HHmmss');
-      link.download = `reporte_creditos_${fechaActual}.xlsx`;
-      
-      // Simular click para descargar
-      link.click();
-      
-      // Limpiar
-      window.URL.revokeObjectURL(url);
-      
-      this._snackBar.open('Archivo descargado exitosamente', 'Éxito', { 
-        duration: 3000 
-      });
-    },
-    error: (error) => {
-      console.error('Error al exportar Excel:', error);
-      this._snackBar.open('Error al generar el archivo Excel', 'Error', { 
-        duration: 3000 
-      });
+    // Filtrar por estado de crédito
+    if (this.filtroEstadoCredito !== 'Todos') {
+      datosFiltrados = datosFiltrados.filter(
+        item => item.estadoCredito === this.filtroEstadoCredito
+      );
     }
-  });
-}
+
+    // Filtrar por estado de cuota
+    if (this.filtroEstadoCuota !== 'Todos') {
+      datosFiltrados = datosFiltrados.filter(
+        item => item.estadoCuota === this.filtroEstadoCuota
+      );
+    }
+
+    this.dataSource.data = datosFiltrados;
+
+    // Mensaje informativo
+    const mensaje = `Mostrando ${datosFiltrados.length} de ${this.ELEMENT_DATA.length} créditos`;
+    this._snackBar.open(mensaje, 'Info', { duration: 2000 });
+  }
+
+  // Modifica el método limpiarFiltros para incluir los nuevos filtros
+  limpiarFiltros() {
+    this.formGroup.reset();
+    this.filtroEstadoCredito = 'Todos';
+    this.filtroEstadoCuota = 'Todos';
+    this.cargarReportes();
+    this._snackBar.open("Filtros limpiados", 'Info', { duration: 1500 });
+  }
+
+  exportarExcel() {
+    const _fechaInicio = this.formGroup.value.fechaInicio
+      ? moment(this.formGroup.value.fechaInicio).format('DD/MM/YYYY')
+      : undefined;
+    const _fechaFin = this.formGroup.value.fechaFin
+      ? moment(this.formGroup.value.fechaFin).format('DD/MM/YYYY')
+      : undefined;
+
+    this._snackBar.open('Generando archivo Excel...', 'Espere', { duration: 2000 });
+
+    this._ReporteServicio.exportarExcel(_fechaInicio, _fechaFin).subscribe({
+      next: (blob) => {
+        // Crear un enlace temporal para descargar el archivo
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+
+        // Nombre del archivo con fecha actual
+        const fechaActual = moment().format('YYYY-MM-DD_HHmmss');
+        link.download = `reporte_creditos_${fechaActual}.xlsx`;
+
+        // Simular click para descargar
+        link.click();
+
+        // Limpiar
+        window.URL.revokeObjectURL(url);
+
+        this._snackBar.open('Archivo descargado exitosamente', 'Éxito', {
+          duration: 3000
+        });
+      },
+      error: (error) => {
+        console.error('Error al exportar Excel:', error);
+        this._snackBar.open('Error al generar el archivo Excel', 'Error', {
+          duration: 3000
+        });
+      }
+    });
+  }
   // ===== MÉTODOS DE ACCESO A DATOS DEL CLIENTE =====
   obtenerClienteId(item: ReporteInterface): number {
     return item.clienteId;
@@ -379,7 +397,7 @@ exportarExcel() {
   obtenerDireccionCliente(item: ReporteInterface): string {
     return item.direccionCliente;
   }
-   obtenerCodigoCredito(item: ReporteInterface): string {
+  obtenerCodigoCredito(item: ReporteInterface): string {
     return item.codigoUnico;
   }
 
@@ -496,18 +514,18 @@ exportarExcel() {
   }
 
   // ===== MÉTODOS DE FORMATEO =====
-formatearFecha(fecha: any): string {
-  if (!fecha) return '---'; // Maneja valores nulos o vacíos
-  
-  // moment() detecta automáticamente si es string ISO o Date y lo convierte
-  const fechaParseada = moment(fecha);
-  
-  if (!fechaParseada.isValid()) {
-    return 'Fecha inválida';
-  }
+  formatearFecha(fecha: any): string {
+    if (!fecha) return '---'; // Maneja valores nulos o vacíos
 
-  return fechaParseada.format('DD/MM/YYYY');
-}
+    // moment() detecta automáticamente si es string ISO o Date y lo convierte
+    const fechaParseada = moment(fecha);
+
+    if (!fechaParseada.isValid()) {
+      return 'Fecha inválida';
+    }
+
+    return fechaParseada.format('DD/MM/YYYY');
+  }
 
 
   formatearMoneda(monto: number): string {
@@ -518,7 +536,7 @@ formatearFecha(fecha: any): string {
   obtenerEstadoCreditos(): { estado: string, cantidad: number, porcentaje: number }[] {
     const total = this.dataSource.filteredData.length;
     const estadosMap = new Map<string, number>();
-    
+
     this.dataSource.filteredData.forEach(item => {
       const count = estadosMap.get(item.estadoCredito) || 0;
       estadosMap.set(item.estadoCredito, count + 1);
@@ -539,7 +557,7 @@ formatearFecha(fecha: any): string {
   obtenerEstadoCuotas(): { estado: string, cantidad: number, porcentaje: number }[] {
     const total = this.dataSource.filteredData.length;
     const estadosMap = new Map<string, number>();
-    
+
     this.dataSource.filteredData.forEach(item => {
       const count = estadosMap.get(item.estadoCuota) || 0;
       estadosMap.set(item.estadoCuota, count + 1);
@@ -557,33 +575,33 @@ formatearFecha(fecha: any): string {
     return resultado;
   }
 
-  obtenerCreditosPorTienda(): { 
+  obtenerCreditosPorTienda(): {
     tiendaId: number | undefined,
-    tienda: string, 
+    tienda: string,
     encargado: string,
     telefono: string,
-    cantidad: number, 
+    cantidad: number,
     monto: number,
     pendiente: number,
     abonado: number
   }[] {
-    const tiendasMap = new Map<string, { 
+    const tiendasMap = new Map<string, {
       tiendaId: number | undefined,
       encargado: string,
       telefono: string,
-      cantidad: number, 
+      cantidad: number,
       monto: number,
       pendiente: number,
       abonado: number
     }>();
-    
+
     this.dataSource.filteredData.forEach(item => {
       const tienda = item.nombreTienda || 'Sin tienda';
-      const data = tiendasMap.get(tienda) || { 
+      const data = tiendasMap.get(tienda) || {
         tiendaId: item.tiendaId,
         encargado: item.encargadoTienda,
         telefono: item.telefonoTienda,
-        cantidad: 0, 
+        cantidad: 0,
         monto: 0,
         pendiente: 0,
         abonado: 0
@@ -595,17 +613,17 @@ formatearFecha(fecha: any): string {
       tiendasMap.set(tienda, data);
     });
 
-    const resultado: { 
+    const resultado: {
       tiendaId: number | undefined,
-      tienda: string, 
+      tienda: string,
       encargado: string,
       telefono: string,
-      cantidad: number, 
+      cantidad: number,
       monto: number,
       pendiente: number,
       abonado: number
     }[] = [];
-    
+
     tiendasMap.forEach((data, tienda) => {
       resultado.push({
         tiendaId: data.tiendaId,
@@ -624,7 +642,7 @@ formatearFecha(fecha: any): string {
 
   obtenerCreditosPorFrecuenciaPago(): { frecuencia: string, cantidad: number, monto: number }[] {
     const frecuenciaMap = new Map<string, { cantidad: number, monto: number }>();
-    
+
     this.dataSource.filteredData.forEach(item => {
       const data = frecuenciaMap.get(item.frecuenciaPago) || { cantidad: 0, monto: 0 };
       data.cantidad++;
@@ -646,7 +664,7 @@ formatearFecha(fecha: any): string {
 
   obtenerCreditosPorMarca(): { marca: string, modelo: string[], cantidad: number, monto: number }[] {
     const marcaMap = new Map<string, { modelos: Set<string>, cantidad: number, monto: number }>();
-    
+
     this.dataSource.filteredData.forEach(item => {
       const data = marcaMap.get(item.marca) || { modelos: new Set(), cantidad: 0, monto: 0 };
       data.modelos.add(item.modelo);
@@ -701,49 +719,49 @@ formatearFecha(fecha: any): string {
     return this.dataSource.filteredData.filter(item => item.marca === marca);
   }
   verImagen(url: string) {
-  if (url) {
-    window.open(url, '_blank');
-  } else {
-    this._snackBar.open('No hay imagen disponible', 'Info', { duration: 2000 });
+    if (url) {
+      window.open(url, '_blank');
+    } else {
+      this._snackBar.open('No hay imagen disponible', 'Info', { duration: 2000 });
+    }
   }
-}
 
 
 
-abrirModalCredito(element: ReporteInterface) {
-  const dialogRef = this.dialog.open(ModalAgregarCreditoComponent, {
-    disableClose: true,
-  width: '950px', // Un poco menos de 1000 para dejar margen
-    maxWidth: '95vw', // Ocupa el 95% del ancho de la pantalla si es pequeña
-    maxHeight: '90vh',
-    data: {
-      clienteId: element.clienteId,
-      tiendaAppId:element.tiendaId,
-      creditoId: element.creditoId,
-      montoPendiente: element.montoPendiente,
-      nombreCliente: element.nombreCliente,
-      valorPorCuota: element.valorPorCuota,
-      cedula: element.cedula,  // ← AGREGAR
-      nombreTienda: element.nombreTienda,  // ← AGREGAR
-      proximaCuota: element.proximaCuota  // ← AGREGAR
-    }
-  });
+  abrirModalCredito(element: ReporteInterface) {
+    const dialogRef = this.dialog.open(ModalAgregarCreditoComponent, {
+      disableClose: true,
+      width: '700px', // Un poco menos de 1000 para dejar margen
+      maxWidth: '95vw', // Ocupa el 95% del ancho de la pantalla si es pequeña
+      maxHeight: '90vh',
+      data: {
+        clienteId: element.clienteId,
+        tiendaAppId: element.tiendaId,
+        creditoId: element.creditoId,
+        montoPendiente: element.montoPendiente,
+        nombreCliente: element.nombreCliente,
+        valorPorCuota: element.valorPorCuota,
+        cedula: element.cedula,  // ← AGREGAR
+        nombreTienda: element.nombreTienda,  // ← AGREGAR
+        proximaCuota: element.proximaCuota  // ← AGREGAR
+      }
+    });
 
-  dialogRef.afterClosed().subscribe(resultado => {
-    if (resultado === 'pagado') {
-      this._snackBar.open('Pago registrado exitosamente', 'Éxito', { duration: 3000 });
-      this.cargarReportes(); // Recargar datos
-    }
-  });
-}
-agregarRegistroIntegral() {
+    dialogRef.afterClosed().subscribe(resultado => {
+      if (resultado === 'pagado') {
+        this._snackBar.open('Pago registrado exitosamente', 'Éxito', { duration: 3000 });
+        this.cargarReportes(); // Recargar datos
+      }
+    });
+  }
+  agregarRegistroIntegral() {
     this.dialog.open(ModalRegistroCompleto, {
       disableClose: true,
-     width: '800px', // 👈 Dale un ancho fijo para probar
-  
+      width: '800px', // 👈 Dale un ancho fijo para probar
+
     }).afterClosed().subscribe(result => {
       if (result === "agregado") {
-       
+
       }
     });
   }

@@ -1,4 +1,4 @@
-.modal-container {
+/* .modal-container {
   max-width: 600px;
 }
 
@@ -96,9 +96,284 @@ mat-dialog-actions {
 
 mat-dialog-actions button {
   margin-left: 8px;
-}
+} */
 
 /* Spinner dentro del botón */
-mat-dialog-actions mat-spinner {
+/* mat-dialog-actions mat-spinner {
   vertical-align: middle;
+} */
+
+/* --- LAYOUT GLOBAL --- */
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  /* Ancho compacto para focus */
+  width: 100%;
+  max-height: 90vh;
+}
+
+/* --- HEADER --- */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  color: #17789e;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.close-btn {
+  color: #94a3b8;
+}
+
+.close-btn:hover {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+/* --- CONTENIDO --- */
+.modal-content-scroll {
+  padding: 24px !important;
+  overflow-y: auto;
+  background-color: #f8fafc;
+}
+
+/* 1. Tarjeta Producto */
+.product-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.product-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #e0f2fe;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-icon mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+}
+
+.product-details h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.code-badge {
+  font-family: monospace;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #475569;
+}
+
+.imei-text {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.status-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  text-transform: uppercase;
+}
+
+.status-pill.new {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.color-text {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* 2. Ruta Visual */
+.route-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.route-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 40%;
+}
+
+.point-icon {
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.route-point.origin .point-icon {
+  color: #f59e0b;
+}
+
+/* Naranja origen */
+.route-point.destination .point-icon {
+  color: #10b981;
+}
+
+/* Verde destino */
+
+.label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.route-point strong {
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+.placeholder {
+  font-size: 13px;
+  color: #cbd5e1;
+  font-style: italic;
+}
+
+.route-arrow mat-icon {
+  color: #cbd5e1;
+}
+
+/* 3. Formulario */
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.store-option {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.store-city {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.loading-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #64748b;
+}
+
+/* Info Box Tienda */
+.store-info-box {
+  background-color: #f0f9ff;
+  /* Azul muy claro */
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: -8px;
+  /* Pegado al select */
+  margin-bottom: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  color: #0369a1;
+  font-size: 13px;
+}
+
+.info-row mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.modal-footer {
+  padding: 16px 24px;
+  background-color: white;
+  border-top: 1px solid #e0e0e0;
+  margin-bottom: 0;
+}
+
+.btn-send {
+  min-width: 160px;
+}
+
+.spinner-white ::ng-deep circle {
+  stroke: white !important;
 }

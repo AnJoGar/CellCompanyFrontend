@@ -1,4 +1,4 @@
-<h2 mat-dialog-title style="color: #17789e; display: flex; align-items: center; gap: 10px;">
+<!-- <h2 mat-dialog-title style="color: #17789e; display: flex; align-items: center; gap: 10px;">
   <mat-icon>history</mat-icon> Historial de Movimientos
 </h2>
 
@@ -43,4 +43,97 @@
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close color="primary">Cerrar</button>
-</mat-dialog-actions>
+</mat-dialog-actions> -->
+
+<div class="modal-container">
+
+  <div class="modal-header">
+    <div class="header-title">
+      <mat-icon class="header-icon">history_edu</mat-icon>
+      <h2>Historial de movimiento</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="modal-content-scroll">
+
+    <div class="product-summary">
+      <div class="summary-icon">
+        <mat-icon>smartphone</mat-icon>
+      </div>
+      <div class="summary-details">
+        <h3>{{producto.marca}} {{producto.modelo}}</h3>
+        <div class="codes">
+          <span class="badge-code" *ngIf="producto.imei">IMEI: {{producto.imei}}</span>
+          <span class="badge-code secondary">COD: {{producto.codigo}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="state-box">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Consultando trazabilidad...</p>
+    </div>
+
+    <div *ngIf="!loading && historial.length === 0" class="state-box empty">
+      <mat-icon>manage_search</mat-icon>
+      <p>No hay registros de movimiento para este ítem.</p>
+    </div>
+
+    <div class="timeline-container" *ngIf="!loading && historial.length > 0">
+
+      <div class="timeline-item" *ngFor="let mov of historial; let isLast = last">
+
+        <div class="timeline-line" *ngIf="!isLast"></div>
+
+        <div class="timeline-marker" [ngClass]="getMovimientoClass(mov.tipoMovimiento)">
+          <mat-icon>{{ getIconoMovimiento(mov.tipoMovimiento) }}</mat-icon>
+        </div>
+
+        <div class="timeline-card">
+          <div class="card-header">
+            <span class="mov-type" [ngClass]="getMovimientoClass(mov.tipoMovimiento)">
+              {{ mov.tipoMovimiento }}
+            </span>
+            <span class="mov-date">{{ mov.fechaRegistro | date:'medium' }}</span>
+          </div>
+
+          <div class="card-body">
+            <div class="route-info">
+              <div class="point">
+                <span class="label">Origen</span>
+                <strong>{{ mov.tiendaOrigen }}</strong>
+              </div>
+              <mat-icon class="arrow-icon">arrow_forward</mat-icon>
+              <div class="point">
+                <span class="label">Destino</span>
+                <strong>{{ mov.tiendaDestino }}</strong>
+              </div>
+            </div>
+
+            <div class="meta-info">
+              <span class="user-badge">
+                <mat-icon>person</mat-icon> {{ mov.usuarioRegistro }}
+              </span>
+            </div>
+
+            <div class="observation" *ngIf="mov.observacion">
+              <mat-icon>sticky_note_2</mat-icon>
+              <p>"{{ mov.observacion }}"</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="modal-footer">
+    <button mat-stroked-button mat-dialog-close color="primary">Cerrar</button>
+  </mat-dialog-actions>
+
+</div>

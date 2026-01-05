@@ -19,7 +19,7 @@ import { ProductoBodega } from '../../../../interfaces/Bodega';
   styleUrl: './modal-ver-historial.css',
 })
 export class ModalVerHistorial {
-historial: any[] = [];
+  historial: any[] = [];
   loading: boolean = true;
   producto: ProductoBodega;
 
@@ -34,6 +34,24 @@ historial: any[] = [];
 
   ngOnInit(): void {
     this.obtenerHistorial();
+  }
+
+  // Métodos auxiliares para la UI
+  getIconoMovimiento(tipo: string): string {
+    const t = tipo.toLowerCase();
+    if (t.includes('traslado')) return 'local_shipping';
+    if (t.includes('ingreso') || t.includes('compra')) return 'login';
+    if (t.includes('venta') || t.includes('salida')) return 'logout';
+    if (t.includes('devolucion')) return 'assignment_return';
+    return 'inventory_2'; // Default
+  }
+
+  getMovimientoClass(tipo: string): string {
+    const t = tipo.toLowerCase();
+    if (t.includes('traslado')) return 'traslado';
+    if (t.includes('ingreso') || t.includes('compra')) return 'ingreso';
+    if (t.includes('venta') || t.includes('salida')) return 'salida';
+    return '';
   }
 
   obtenerHistorial() {
