@@ -1,7 +1,8 @@
 /* layout.component.css */
 
 /* Toolbar Styles */
-.custom-toolbar {
+
+/* .custom-toolbar {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   position: sticky;
@@ -78,16 +79,16 @@
 
 .menu-toggle {
   color: #ffffff;
-}
+} */
 
 /* Sidenav Container */
-.sidenav-container {
+/* .sidenav-container {
   height: calc(100vh - 64px);
   background: #f5f7fa;
-}
+} */
 
 /* Sidenav Styles */
-.sidenav {
+/* .sidenav {
   width: 280px;background: #f8f9fa; 
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
   border-right: 1px solid #e0e0e0;
@@ -120,10 +121,10 @@
   font-weight: 600;
   color: #ffffff;
   letter-spacing: 0.5px;
-}
+} */
 
 /* Menu List */
-.menu-list {
+/* .menu-list {
   padding: 16px 8px 80px 8px;
   flex: 1;
   overflow-y: auto;
@@ -161,10 +162,10 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.3px;
-}
+} */
 
 /* Sidenav Footer */
-.sidenav-footer {
+/* .sidenav-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -194,10 +195,10 @@
 .logout-text {
   font-size: 14px;
   font-weight: 500;
-}
+} */
 
 /* Main Content */
-.main-content {
+/* .main-content {
   background: #f5f7fa;
 }
 
@@ -205,10 +206,10 @@
   height: 100%;
   padding: 24px;
   overflow-y: auto;
-}
+} */
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .toolbar-content {
     padding: 0 16px;
   }
@@ -244,10 +245,10 @@
   .app-title {
     font-size: 14px;
   }
-}
+} */
 
 /* Scrollbar Styles para el menu */
-.menu-list::-webkit-scrollbar {
+/* .menu-list::-webkit-scrollbar {
   width: 6px;
 }
 
@@ -262,10 +263,10 @@
 
 .menu-list::-webkit-scrollbar-thumb:hover {
   background: #2980b9;
-}
+} */
 
 /* Scrollbar Styles */
-.content-wrapper::-webkit-scrollbar {
+/* .content-wrapper::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -280,21 +281,276 @@
 
 .content-wrapper::-webkit-scrollbar-thumb:hover {
   background: #2980b9;
-}
+} */
 /* El contenedor debe ocupar todo el alto restante */
-.sidenav-container {
-  height: calc(100vh - 64px); /* 64px es el alto estándar del toolbar */
-}
+/* .sidenav-container {
+  height: calc(100vh - 64px);
+} */
 
 /* Evita que el contenido principal genere un segundo scroll externo */
-.main-content {
-  overflow: auto; /* Solo permite scroll aquí si el contenido desborda */
-  background-color: #f5f5f5; /* Opcional: un fondo gris claro para resaltar cards */
-}
+/* .main-content {
+  overflow: auto;
+  background-color: #f5f5f5;
+} */
 
 /* Elimina márgenes extra que puedan causar scroll en el wrapper */
-.content-wrapper {
+/* .content-wrapper {
   padding: 20px;
   min-height: 100%;
   box-sizing: border-box;
+} */
+
+/* --- CONFIGURACIÓN GENERAL --- */
+.fullscreen-container {
+  height: 100vh;
+  /* Ocupa toda la altura visible */
+  background-color: #f4f6f9;
+  /* Fondo gris ejecutivo muy suave */
+}
+
+/* --- SIDEBAR (BARRA LATERAL) --- */
+.app-sidenav {
+  border-radius: 0 !important;
+  width: 260px;
+  /* Un poco más ancho para mejor lectura */
+  background: #1a233a;
+  /* Azul oscuro corporativo (Dark Navy) */
+  color: #ffffff;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo Area */
+.sidenav-brand {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background-color: #151c2f;
+  /* Un tono más oscuro que el sidebar */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand-logo-container {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  /* Gradiente cian */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
+}
+
+.brand-logo-container mat-icon {
+  color: white;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.brand-text h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.brand-text small {
+  color: #8da2bb;
+  /* Gris azulado */
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Lista de Navegación */
+.menu-label {
+  padding: 20px 24px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c6b85;
+  /* Etiqueta discreta */
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.nav-list {
+  padding-top: 0;
+}
+
+.nav-item {
+  color: #aeb9cc;
+  margin: 4px 12px;
+  border-radius: 6px;
+  height: 48px !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.nav-item mat-icon {
+  margin-right: 12px;
+  color: inherit;
+}
+
+/* Estado Activo */
+.active-link {
+  background: linear-gradient(90deg, rgba(79, 172, 254, 0.15) 0%, rgba(79, 172, 254, 0) 100%);
+  color: #4facfe !important;
+  /* Color Cian activo */
+  font-weight: 500;
+}
+
+.active-link mat-icon {
+  color: #4facfe;
+}
+
+/* Indicador lateral activo */
+.active-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #4facfe;
+  display: none;
+}
+
+.active-link .active-indicator {
+  display: block;
+}
+
+/* Footer del Sidebar */
+.sidenav-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 10px 0;
+  background-color: #151c2f;
+}
+
+.logout-item {
+  color: #ff6b6b !important;
+}
+
+.logout-item:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* --- HEADER (BARRA SUPERIOR) --- */
+.app-header {
+  height: 80px;
+  background: #1a233a;
+  color: #333;
+  padding: 0 30px;
+  /* Más padding lateral */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  /* Sombra muy sutil */
+  display: flex;
+  align-items: center;
+  z-index: 999;
+}
+
+.header-breadcrumbs .current-section {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Perfil de Usuario PRO */
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+
+
+.user-text-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Alineado a la derecha */
+  margin-right: 15px;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.user-avatar-container {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  /* Cuadrado redondeado moderno */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.avatar-initial {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.app-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Controlar el scroll internamente */
+}
+
+.main-wrapper {
+  flex: 1;
+  padding: 30px;
+  /* Espacio generoso para que respiren los componentes */
+  overflow-y: auto;
+  /* Scroll aquí */
+  background-color: #f4f6f9;
+}
+
+/* Ajustes Responsive */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 15px;
+  }
+
+  .user-text-info {
+    display: none;
+    /* Ocultar texto en móviles */
+  }
+
+  .main-wrapper {
+    padding: 15px;
+  }
+
 }

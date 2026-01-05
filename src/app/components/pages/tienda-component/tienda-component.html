@@ -1,4 +1,4 @@
-<div class="k">
+<!-- <div class="k">
   <div class="header-section">
     <h1 class="page-title" style="color: #17789e;">Tiendas</h1>
     <p class="page-subtitle">Gestiona y administra todas tus tiendas</p>
@@ -33,26 +33,26 @@
       <h3></h3>
       
       <div class="mat-elevation-z2 table-container">
-        <table mat-table [dataSource]="dataSource" class="stores-table">
-          
-          <!-- ID -->
-          <ng-container matColumnDef="id">
+        <table mat-table [dataSource]="dataSource" class="stores-table"> -->
+
+<!-- ID -->
+<!-- <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
             <td mat-cell *matCellDef="let element"> 
               <span class="id-badge">{{element.id}}</span>
             </td>
-          </ng-container>
-          
-          <!-- Nombre Tienda -->
-          <ng-container matColumnDef="nombreTienda">
+          </ng-container> -->
+
+<!-- Nombre Tienda -->
+<!-- <ng-container matColumnDef="nombreTienda">
             <th mat-header-cell *matHeaderCellDef> Nombre Tienda </th>
             <td mat-cell *matCellDef="let element" class="store-name"> 
               <strong>{{element.nombreTienda}}</strong>
             </td>
-          </ng-container>
-          
-          <!-- Nombre Encargado -->
-          <ng-container matColumnDef="nombreEncargado">
+          </ng-container> -->
+
+<!-- Nombre Encargado -->
+<!-- <ng-container matColumnDef="nombreEncargado">
             <th mat-header-cell *matHeaderCellDef> Encargado </th>
             <td mat-cell *matCellDef="let element">
               <div class="person-info">
@@ -60,16 +60,16 @@
                 <span>{{element.nombreEncargado}}</span>
               </div>
             </td>
-          </ng-container>
-          
-          <!-- Cédula -->
-          <ng-container matColumnDef="cedulaEncargado">
+          </ng-container> -->
+
+<!-- Cédula -->
+<!-- <ng-container matColumnDef="cedulaEncargado">
             <th mat-header-cell *matHeaderCellDef> Cédula </th>
             <td mat-cell *matCellDef="let element"> {{element.cedulaEncargado}} </td>
-          </ng-container>
-          
-          <!-- Teléfono -->
-          <ng-container matColumnDef="telefono">
+          </ng-container> -->
+
+<!-- Teléfono -->
+<!-- <ng-container matColumnDef="telefono">
             <th mat-header-cell *matHeaderCellDef> Teléfono </th>
             <td mat-cell *matCellDef="let element">
               <div class="contact-info">
@@ -77,10 +77,10 @@
                 <span>{{element.telefono}}</span>
               </div>
             </td>
-          </ng-container>
-          
-          <!-- Dirección -->
-          <ng-container matColumnDef="direccion">
+          </ng-container> -->
+
+<!-- Dirección -->
+<!-- <ng-container matColumnDef="direccion">
             <th mat-header-cell *matHeaderCellDef> Dirección </th>
             <td mat-cell *matCellDef="let element">
               <div class="address-info">
@@ -88,28 +88,28 @@
                 <span>{{element.direccion}}</span>
               </div>
             </td>
-          </ng-container>
-          
-          <!-- Fecha Registro -->
-          <ng-container matColumnDef="fechaRegistro">
+          </ng-container> -->
+
+<!-- Fecha Registro -->
+<!-- <ng-container matColumnDef="fechaRegistro">
             <th mat-header-cell *matHeaderCellDef> Fecha Registro </th>
             <td mat-cell *matCellDef="let element"> 
               <span class="date-text">{{formatearFecha(element.fechaRegistro)}}</span>
             </td>
-          </ng-container>
-          
-          <!-- Editar -->
-          <ng-container matColumnDef="acciones">
+          </ng-container> -->
+
+<!-- Editar -->
+<!-- <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef style="width:80px"> Editar </th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="primary" (click)="editarTienda(element)">
                 <mat-icon>edit</mat-icon>
               </button>
             </td>
-          </ng-container>
-          
-          <!-- Eliminar -->
-          <ng-container matColumnDef="eliminar">
+          </ng-container> -->
+
+<!-- Eliminar -->
+<!-- <ng-container matColumnDef="eliminar">
             <th mat-header-cell *matHeaderCellDef style="width:80px"> Eliminar </th>
             <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="warn" (click)="eliminarTienda(element)">
@@ -139,4 +139,131 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div> -->
+
+<div class="page-container">
+
+  <header class="page-header">
+    <div class="header-left">
+      <h1 style="margin-bottom: 10px;" class="page-title">Gestión de Tiendas</h1>
+      <p class="page-subtitle">Administración de sucursales y puntos de venta</p>
+    </div>
+    <div class="header-right">
+      <button mat-flat-button color="primary" class="btn-create" (click)="agregarTienda()">
+        <mat-icon>add_business</mat-icon>
+        Nueva Tienda
+      </button>
+    </div>
+  </header>
+
+  <div class="content-body">
+
+    <div class="toolbar-card">
+      <div class="search-container full-width-search">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" class="search-input" placeholder="Búsqueda por cualquier campo" [(ngModel)]="searchValue"
+          (keyup)="applyFilter($event)" (input)="onSearchInput()" #input>
+      </div>
+    </div>
+
+    <div class="table-container mat-elevation-z2">
+      <div class="table-scroll-wrapper">
+        <table mat-table [dataSource]="dataSource" class="data-table">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="id-tag">#{{element.id}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreTienda">
+            <th mat-header-cell *matHeaderCellDef> Tienda </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="store-cell">
+                <div class="store-icon-wrapper">
+                  <mat-icon>store</mat-icon>
+                </div>
+                <span class="store-name-text">{{element.nombreTienda}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreEncargado">
+            <th mat-header-cell *matHeaderCellDef> Encargado </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="person-cell">
+                <div class="avatar-mini">{{element.nombreEncargado.charAt(0).toUpperCase()}}</div>
+                <span class="person-name">{{element.nombreEncargado}}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cedulaEncargado">
+            <th mat-header-cell *matHeaderCellDef> Cédula </th>
+            <td mat-cell *matCellDef="let element" class="text-secondary"> {{element.cedulaEncargado}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef> Contacto </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="contact-cell">
+                <mat-icon class="tiny-icon">phone</mat-icon>
+                {{element.telefono}}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccion">
+            <th mat-header-cell *matHeaderCellDef> Dirección </th>
+            <td mat-cell *matCellDef="let element" class="truncate-cell" title="{{element.direccion}}">
+              {{element.direccion}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaRegistro">
+            <th mat-header-cell *matHeaderCellDef> Registro </th>
+            <td style="color: rgb(99, 98, 98);" mat-cell *matCellDef="let element" class="text-muted">
+              {{formatearFecha(element.fechaRegistro)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Editar </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn edit" (click)="editarTienda(element)"
+                matTooltip="Editar Tienda">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eliminar" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Eliminar </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn delete" (click)="eliminarTienda(element)"
+                matTooltip="Eliminar Tienda">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              <div class="empty-state">
+                <mat-icon>storefront</mat-icon>
+                <p>No se encontraron tiendas para "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="custom-paginator"></mat-paginator>
+    </div>
+
+  </div>
 </div>

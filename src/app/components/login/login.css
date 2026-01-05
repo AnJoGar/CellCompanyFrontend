@@ -1,4 +1,4 @@
-.login-container {
+/* .login-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -171,10 +171,10 @@
 
 .btn-register mat-icon {
     margin-right: 8px;
-}
+} */
 
 /* Responsive */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
     .login-card {
         padding: 32px 24px;
         border-radius: 12px;
@@ -193,5 +193,229 @@
         font-size: 36px;
         width: 36px;
         height: 36px;
+    }
+} */
+
+/* --- Fondo y Contenedor Principal --- */
+.login-bg {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Degradado moderno azul oscuro profesional */
+    background: radial-gradient(circle at top left, #2b32b2, #1488cc);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Círculos decorativos flotantes (Glassmorphism vibes) */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    top: -50px;
+    left: -100px;
+}
+
+.circle-2 {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    right: -50px;
+}
+
+.login-container {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* --- Tarjeta del Login --- */
+.modern-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    border-radius: 20px;
+    /* Bordes más redondeados */
+    background: #ffffff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* --- Header y Logo --- */
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-container {
+    height: 140px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-logo {
+    max-height: 100%;
+    max-width: 180px;
+    object-fit: contain;
+    /* Si no tienes logo aún, esto simula un espacio */
+    /* background: #f0f0f0; width: 100%; border-radius: 8px; */
+}
+
+.welcome-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    /* Asegúrate de importar una fuente bonita o usar sans-serif */
+}
+
+.welcome-subtitle {
+    margin-top: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* --- Campos de Formulario --- */
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-field {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Personalización profunda de Angular Material para quitar líneas duras */
+::ng-deep .custom-field .mat-form-field-outline {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+::ng-deep .custom-field .mat-form-field-outline-start,
+::ng-deep .custom-field .mat-form-field-outline-end,
+::ng-deep .custom-field .mat-form-field-outline-gap {
+    border-width: 1px !important;
+    border-color: #e0e0e0 !important;
+}
+
+/* Iconos de los inputs */
+.field-icon {
+    color: #1488cc;
+    margin-right: 8px;
+}
+
+/* --- Botones y Acciones --- */
+.actions-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.forgot-btn {
+    font-size: 13px;
+    color: #1488cc;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.buttons-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.main-btn {
+    height: 50px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #1488cc 0%, #2b32b2 100%);
+    /* Gradiente en el botón */
+    box-shadow: 0 4px 15px rgba(20, 136, 204, 0.3);
+    transition: transform 0.2s;
+    color: white !important;
+    /* Forza texto blanco */
+}
+
+.main-btn:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(20, 136, 204, 0.4);
+}
+
+.main-btn:disabled {
+    background: #ccc;
+}
+
+.loader-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Divisor "o" */
+.divider {
+    display: flex;
+    align-items: center;
+    color: #999;
+    font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+.secondary-btn {
+    height: 45px;
+    border-radius: 10px;
+    color: #555;
+    border-color: #ddd !important;
+    font-weight: 500;
+}
+
+/* --- Footer --- */
+.copyright {
+    margin-top: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .modern-card {
+        padding: 30px 20px;
+    }
+
+    .circle {
+        display: none;
+        /* Ocultar burbujas en móviles para rendimiento */
     }
 }

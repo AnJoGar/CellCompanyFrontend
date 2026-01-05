@@ -1,4 +1,4 @@
-<div class="dashboard-wrapper">
+<!-- <div class="dashboard-wrapper">
   <header class="dashboard-header">
     <div style="color: #17789e;">
       <h1>Resumen Operativo</h1>
@@ -91,4 +91,124 @@
         </mat-card-content>
       </mat-card>
   </div>
+</div> -->
+
+<div class="dashboard-wrapper">
+
+  <header class="dashboard-header">
+    <div class="header-text">
+      <h1 class="page-title">Resumen Operativo</h1>
+      <p class="page-subtitle">Panorama general del estado de la cartera de créditos</p>
+    </div>
+  </header>
+
+  <div class="kpi-container">
+
+    <mat-card class="kpi-card kpi-primary">
+      <div class="kpi-body">
+        <div class="kpi-data">
+          <span class="kpi-label">Total Financiado</span>
+          <h2 class="kpi-value">{{ totalFinanciado | currency }}</h2>
+        </div>
+        <div class="kpi-icon-container">
+          <mat-icon>monetization_on</mat-icon>
+        </div>
+      </div>
+      <mat-progress-bar mode="determinate" value="100" class="kpi-progress"></mat-progress-bar>
+      <div class="kpi-footer">
+        <small>Meta global alcanzada</small>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card kpi-success">
+      <div class="kpi-body">
+        <div class="kpi-data">
+          <span class="kpi-label">Total Recaudado</span>
+          <h2 class="kpi-value">{{ totalRecaudado | currency }}</h2>
+        </div>
+        <div class="kpi-icon-container">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+      </div>
+      <mat-progress-bar mode="determinate" [value]="(totalRecaudado/totalFinanciado)*100"
+        class="kpi-progress"></mat-progress-bar>
+      <div class="kpi-footer">
+        <small>{{ (totalRecaudado/totalFinanciado) | percent }} recuperado</small>
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card kpi-warning">
+      <div class="kpi-body">
+        <div class="kpi-data">
+          <span class="kpi-label">Saldo Pendiente</span>
+          <h2 class="kpi-value">{{ totalPendiente | currency }}</h2>
+        </div>
+        <div class="kpi-icon-container">
+          <mat-icon>pending_actions</mat-icon>
+        </div>
+      </div>
+      <mat-progress-bar mode="determinate" [value]="(totalPendiente/totalFinanciado)*100"
+        class="kpi-progress"></mat-progress-bar>
+      <div class="kpi-footer">
+        <small>Cartera por gestionar</small>
+      </div>
+    </mat-card>
+
+  </div>
+
+  <div class="charts-grid">
+
+    <mat-card class="chart-card">
+      <div class="card-header-simple">
+        <div class="header-icon blue">
+          <mat-icon>radar</mat-icon>
+        </div>
+        <div class="header-titles">
+          <h3>Análisis de Cumplimiento</h3>
+          <small>Distribución por estado de crédito</small>
+        </div>
+      </div>
+      <mat-card-content class="chart-content">
+        <div class="chart-canvas-wrapper">
+          <canvas id="chartRadarEstados"></canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <div class="card-header-simple">
+        <div class="header-icon purple">
+          <mat-icon>storefront</mat-icon>
+        </div>
+        <div class="header-titles">
+          <h3>Rendimiento Comercial</h3>
+          <small>Volumen de ventas por tienda</small>
+        </div>
+      </div>
+      <mat-card-content class="chart-content">
+        <div class="chart-canvas-wrapper">
+          <canvas id="chartBarrasTiendas"></canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card full-width-mobile">
+      <div class="card-header-simple">
+        <div class="header-icon orange">
+          <mat-icon>pie_chart</mat-icon>
+        </div>
+        <div class="header-titles">
+          <h3>Composición de Cartera</h3>
+          <small>Proporción global de estados</small>
+        </div>
+      </div>
+      <mat-card-content class="chart-content flex-center">
+        <div class="chart-canvas-wrapper doughnut-wrapper">
+          <canvas id="chartDonaCumplimiento"></canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
 </div>

@@ -1,4 +1,4 @@
-.dashboard-wrapper {
+/* .dashboard-wrapper {
   padding: 24px;
   background-color: #f5f7f9;
   min-height: 100vh;
@@ -9,10 +9,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
-}
+} */
 
 /* KPI Cards Layout */
-.kpi-container {
+/* .kpi-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
@@ -48,10 +48,10 @@
   height: 40px;
   width: 40px;
   color: #cbd5e1;
-}
+} */
 
 /* Grids */
-.main-grid {
+/* .main-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
@@ -61,10 +61,10 @@
   position: relative;
   height: 250px;
   margin-top: 20px;
-}
+} */
 
 /* Recent List Style */
-.list-item {
+/* .list-item {
   display: flex;
   align-items: center;
   padding: 16px;
@@ -125,10 +125,10 @@
 .kpi-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-}
+} */
 
 /* KPI Total Financiado - Azul */
-.kpi-card.total {
+/* .kpi-card.total {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
@@ -151,10 +151,10 @@
 
 .kpi-card.total mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
   background-color: white;
-}
+} */
 
 /* KPI Total Recaudado - Verde */
-.kpi-card.recaudado {
+/* .kpi-card.recaudado {
   background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
   color: white;
 }
@@ -177,10 +177,10 @@
 
 .kpi-card.recaudado mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
   background-color: white;
-}
+} */
 
 /* KPI Mora - Rojo/Naranja */
-.kpi-card.mora {
+/* .kpi-card.mora {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
 }
@@ -204,10 +204,10 @@
 
 .kpi-card.mora mat-progress-bar ::ng-deep .mat-progress-bar-fill::after {
   background-color: white;
-}
+} */
 
 /* KPI Content */
-.kpi-content {
+/* .kpi-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -233,10 +233,10 @@
   height: 48px;
   width: 48px;
   color: #cbd5e1;
-}
+} */
 
 /* Grids */
-.main-grid {
+/* .main-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
@@ -266,10 +266,10 @@
 .chart-wrapper {
   padding: 16px;
   min-height: 300px;
-}
+} */
 
 /* Responsive */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .dashboard-wrapper {
     padding: 16px;
   }
@@ -291,5 +291,243 @@
     font-size: 36px;
     height: 36px;
     width: 36px;
+  }
+} */
+
+/* --- LAYOUT GENERAL --- */
+.dashboard-wrapper {
+  /* Padding interno para separar del borde de la pantalla */
+  padding: 0;
+  /* Ya lo maneja el router-outlet wrapper */
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* Espacio vertical entre secciones */
+  max-width: 100%;
+}
+
+/* --- HEADER --- */
+.dashboard-header {
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  /* Azul oscuro corporativo */
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  color: #64748b;
+  /* Gris texto secundario */
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* --- KPI CARDS (Tarjetas Superiores) --- */
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.kpi-card {
+  border-radius: 16px;
+  /* Más moderno */
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  /* Sombra muy suave */
+  border: none;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ffffff;
+  /* Texto blanco por defecto en KPIs */
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-body {
+  padding: 24px 24px 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.kpi-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.kpi-icon-container {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.kpi-icon-container mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.kpi-progress {
+  height: 6px !important;
+  margin: 15px 24px 10px;
+  border-radius: 10px;
+}
+
+/* Override de colores de Material Progress Bar para que sean blancos/traslucidos */
+::ng-deep .kpi-card .mat-progress-bar-buffer {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+::ng-deep .kpi-card .mat-progress-bar-fill::after {
+  background-color: #ffffff;
+}
+
+.kpi-footer {
+  padding: 0 24px 20px;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Colores Específicos de KPIs */
+.kpi-primary {
+  /* Azul Corporativo (Combina con Sidebar) */
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.kpi-success {
+  /* Verde Finanzas */
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.kpi-warning {
+  /* Naranja/Rojo Alerta */
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+}
+
+
+/* --- GRÁFICOS (Charts Grid) --- */
+.charts-grid {
+  display: grid;
+  /* Aumentamos el ancho mínimo para que en pantallas grandes se vean bien grandes */
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 32px;
+  /* Más separación entre tarjetas */
+  margin-bottom: 40px;
+}
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header de las tarjetas */
+.card-header-simple {
+  padding: 24px 32px;
+  /* Más espacio interno en el encabezado */
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.header-icon {
+  width: 48px;
+  /* Icono más grande */
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.header-icon mat-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.header-titles h3 {
+  margin: 0;
+  font-size: 18px;
+  /* Título más grande */
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.header-titles small {
+  color: #64748b;
+  font-size: 14px;
+  /* Subtítulo más legible */
+}
+
+/* Contenido del Gráfico */
+.chart-content {
+  padding: 32px;
+  /* Mucho aire alrededor del gráfico */
+  flex: 1;
+  min-height: 450px;
+  /* Altura forzada mayor para que el gráfico se estire */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-canvas-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 400px;
+  /* Asegura que el canvas tenga altura */
+}
+
+/* Ajuste específico para la Dona para que no se vea gigante */
+.doughnut-wrapper {
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-content {
+    min-height: 350px;
+    padding: 16px;
   }
 }

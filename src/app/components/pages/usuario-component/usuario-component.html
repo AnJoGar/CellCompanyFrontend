@@ -1,5 +1,6 @@
 <!-- usuarios.component.html -->
-<div class="usuarios-container">
+
+<!-- <div class="usuarios-container">
   <h1 class="page-title" style="color: #17789e;">Usuarios</h1>
   
   <mat-card class="card">
@@ -11,17 +12,17 @@
     
     <mat-divider></mat-divider>
     
-    <mat-card-content class="dashboard-card-content">
-      <!-- Búsqueda -->
-      <mat-form-field appearance="outline" class="filter-field">
+    <mat-card-content class="dashboard-card-content"> -->
+<!-- Búsqueda -->
+<!-- <mat-form-field appearance="outline" class="filter-field">
         <mat-label>Búsqueda (Cualquier campo)</mat-label>
         <input matInput [(ngModel)]="searchValue" (keyup)="applyFilter($event)" 
                (input)="onSearchInput()" placeholder="Ex. Mbappe" #input>
         <mat-icon matPrefix>search</mat-icon>
-      </mat-form-field>
-      
-      <!-- Filtros de Estado -->
-      <div class="filters-group">
+      </mat-form-field> -->
+
+<!-- Filtros de Estado -->
+<!-- <div class="filters-group">
         <div class="form-check-inline">
           <input class="form-check-input" type="radio" name="filtro" [(ngModel)]="filtro" 
                  (change)="applyFilterEstado()" id="todos" value="todos" checked>
@@ -37,10 +38,10 @@
                  (change)="applyFilterEstado()" id="no-activo" value="no activo">
           <label class="form-check-label" for="no-activo">Inactivos</label>
         </div>
-      </div>
-      
-      <!-- Tabla -->
-      <div class="mat-elevation-z2 table-wrapper">
+      </div> -->
+
+<!-- Tabla -->
+<!-- <div class="mat-elevation-z2 table-wrapper">
         <table mat-table [dataSource]="dataSource">
           
           <ng-container matColumnDef="idUsuario">
@@ -121,4 +122,139 @@
       </div>
     </mat-card-content>
   </mat-card>
+</div> -->
+
+<div class="page-container">
+
+  <header class="page-header">
+    <div class="header-left">
+      <h1 style="margin-bottom: 10px;" class="page-title">Gestión de usuarios</h1>
+      <p class="page-subtitle">Administra los accesos y roles del sistema</p>
+    </div>
+    <div class="header-right">
+      <button mat-flat-button color="primary" class="btn-create" (click)="agregarUsuarioSinV()">
+        <mat-icon>add</mat-icon>
+        Nuevo Usuario
+      </button>
+    </div>
+  </header>
+
+  <div class="content-body">
+
+    <div class="toolbar-card">
+
+      <div class="search-container">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input type="text" class="search-input" placeholder="Búsqueda por cualquier campo" [(ngModel)]="searchValue"
+          (keyup)="applyFilter($event)" (input)="onSearchInput()" #input>
+      </div>
+
+      <div class="filter-chips">
+        <label class="chip-option">
+          <input type="radio" name="filtro" [(ngModel)]="filtro" (change)="applyFilterEstado()" value="todos" checked>
+          <span class="chip-label">Todos</span>
+        </label>
+        <label class="chip-option">
+          <input type="radio" name="filtro" [(ngModel)]="filtro" (change)="applyFilterEstado()" value="activo">
+          <span class="chip-label success">Activos</span>
+        </label>
+        <label class="chip-option">
+          <input type="radio" name="filtro" [(ngModel)]="filtro" (change)="applyFilterEstado()" value="no activo">
+          <span class="chip-label danger">Inactivos</span>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="table-container mat-elevation-z2">
+      <table mat-table [dataSource]="dataSource" class="data-table">
+
+        <ng-container matColumnDef="idUsuario">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="id-tag">#{{element.id}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombreApellidos">
+          <th mat-header-cell *matHeaderCellDef> Usuario </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="user-cell">
+              <div class="user-avatar-mini">{{element.nombreApellidos.charAt(0).toUpperCase()}}</div>
+              <div class="user-info">
+                <span class="name">{{element.nombreApellidos}}</span>
+                <span class="email-sub">{{element.correo}}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="correo">
+          <th mat-header-cell *matHeaderCellDef> Contacto </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="text-secondary">{{element.correo}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rolDescripcion">
+          <th mat-header-cell *matHeaderCellDef> Rol </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="role-badge">{{element.rolDescripcion}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="status-indicator" [class.active]="element.esActivo == 1">
+              <span class="dot"></span>
+              {{element.esActivo == 1 ? 'Activo' : 'Inactivo'}}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Editar </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <button mat-icon-button class="action-btn edit" (click)="editarUsuario(element)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acc">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Eliminar </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <button mat-icon-button class="action-btn delete" (click)="eliminarUsuario(element)" matTooltip="Eliminar">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="consultar">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Ver </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <button mat-icon-button class="action-btn view" (click)="verUsuario(element)" matTooltip="Detalles">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="8">
+            <div class="empty-state">
+              <mat-icon>search_off</mat-icon>
+              <p>No se encontraron resultados para "{{input.value}}"</p>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons class="custom-paginator"></mat-paginator>
+    </div>
+
+  </div>
 </div>

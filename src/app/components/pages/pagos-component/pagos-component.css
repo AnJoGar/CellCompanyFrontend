@@ -1,5 +1,5 @@
 /* 1. CONTENEDOR Y TÍTULO */
-.page-title {
+/* .page-title {
   color: #2c3e50;
   font-size: 28px;
   font-weight: 600;
@@ -13,10 +13,10 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
   border: none !important;
   overflow: hidden;
-}
+} */
 
 /* 2. FILTROS Y BUSCADOR */
-.filter-field {
+/* .filter-field {
   width: 100%;
   margin-bottom: 20px;
 }
@@ -49,10 +49,10 @@ mat-chip.selected {
   color: white !important;
   font-weight: bold;
   transform: scale(1.05);
-}
+} */
 
 /* 3. DASHBOARD / TARJETAS DE RESUMEN */
-.kpi-grid {
+/* .kpi-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px !important;
@@ -71,61 +71,61 @@ mat-chip.selected {
 }
 
 .kpi-card h3 { font-size: 14px; margin: 0; font-weight: 600; }
-.kpi-card p { font-size: 24px; font-weight: bold; margin: 10px 0 0 0; }
+.kpi-card p { font-size: 24px; font-weight: bold; margin: 10px 0 0 0; } */
 
 /* Colores de las Tarjetas */
-.blue   { background-color: #e3f2fd; color: #1976d2; }
+/* .blue   { background-color: #e3f2fd; color: #1976d2; }
 .green  { background-color: #e8f5e9; color: #2e7d32; }
 .orange { background-color: #fff3e0; color: #ef6c00; }
-.purple { background-color: #f3e5f5; color: #7b1fa2; }
+.purple { background-color: #f3e5f5; color: #7b1fa2; } */
 
 /* 4. TABLA Y RESPONSIVIDAD (SOLUCIÓN AL TEXTO CORTADO) */
-.table-responsive {
+/* .table-responsive {
   border-radius: 8px;
-  overflow-x: auto; /* Scroll horizontal obligatorio */
+  overflow-x: auto; 
   background: white;
   border: 1px solid #e0e0e0;
   margin-top: 15px;
-}
+} */
 
-table {
+/* table {
   width: 100%;
-  min-width: 1200px; /* IMPORTANTE: Ajusta este valor según cuántas columnas tengas */
+  min-width: 1200px; 
   border-collapse: collapse;
-}
+} */
 
 /* Encabezados: Aquí se arregla que no se vean los nombres */
-th.mat-header-cell {
-  background-color: #17789e !important; /* Azul oscuro */
+/* th.mat-header-cell {
+  background-color: #17789e !important;
   color: white !important;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 12px;
   padding: 15px !important;
-  white-space: nowrap; /* EVITA QUE EL TEXTO SE ROMPA EN VARIAS LÍNEAS */
+  white-space: nowrap; 
   text-align: left;
-}
+} */
 
 /* Celdas */
-td.mat-cell {
+/* td.mat-cell {
   padding: 12px 15px !important;
   font-size: 13.5px;
   border-bottom: 1px solid #f0f0f0;
-  white-space: nowrap; /* Mantiene los datos en una sola línea */
-}
+  white-space: nowrap;
+} */
 
-tr.mat-row:hover {
+/* tr.mat-row:hover {
   background-color: #f1f8ff !important;
-}
+} */
 
 /* 5. ELEMENTOS DENTRO DE LA CELDA */
-.user-cell {
+/* .user-cell {
   display: flex;
   align-items: center;
   gap: 10px;
-}
+} */
 
-.avatar {
+/* .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -141,30 +141,456 @@ tr.mat-row:hover {
 }
 
 .bold { font-weight: 600; color: #333; }
-.text-muted { font-size: 11px; color: #777; }
+.text-muted { font-size: 11px; color: #777; } */
 
 /* 6. BADGES DE ESTADO */
-.badge {
+/* .badge {
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: bold;
   text-transform: uppercase;
   display: inline-block;
-}
+} */
 
 /* Clases dinámicas para estados */
-.estado-activo    { background-color: #c8e6c9; color: #256029; }
+/* .estado-activo    { background-color: #c8e6c9; color: #256029; }
 .estado-pendiente { background-color: #feedaf; color: #8a5340; }
-.estado-cancelado { background-color: #ffcdd2; color: #c63737; }
+.estado-cancelado { background-color: #ffcdd2; color: #c63737; } */
 
 /* 7. PAGINADOR */
-mat-paginator {
+/* mat-paginator {
   background-color: #f8f9fa !important;
   border-top: 1px solid #e0e0e0;
-}
+} */
 
 /* 8. BOTONES DE ACCIÓN */
-.mat-mdc-button-base {
+/* .mat-mdc-button-base {
   margin: 0 2px;
+} */
+
+/* --- LAYOUT GENERAL --- */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* --- HEADER --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  color: #64748b;
+  margin: 4px 0 0 0;
+  font-size: 14px;
+}
+
+/* --- TARJETAS DE RESUMEN (Summary Cards) --- */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid transparent;
+  /* Línea de color lateral */
+  transition: transform 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.card-icon mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.card-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+/* Colores de Tarjetas */
+.summary-card.info {
+  border-left-color: #3b82f6;
+}
+
+.summary-card.info .card-icon {
+  background-color: #eff6ff;
+  color: #3b82f6;
+}
+
+.summary-card.success {
+  border-left-color: #10b981;
+}
+
+.summary-card.success .card-icon {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+
+.summary-card.warning {
+  border-left-color: #f59e0b;
+}
+
+.summary-card.warning .card-icon {
+  background-color: #fffbeb;
+  color: #f59e0b;
+}
+
+.summary-card.purple {
+  border-left-color: #8b5cf6;
+}
+
+.summary-card.purple .card-icon {
+  background-color: #f5f3ff;
+  color: #8b5cf6;
+}
+
+
+/* --- TOOLBAR & FILTROS --- */
+.toolbar-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.search-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100%;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.filters-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+/* Chips Personalizados */
+.chip-group {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.chip:hover {
+  background-color: #e2e8f0;
+}
+
+.chip.active {
+  background-color: #1e293b;
+  color: white;
+  border-color: #1e293b;
+}
+
+/* Colores de Chips Activos */
+.chip.active.success {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+.chip.active.warning {
+  background-color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.chip.active.danger {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+
+/* --- TABLA --- */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table-scroll-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 2500px;
+  /* Fuerza scroll horizontal para que no se apriete */
+}
+
+th.mat-header-cell {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 16px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+td.mat-cell {
+  padding: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.bg-sticky {
+  background-color: white !important;
+  border-left: 1px solid #f1f5f9;
+}
+
+.table-row:hover {
+  background-color: #f8fafc;
+}
+
+.table-row:hover .bg-sticky {
+  background-color: #f8fafc !important;
+}
+
+/* Estilos de Celda */
+.font-medium {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.truncate-cell {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.code-tag {
+  font-family: monospace;
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #475569;
+  font-size: 12px;
+}
+
+.money-text {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.money-text.total {
+  color: #0891b2;
+}
+
+.money-text.pending {
+  color: #ea580c;
+}
+
+/* Badges de Estado */
+.chip-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #e2e8f0;
+  color: #475569;
+}
+
+.chip-badge.success {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.chip-badge.warning {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.chip-badge.danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.chip-badge.outline {
+  background-color: transparent;
+  border: 1px solid;
+}
+
+.chip-badge.outline.success {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.chip-badge.outline.warning {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.chip-badge.outline.danger {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Botones Acción */
+.action-btn {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background-color: transparent;
+  transition: background 0.2s;
+}
+
+.action-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.action-btn.success {
+  color: #10b981;
+}
+
+.action-btn.success:hover {
+  background-color: #d1fae5;
+}
+
+.action-btn.info {
+  color: #3b82f6;
+}
+
+.action-btn.info:hover {
+  background-color: #eff6ff;
+}
+
+.action-btn.primary {
+  color: #6366f1;
+}
+
+.action-btn.primary:hover {
+  background-color: #e0e7ff;
+}
+
+.action-btn.delete {
+  color: #ef4444;
+}
+
+.action-btn.delete:hover {
+  background-color: #fee2e2;
+}
+
+/* Paginador */
+.custom-paginator {
+  border-top: 1px solid #e2e8f0;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 60px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+  margin-bottom: 10px;
 }

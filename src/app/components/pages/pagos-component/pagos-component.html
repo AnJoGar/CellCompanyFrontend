@@ -1,4 +1,4 @@
-<h1 class="page-title" style="color: #17789e;">Pago de Créditos</h1>
+<!-- <h1 class="page-title" style="color: #17789e;">Pago de Créditos</h1>
 <mat-card class="card" style="margin: 20px 40px 40px 40px">
   <mat-card-content class="dashboard-card-content">
     <form class="example-form" [formGroup]="formGroup" (ngSubmit)="onSubmitForm()">
@@ -8,10 +8,10 @@
         <mat-label>Búsqueda (Cualquier campo)</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Cliente, Cédula, Marca" #input>
       </mat-form-field>
-    </form>
+    </form> -->
 
-    <!-- FILTROS POR CHIPS -->
-    <div style="margin: 20px 0;">
+<!-- FILTROS POR CHIPS -->
+<!-- <div style="margin: 20px 0;">
       <div style="margin-bottom: 15px;">
         <h3 style="margin: 0 0 10px 0; color: #1976d2;">Filtrar por Estado de Crédito:</h3>
         <div class="chip-container">
@@ -66,12 +66,12 @@
     </div>
 
 
+ -->
 
 
-    
 
-    <!-- Tarjetas de resumen -->
-    <div style="display: flex; gap: 20px; margin: 20px 0;">
+<!-- Tarjetas de resumen -->
+<!-- <div style="display: flex; gap: 20px; margin: 20px 0;">
       <mat-card style="flex: 1; background-color: #e3f2fd;">
         <mat-card-content>
           <h3 style="margin: 0; color: #1976d2;">Total Créditos</h3>
@@ -102,184 +102,185 @@
     </div>
 
     <div class="mat-elevation-z2" style="margin-top:15px; overflow-x: auto;">
-      <table mat-table [dataSource]="dataSource">
+      <table mat-table [dataSource]="dataSource"> -->
 
-        <!-- Codigo Unico -->
-        <ng-container matColumnDef="codigoUnico">
+<!-- Codigo Unico -->
+<!-- <ng-container matColumnDef="codigoUnico">
           <th mat-header-cell *matHeaderCellDef> Codigo Unico</th>
           <td mat-cell *matCellDef="let element"> {{element.codigoUnico}} </td>
         </ng-container>
-        
-        <!-- ID Cliente -->
-        <ng-container matColumnDef="clienteId">
+         -->
+<!-- ID Cliente -->
+<!-- <ng-container matColumnDef="clienteId">
           <th mat-header-cell *matHeaderCellDef> ID Cliente </th>
           <td mat-cell *matCellDef="let element"> {{element.clienteId}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Nombre Cliente -->
-        <ng-container matColumnDef="nombreCliente">
+<!-- Nombre Cliente -->
+<!-- <ng-container matColumnDef="nombreCliente">
           <th mat-header-cell *matHeaderCellDef> Cliente </th>
           <td mat-cell *matCellDef="let element"> {{element.nombreCliente}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Cédula -->
-        <ng-container matColumnDef="cedula">
+<!-- Cédula -->
+<!-- <ng-container matColumnDef="cedula">
           <th mat-header-cell *matHeaderCellDef> Cédula </th>
           <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Teléfono Cliente -->
-        <ng-container matColumnDef="telefonoCliente">
+<!-- Teléfono Cliente -->
+<!-- <ng-container matColumnDef="telefonoCliente">
           <th mat-header-cell *matHeaderCellDef> Teléfono </th>
           <td mat-cell *matCellDef="let element"> {{element.telefonoCliente}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Dirección Cliente -->
-        <ng-container matColumnDef="direccionCliente">
+<!-- Dirección Cliente -->
+<!-- <ng-container matColumnDef="direccionCliente">
           <th mat-header-cell *matHeaderCellDef> Dirección </th>
           <td mat-cell *matCellDef="let element"> {{element.direccionCliente}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Foto Cliente -->
-      
+<!-- Foto Cliente -->
 
-        <!-- ID Tienda -->
-        <ng-container matColumnDef="tiendaId">
+
+<!-- ID Tienda -->
+<!-- <ng-container matColumnDef="tiendaId">
           <th mat-header-cell *matHeaderCellDef> ID Tienda </th>
           <td mat-cell *matCellDef="let element"> {{element.tiendaId || 'N/A'}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Nombre Tienda -->
-        <ng-container matColumnDef="nombreTienda">
+<!-- Nombre Tienda -->
+<!-- <ng-container matColumnDef="nombreTienda">
           <th mat-header-cell *matHeaderCellDef> Tienda </th>
           <td mat-cell *matCellDef="let element"> {{element.nombreTienda}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Encargado Tienda -->
-        <ng-container matColumnDef="encargadoTienda">
+<!-- Encargado Tienda -->
+<!-- <ng-container matColumnDef="encargadoTienda">
           <th mat-header-cell *matHeaderCellDef> Encargado </th>
           <td mat-cell *matCellDef="let element"> {{element.encargadoTienda}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Teléfono Tienda -->
-        <ng-container matColumnDef="telefonoTienda">
+<!-- Teléfono Tienda -->
+<!-- <ng-container matColumnDef="telefonoTienda">
           <th mat-header-cell *matHeaderCellDef> Tel. Tienda </th>
           <td mat-cell *matCellDef="let element"> {{element.telefonoTienda}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Teléfono Tienda -->
-        <ng-container matColumnDef="estadoDeComision">
+<!-- Teléfono Tienda -->
+<!-- <ng-container matColumnDef="estadoDeComision">
           <th mat-header-cell *matHeaderCellDef> Estado de comision </th>
           <td mat-cell *matCellDef="let element"> {{element.estadoDeComision}} </td>
-        </ng-container>
-        <!-- ID Crédito -->
-        <ng-container matColumnDef="creditoId">
+        </ng-container> -->
+
+<!-- ID Crédito -->
+<!-- <ng-container matColumnDef="creditoId">
           <th mat-header-cell *matHeaderCellDef> ID Crédito </th>
           <td mat-cell *matCellDef="let element"> {{element.creditoId}} </td>
         </ng-container>
                  <ng-container matColumnDef="nombrePropietario">
           <th mat-header-cell *matHeaderCellDef> Propietario del Credito </th>
           <td mat-cell *matCellDef="let element"> {{element.nombrePropietario}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Marca -->
-        <ng-container matColumnDef="marca">
+<!-- Marca -->
+<!-- <ng-container matColumnDef="marca">
           <th mat-header-cell *matHeaderCellDef> Marca </th>
           <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Modelo -->
-        <ng-container matColumnDef="modelo">
+<!-- Modelo -->
+<!-- <ng-container matColumnDef="modelo">
           <th mat-header-cell *matHeaderCellDef> Modelo </th>
           <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Foto Contrato -->
-                   <!-- Modelo -->
-        <ng-container matColumnDef="capacidad">
+<!-- Foto Contrato -->
+<!-- Modelo -->
+<!-- <ng-container matColumnDef="capacidad">
           <th mat-header-cell *matHeaderCellDef> Capacidad </th>
           <td mat-cell *matCellDef="let element"> {{element.capacidad}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Foto Celular -->
-      
+<!-- Foto Celular -->
 
-        <!-- Entrada -->
-        <ng-container matColumnDef="entrada">
+
+<!-- Entrada -->
+<!-- <ng-container matColumnDef="entrada">
           <th mat-header-cell *matHeaderCellDef> Entrada </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.entrada)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Monto Total -->
-        <ng-container matColumnDef="montoTotal">
+<!-- Monto Total -->
+<!-- <ng-container matColumnDef="montoTotal">
           <th mat-header-cell *matHeaderCellDef> Monto Total </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.montoTotal)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Monto Pendiente -->
-        <ng-container matColumnDef="montoPendiente">
+<!-- Monto Pendiente -->
+<!-- <ng-container matColumnDef="montoPendiente">
           <th mat-header-cell *matHeaderCellDef> Pendiente </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.montoPendiente)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Plazo Cuotas -->
-        <ng-container matColumnDef="plazoCuotas">
+<!-- Plazo Cuotas -->
+<!-- <ng-container matColumnDef="plazoCuotas">
           <th mat-header-cell *matHeaderCellDef> Cuotas </th>
           <td mat-cell *matCellDef="let element"> {{element.plazoCuotas}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Frecuencia Pago -->
-        <ng-container matColumnDef="frecuenciaPago">
+<!-- Frecuencia Pago -->
+<!-- <ng-container matColumnDef="frecuenciaPago">
           <th mat-header-cell *matHeaderCellDef> Frecuencia </th>
           <td mat-cell *matCellDef="let element"> {{element.frecuenciaPago}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Valor por Cuota -->
-        <ng-container matColumnDef="valorPorCuota">
+<!-- Valor por Cuota -->
+<!-- <ng-container matColumnDef="valorPorCuota">
           <th mat-header-cell *matHeaderCellDef> Valor Cuota </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.valorPorCuota)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Próxima Cuota -->
-        <ng-container matColumnDef="proximaCuota">
+<!-- Próxima Cuota -->
+<!-- <ng-container matColumnDef="proximaCuota">
           <th mat-header-cell *matHeaderCellDef> Próxima Cuota </th>
           <td mat-cell *matCellDef="let element"> {{formatearFecha(element.proximaCuota)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Estado Crédito -->
-        <ng-container matColumnDef="estadoCredito">
+<!-- Estado Crédito -->
+<!-- <ng-container matColumnDef="estadoCredito">
           <th mat-header-cell *matHeaderCellDef> Estado Crédito </th>
           <td mat-cell *matCellDef="let element">
             <span [ngStyle]="{'color': element.estadoCredito === 'Activo' ? 'green' : element.estadoCredito === 'Cancelado' ? 'red' : 'orange'}">
               {{element.estadoCredito}}
             </span>
           </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Estado Cuota -->
-        <ng-container matColumnDef="estadoCuota">
+<!-- Estado Cuota -->
+<!-- <ng-container matColumnDef="estadoCuota">
           <th mat-header-cell *matHeaderCellDef> Estado Cuota </th>
           <td mat-cell *matCellDef="let element">
             <span [ngStyle]="{'color': element.estadoCuota === 'Pagada' ? 'green' : element.estadoCuota === 'Pendiente' ? 'orange' : 'red'}">
               {{element.estadoCuota}}
             </span>
           </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Abonado Total -->
-        <ng-container matColumnDef="abonadoTotal">
+<!-- Abonado Total -->
+<!-- <ng-container matColumnDef="abonadoTotal">
           <th mat-header-cell *matHeaderCellDef> Abonado Total </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.abonadoTotal)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Abonado Cuota -->
-        <ng-container matColumnDef="abonadoCuota">
+<!-- Abonado Cuota -->
+<!-- <ng-container matColumnDef="abonadoCuota">
           <th mat-header-cell *matHeaderCellDef> Abonado Cuota </th>
           <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.abonadoCuota)}} </td>
-        </ng-container>
+        </ng-container> -->
 
-        <!-- Fecha Crédito -->
-        <ng-container matColumnDef="fechaCreditoStr">
+<!-- Fecha Crédito -->
+<!-- <ng-container matColumnDef="fechaCreditoStr">
           <th mat-header-cell *matHeaderCellDef> Fecha Crédito </th>
           <td mat-cell *matCellDef="let element"> {{element.fechaCreditoStr}} </td>
         </ng-container>
@@ -296,10 +297,10 @@
       <mat-icon>payments</mat-icon>
     </button>
   </td>
-</ng-container>
+</ng-container> -->
 
-        <!-- Acciones -->
-        <ng-container matColumnDef="calendario">
+<!-- Acciones -->
+<!-- <ng-container matColumnDef="calendario">
   <th mat-header-cell *matHeaderCellDef style="text-align: center; font-weight: 700;"> Calendario de Pago </th>
   <td mat-cell *matCellDef="let element" style="text-align: center;">
     <button 
@@ -365,4 +366,338 @@
      
     </div>
   </mat-card-content>
-</mat-card>
+</mat-card> -->
+
+<div class="page-container">
+
+  <header class="page-header">
+    <div class="header-left">
+      <h1 style="margin-bottom: 10px;" class="page-title">Pago de Créditos</h1>
+      <p class="page-subtitle">Gestión de cobranza y estado de cuentas</p>
+    </div>
+  </header>
+
+  <div class="content-body">
+
+    <div class="summary-cards">
+
+      <mat-card class="summary-card info">
+        <div class="card-icon">
+          <mat-icon>receipt_long</mat-icon>
+        </div>
+        <div class="card-data">
+          <span class="label">Total Créditos</span>
+          <h2 class="value">{{ dataSource.filteredData.length }}</h2>
+        </div>
+      </mat-card>
+
+      <mat-card class="summary-card success">
+        <div class="card-icon">
+          <mat-icon>monetization_on</mat-icon>
+        </div>
+        <div class="card-data">
+          <span class="label">Monto Total</span>
+          <h2 class="value">{{ formatearMoneda(calcularMontoTotal()) }}</h2>
+        </div>
+      </mat-card>
+
+      <mat-card class="summary-card warning">
+        <div class="card-icon">
+          <mat-icon>pending</mat-icon>
+        </div>
+        <div class="card-data">
+          <span class="label">Pendiente</span>
+          <h2 class="value">{{ formatearMoneda(calcularMontoPendienteTotal()) }}</h2>
+        </div>
+      </mat-card>
+
+      <mat-card class="summary-card purple">
+        <div class="card-icon">
+          <mat-icon>savings</mat-icon>
+        </div>
+        <div class="card-data">
+          <span class="label">Abonado</span>
+          <h2 class="value">{{ formatearMoneda(calcularAbonadoTotal()) }}</h2>
+        </div>
+      </mat-card>
+
+    </div>
+
+    <div class="toolbar-card">
+
+      <div class="search-section">
+        <div class="search-container">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input type="text" class="search-input" placeholder="Búsqueda por cualquier campo"
+            (keyup)="applyFilter($event)" #input>
+        </div>
+      </div>
+
+      <div class="filters-section">
+
+        <div class="filter-group">
+          <span class="filter-label">Estado Crédito:</span>
+          <div class="chip-group">
+            <div class="chip" [class.active]="filtroEstadoCredito === 'Todos'"
+              (click)="aplicarFiltroEstadoCredito('Todos')">Todos</div>
+            <div class="chip" [class.active]="filtroEstadoCredito === 'Pendiente'"
+              (click)="aplicarFiltroEstadoCredito('Pendiente')">Pendiente</div>
+            <div class="chip" [class.active]="filtroEstadoCredito === 'Pagado'"
+              (click)="aplicarFiltroEstadoCredito('Pagado')">Pagado</div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Estado Cuota:</span>
+          <div class="chip-group">
+            <div class="chip" [class.active]="filtroEstadoCuota === 'Todos'"
+              (click)="aplicarFiltroEstadoCuota('Todos')">Todos</div>
+            <div class="chip success" [class.active]="filtroEstadoCuota === 'Pagada'"
+              (click)="aplicarFiltroEstadoCuota('Pagada')">Pagada</div>
+            <div class="chip warning" [class.active]="filtroEstadoCuota === 'Pendiente'"
+              (click)="aplicarFiltroEstadoCuota('Pendiente')">Pendiente</div>
+            <div class="chip danger" [class.active]="filtroEstadoCuota === 'Vencida'"
+              (click)="aplicarFiltroEstadoCuota('Atrasada')">Vencida</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="table-container mat-elevation-z2">
+      <div class="table-scroll-wrapper">
+        <table mat-table [dataSource]="dataSource" class="data-table">
+
+          <ng-container matColumnDef="codigoUnico">
+            <th mat-header-cell *matHeaderCellDef> Código </th>
+            <td mat-cell *matCellDef="let element"> <span class="code-tag">{{element.codigoUnico}}</span> </td>
+          </ng-container>
+
+          <ng-container matColumnDef="clienteId">
+            <th mat-header-cell *matHeaderCellDef> ID Cliente </th>
+            <td mat-cell *matCellDef="let element"> {{element.clienteId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreCliente">
+            <th mat-header-cell *matHeaderCellDef> Cliente </th>
+            <td mat-cell *matCellDef="let element" class="font-medium"> {{element.nombreCliente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cedula">
+            <th mat-header-cell *matHeaderCellDef> Cédula </th>
+            <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefonoCliente">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let element"> {{element.telefonoCliente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="direccionCliente">
+            <th mat-header-cell *matHeaderCellDef> Dirección </th>
+            <td mat-cell *matCellDef="let element" class="truncate-cell" title="{{element.direccionCliente}}">
+              {{element.direccionCliente}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tiendaId">
+            <th mat-header-cell *matHeaderCellDef> ID Tienda </th>
+            <td mat-cell *matCellDef="let element"> {{element.tiendaId || '-'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombreTienda">
+            <th mat-header-cell *matHeaderCellDef> Tienda </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombreTienda}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="encargadoTienda">
+            <th mat-header-cell *matHeaderCellDef> Encargado </th>
+            <td mat-cell *matCellDef="let element"> {{element.encargadoTienda}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefonoTienda">
+            <th mat-header-cell *matHeaderCellDef> Tel. Tienda </th>
+            <td mat-cell *matCellDef="let element"> {{element.telefonoTienda}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estadoDeComision">
+            <th mat-header-cell *matHeaderCellDef> Comisión </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="status-indicator" [class.success]="element.estadoDeComision === 'Pagado'"
+                [class.warning]="element.estadoDeComision !== 'Pagado'">
+                <span class="dot"></span>
+                {{element.estadoDeComision || 'Pendiente'}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="creditoId">
+            <th mat-header-cell *matHeaderCellDef> ID Crédito </th>
+            <td mat-cell *matCellDef="let element"> {{element.creditoId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombrePropietario">
+            <th mat-header-cell *matHeaderCellDef> Propietario </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombrePropietario}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="marca">
+            <th mat-header-cell *matHeaderCellDef> Marca </th>
+            <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="modelo">
+            <th mat-header-cell *matHeaderCellDef> Modelo </th>
+            <td mat-cell *matCellDef="let element"> {{element.modelo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="capacidad">
+            <th mat-header-cell *matHeaderCellDef> Capacidad </th>
+            <td mat-cell *matCellDef="let element"> {{element.capacidad}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="entrada">
+            <th mat-header-cell *matHeaderCellDef> Entrada </th>
+            <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.entrada)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="montoTotal">
+            <th mat-header-cell *matHeaderCellDef> Total </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="money-text total">{{formatearMoneda(element.montoTotal)}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="montoPendiente">
+            <th mat-header-cell *matHeaderCellDef> Pendiente </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="money-text pending">{{formatearMoneda(element.montoPendiente)}}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="plazoCuotas">
+            <th mat-header-cell *matHeaderCellDef> Cuotas </th>
+            <td mat-cell *matCellDef="let element"> {{element.plazoCuotas}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="frecuenciaPago">
+            <th mat-header-cell *matHeaderCellDef> Frecuencia </th>
+            <td mat-cell *matCellDef="let element"> {{element.frecuenciaPago}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valorPorCuota">
+            <th mat-header-cell *matHeaderCellDef> Valor Cuota </th>
+            <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.valorPorCuota)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="proximaCuota">
+            <th mat-header-cell *matHeaderCellDef> Próxima Cuota </th>
+            <td mat-cell *matCellDef="let element"> {{formatearFecha(element.proximaCuota)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estadoCredito">
+            <th mat-header-cell *matHeaderCellDef> Estado Crédito </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="chip-badge"
+                [class.success]="element.estadoCredito === 'Pagado' || element.estadoCredito === 'Activo'"
+                [class.danger]="element.estadoCredito === 'Cancelado'"
+                [class.warning]="element.estadoCredito === 'Pendiente'">
+                {{element.estadoCredito}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estadoCuota">
+            <th mat-header-cell *matHeaderCellDef> Estado Cuota </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="chip-badge outline" [class.success]="element.estadoCuota === 'Pagada'"
+                [class.warning]="element.estadoCuota === 'Pendiente'"
+                [class.danger]="element.estadoCuota === 'Vencida' || element.estadoCuota === 'Atrasada'">
+                {{element.estadoCuota}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="abonadoTotal">
+            <th mat-header-cell *matHeaderCellDef> Abonado Total </th>
+            <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.abonadoTotal)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="abonadoCuota">
+            <th mat-header-cell *matHeaderCellDef> Abonado Cuota </th>
+            <td mat-cell *matCellDef="let element"> {{formatearMoneda(element.abonadoCuota)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechaCreditoStr">
+            <th mat-header-cell *matHeaderCellDef> Fecha Crédito </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaCreditoStr}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="pago" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Pago </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn success" (click)="abrirModalPago(element)"
+                matTooltip="Registrar Pago">
+                <mat-icon>payments</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="calendario" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Calendario </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn info" (click)="verCalendarioPagos(element)"
+                matTooltip="Ver Calendario">
+                <mat-icon>event_note</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="historialReal" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> Historial </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn primary" (click)="verHistorialPagosReales(element)"
+                matTooltip="Ver Historial">
+                <mat-icon>receipt_long</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="eliminar" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn delete" (click)="eliminarCredito(element)"
+                matTooltip="Eliminar">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="registrarCredito" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef class="text-center bg-sticky"> </th>
+            <td mat-cell *matCellDef="let element" class="text-center bg-sticky">
+              <button mat-icon-button class="action-btn primary" (click)="abrirModalCredito(element)"
+                matTooltip="Nuevo Crédito">
+                <mat-icon>add_card</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+              <div class="empty-state">
+                <mat-icon>search_off</mat-icon>
+                <p>No se encontraron resultados para "{{input.value}}"</p>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons class="custom-paginator"></mat-paginator>
+    </div>
+
+  </div>
+</div>

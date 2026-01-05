@@ -1,4 +1,4 @@
-<div class="login-container">
+<!-- <div class="login-container">
     <mat-card class="login-card">
 
         <div class="login-header">
@@ -59,4 +59,73 @@
         </form>
 
     </mat-card>
+</div> -->
+
+<div class="login-bg">
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+
+    <div class="login-container">
+        <mat-card class="modern-card">
+
+            <div class="header-section">
+                <div class="logo-container">
+                    <img src="cellcompay.jpg" alt="Logo Empresa" class="company-logo">
+                </div>
+                <h1 class="welcome-title">Bienvenido</h1>
+                <p class="welcome-subtitle">Ingresa a tu cuenta para continuar</p>
+            </div>
+
+            <form [formGroup]="formLogin" (ngSubmit)="iniciarSesion()" class="login-form">
+
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput formControlName="correo" placeholder="nombre@empresa.com" type="email">
+                    <mat-icon matPrefix class="field-icon">mail_outline</mat-icon>
+                    <mat-error *ngIf="formLogin.get('correo')?.hasError('required')">Requerido</mat-error>
+                    <mat-error *ngIf="formLogin.get('correo')?.hasError('email')">Correo inválido</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput [type]="ocultarPassword ? 'password' : 'text'" formControlName="clave">
+                    <mat-icon matPrefix class="field-icon">lock_open</mat-icon>
+                    <button mat-icon-button matSuffix (click)="ocultarPassword = !ocultarPassword" type="button">
+                        <mat-icon>{{ocultarPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="formLogin.get('clave')?.hasError('required')">Requerido</mat-error>
+                </mat-form-field>
+
+                <div class="actions-row">
+                    <button mat-button type="button" class="forgot-btn" (click)="recuperarContrasena()">
+                        ¿Olvidaste tu contraseña?
+                    </button>
+                </div>
+
+                <div class="buttons-section">
+                    <button mat-flat-button color="primary" class="main-btn" type="submit"
+                        [disabled]="formLogin.invalid || isLoading">
+                        <ng-container *ngIf="!isLoading">
+                            INICIAR SESIÓN
+                        </ng-container>
+                        <div class="loader-content" *ngIf="isLoading">
+                            <mat-spinner diameter="20" color="accent"></mat-spinner>
+                            <span>Procesando...</span>
+                        </div>
+                    </button>
+
+                    <div class="divider">
+                        <span>o</span>
+                    </div>
+
+                    <button mat-stroked-button class="secondary-btn" type="button" (click)="agregarUsuario()">
+                        Crear nueva cuenta
+                    </button>
+                </div>
+
+            </form>
+        </mat-card>
+
+        <p class="copyright">© 2024 CellCompay. Todos los derechos reservados.</p>
+    </div>
 </div>

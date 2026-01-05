@@ -1,5 +1,5 @@
 <!-- layout.component.html -->
-<mat-toolbar class="custom-toolbar">
+<!-- <mat-toolbar class="custom-toolbar">
   <mat-toolbar-row class="toolbar-content">
     <div class="logo-section">
       <mat-icon class="logo-icon">phone_android</mat-icon>
@@ -52,4 +52,74 @@
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<mat-sidenav-container class="fullscreen-container">
+
+  <mat-sidenav #drawer class="app-sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+
+    <div class="sidenav-brand">
+      <div class="brand-logo-container">
+        <mat-icon>business_center</mat-icon>
+      </div>
+      <div class="brand-text">
+        <h1>CellCompay</h1>
+        <small>Administración</small>
+      </div>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <h3 class="menu-label">PRINCIPAL</h3>
+
+      <a mat-list-item *ngFor="let menu of listaMenu" [routerLink]="menu.url" routerLinkActive="active-link"
+        class="nav-item">
+        <mat-icon matListItemIcon>{{menu.icono}}</mat-icon>
+        <span style="color: #ffffff;" matListItemTitle>{{menu.nombre}}</span>
+        <div class="active-indicator"></div>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <a mat-list-item (click)="cerrarSession()" class="nav-item logout-item">
+        <mat-icon matListItemIcon>power_settings_new</mat-icon>
+        <span style="color: #ffffff;" matListItemTitle>Cerrar Sesión</span>
+      </a>
+    </div>
+
+  </mat-sidenav>
+
+
+  <mat-sidenav-content class="app-content">
+
+    <mat-toolbar class="app-header">
+
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async" class="mobile-toggle">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="header-breadcrumbs">
+        <span style="color: #ffffff;" class="current-section">Panel de Control</span>
+      </div>
+
+      <span class="spacer"></span>
+
+      <div class="user-profile-section">
+        <div class="user-text-info">
+          <span style="color: #ffffff;" class="user-name">{{ correoUsuario }}</span>
+          <span style="color: #ffffff;" class="user-role">{{ rolUsuario }}</span>
+        </div>
+        <div class="user-avatar-container">
+          <span class="avatar-initial">{{ correoUsuario.charAt(0).toUpperCase() }}</span>
+        </div>
+      </div>
+
+    </mat-toolbar>
+
+    <div class="main-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
 </mat-sidenav-container>

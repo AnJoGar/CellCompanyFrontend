@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -14,19 +14,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-
-
-
-
-
-
 import { MatSortModule } from '@angular/material/sort';
-
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-
-
 import { TiendaInventarioService } from '../../../services/TiendaInventarioService';
 import { ProductoBodegaService } from '../../../services/ProductoService';
 import { ProductoBodega } from '../../../interfaces/Bodega';
@@ -35,7 +25,6 @@ import { ModalProducto } from '../../../components/pages/modal/modal-producto/mo
 import { ModalTrasladoProductoComponent } from '../modal/modal-traslado-producto-component/modal-traslado-producto-component';
 import { ModalTrasladoEntreTiendasComponent } from '../modal/modal-traslado-entre-tiendas.component/modal-traslado-entre-tiendas.component';
 import { ModalVerHistorial } from '../modal/modal-ver-historial/modal-ver-historial';
-
 
 @Component({
   selector: 'app-inventario-tienda-component',
@@ -57,7 +46,7 @@ import { ModalVerHistorial } from '../modal/modal-ver-historial/modal-ver-histor
   templateUrl: './inventario-tienda-component.html',
   styleUrl: './inventario-tienda-component.css',
 })
-export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
+export class InventarioTiendaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'codigo',
     'tipoProducto',
@@ -65,16 +54,11 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
     'modelo',
     'imei',
     'color',
-     'capacidad',
+    'capacidad',
     'estado',
-   
     'precio',
-    
-
-    
     'fechaIngreso',
     'diasEnBodega',
-    
     'acciones',
     'trasladar'
   ];
@@ -82,13 +66,13 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
   ELEMENT_DATA: ProductoBodega[] = [];
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   searchValue: string = '';
-  
+
   // KPIs
   totalProductos: number = 0;
   totalInversion: number = 0;
   valorVentaTotal: number = 0;
   productosEnAlerta: number = 0;
-  
+
   // Tiendas
   listaTiendas: TiendaDestino[] = [];
   tiendaSeleccionada: number | null = null;
@@ -102,8 +86,9 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _tiendaInventarioService: TiendaInventarioService,
-    private _productoBodegaService: ProductoBodegaService
-  ) {}
+    private _productoBodegaService: ProductoBodegaService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.cargarTiendas();
@@ -115,12 +100,13 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
 
   cargarTiendas() {
     this.isLoadingTiendas = true;
+    this.cdr.detectChanges();
     this._tiendaInventarioService.obtenerTiendasDisponibles().subscribe({
       next: (response) => {
         if (response.status) {
           // Filtrar para NO mostrar la bodega central (id: 1)
           this.listaTiendas = response.value.filter((t: TiendaDestino) => t.id !== 1);
-          
+
           // Auto-seleccionar la primera tienda si existe
           if (this.listaTiendas.length > 0) {
             this.tiendaSeleccionada = this.listaTiendas[0].id;
@@ -131,11 +117,13 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
           this._snackBar.open('No se pudieron cargar las tiendas', 'Error', { duration: 3000 });
         }
         this.isLoadingTiendas = false;
+        this.cdr.detectChanges();
       },
       error: (e) => {
         console.error('Error al cargar tiendas:', e);
         this._snackBar.open('Error al cargar tiendas', 'Error', { duration: 3000 });
         this.isLoadingTiendas = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -155,12 +143,13 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
     }
 
     this.isLoadingProductos = true;
+    this.cdr.detectChanges();
     this._tiendaInventarioService.obtenerProductosTienda(this.tiendaSeleccionada).subscribe({
       next: (response) => {
         if (response.status) {
           this.dataSource.data = response.value;
           this.calcularKpis(response.value);
-          
+
           if (response.value.length === 0) {
             this._snackBar.open(`No hay productos en ${this.nombreTiendaSeleccionada}`, 'Info', { duration: 2000 });
           }
@@ -169,12 +158,14 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
           this.limpiarKpis();
         }
         this.isLoadingProductos = false;
+        this.cdr.detectChanges();
       },
       error: (e) => {
         console.error('Error al cargar productos:', e);
         this._snackBar.open('Error al cargar productos de la tienda', 'Error', { duration: 3000 });
         this.isLoadingProductos = false;
         this.limpiarKpis();
+        this.cdr.detectChanges();
       }
     });
   }
@@ -215,10 +206,10 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
   verHistorial(producto: ProductoBodega) {
     // Aquí puedes implementar un modal para ver el historial de movimientos
     this.dialog.open(ModalVerHistorial, {
-    width: '550px',
-    maxHeight: '80vh',
-    data: { producto: producto }
-  });
+      width: '550px',
+      maxHeight: '80vh',
+      data: { producto: producto }
+    });
   }
 
   formatearFecha(fecha: Date | string): string {
@@ -262,14 +253,14 @@ export class InventarioTiendaComponent  implements OnInit, AfterViewInit {
   }
 
 
-    trasladarProducto(producto: ProductoBodega) {
+  trasladarProducto(producto: ProductoBodega) {
     this.dialog.open(ModalTrasladoEntreTiendasComponent, {
       disableClose: true,
       width: '650px',
-     data: { 
-      ...producto, 
-      tiendaId: this.tiendaSeleccionada 
-    }
+      data: {
+        ...producto,
+        tiendaId: this.tiendaSeleccionada
+      }
     }).afterClosed().subscribe(result => {
       if (result === 'trasladado') {
         this.cargarProductosPorTienda(); // Recargar la tabla
