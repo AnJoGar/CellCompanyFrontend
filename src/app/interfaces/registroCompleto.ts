@@ -22,7 +22,7 @@ export interface DetalleCliente {
   id: number;
   numeroCedula: string;
   nombreApellidos: string;
-  nombrePropietario: string;
+ 
   telefono: string;
   direccion: string;
 }
@@ -38,6 +38,7 @@ export interface TiendaApp {
 
 export interface CreditoRegistro {
   id: number;
+   nombrePropietario: string;
   entrada: number;
   montoTotal: number;
   montoPendiente: number;

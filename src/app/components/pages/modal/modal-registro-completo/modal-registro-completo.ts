@@ -164,7 +164,7 @@ registrarTodo() {
        id: this.data?.usuario?.cliente?.detalleCliente?.id || 0,
         numeroCedula: this.formCliente.value.numeroCedula,
         nombreApellidos: this.formUsuario.value.nombreApellidos,
-        nombrePropietario: this.formCliente.value.nombrePropietario || "", // 👈 Agregado
+       
         telefono: this.formCliente.value.telefono,
         direccion: this.formCliente.value.direccion
       },
@@ -177,6 +177,7 @@ registrarTodo() {
       }],
       creditos: [{
        id: this.data?.usuario?.cliente?.creditos?.[0]?.id || 0,
+        nombrePropietario: this.formCliente.value.nombrePropietario || "", // 👈 Agregado
         entrada: Number(this.formCredito.value.entrada),
         montoTotal: Number(this.formCredito.value.montoTotal),
         montoPendiente: Number(this.formCredito.value.montoTotal) - Number(this.formCredito.value.entrada),
