@@ -20,7 +20,7 @@ export const LAYOUT_ROUTES: Routes = [
         component: Navegacion, 
         children: [
             // 1. Redirección inicial (Apuntando a Dashboard por defecto)
-            { path: '', redirectTo: 'panel-control', pathMatch: 'full' },
+            { path: '', redirectTo: 'reportes-generales', pathMatch: 'full' },
 
             // 2. Rutas Principales (Nivel 1)
             { path: 'panel-control', component: DasboardComponent },

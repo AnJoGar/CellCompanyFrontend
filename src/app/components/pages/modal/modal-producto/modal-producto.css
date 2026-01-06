@@ -158,6 +158,9 @@
   width: 28px;
   height: 28px;
 }
+.full-width {
+  width: 100%;
+}
 
 .modal-header h2 {
   margin: 0;

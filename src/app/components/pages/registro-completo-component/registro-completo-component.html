@@ -317,7 +317,7 @@
           </ng-container>
 
           <ng-container matColumnDef="cedulaEncargado">
-            <th mat-header-cell *matHeaderCellDef> Encargado </th>
+            <th mat-header-cell *matHeaderCellDef> Cedula del encargado de la tienda </th>
             <td mat-cell *matCellDef="let element">
               {{element.cliente?.tiendaApps?.[0]?.cedulaEncargado || '-'}}
             </td>

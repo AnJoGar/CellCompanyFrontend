@@ -14,10 +14,17 @@ export interface ReporteInterface {
   encargadoTienda: string;
   telefonoTienda: string;
   estadoDeComision:string;
+  valorComision:number;
+  direccion:string;
+  
+
+
+
 
   // ===== CRÉDITO =====
   creditoId: number;
   nombrePropietario:string;
+  imai:string;
   capacidad:number;
   marca: string;
   modelo: string;

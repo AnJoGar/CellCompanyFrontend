@@ -6,4 +6,7 @@ export interface Tienda {
   cedulaEncargado: string;
   telefono: string;
   fechaRegistro: Date | string;
+  comentario:string;
+  valorComision:number;
+
 }

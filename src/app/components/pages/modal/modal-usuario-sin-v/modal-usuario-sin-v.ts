@@ -52,7 +52,8 @@ export class ModalUsuarioSinV implements OnInit, AfterViewInit {
     this.formUsuario = this.fb.group({
       nombreApellido: ['', Validators.required],
       correo: ['', Validators.required],
-      id: ['', Validators.required],
+      //id: ['', Validators.required],
+    rolAdminId: ['', Validators.required],
       clave: ['', Validators.required],
       esActivo: ['1', Validators.required],
     })
@@ -76,17 +77,26 @@ export class ModalUsuarioSinV implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if (this.usuarioEditar != null) {
-      this.formUsuario.patchValue({
-        nombreApellido: this.usuarioEditar.nombreApellidos,
-        correo: this.usuarioEditar.correo,
-        id: this.usuarioEditar.rolAdminId,
-      //  rolAdminId: 1, // <--- Forzamos el valor 1 aquí
-       // rolDescripcion: "",
-        clave: this.usuarioEditar.clave,
-        esActivo: this.usuarioEditar.esActivo.toString()
-      })
-    }
+  this._rolServicio.getRolesAdmin().subscribe({
+      next: (data) => {
+        if (data.status) {
+          this.listaRoles = data.value;
+
+          // 3. ¡IMPORTANTE! Una vez que tenemos la lista, aplicamos los valores
+          if (this.usuarioEditar != null) {
+            this.formUsuario.patchValue({
+              nombreApellido: this.usuarioEditar.nombreApellidos,
+              correo: this.usuarioEditar.correo,
+              // Convertimos a Number por si la API lo manda como string
+              rolAdminId: Number(this.usuarioEditar.rolAdminId),
+              clave: this.usuarioEditar.clave,
+              esActivo: this.usuarioEditar.esActivo.toString()
+            });
+          }
+        }
+      },
+      error: (e) => console.error("Error cargando roles", e)
+    });
   }
 
   ngAfterViewInit() {
@@ -99,8 +109,8 @@ export class ModalUsuarioSinV implements OnInit, AfterViewInit {
       id: this.usuarioEditar == null ? 0 : this.usuarioEditar.id,
       nombreApellidos: this.formUsuario.value.nombreApellido,
       correo: this.formUsuario.value.correo,
-      rolAdminId: this.formUsuario.value.id,
-      rolDescripcion: "",
+     rolAdminId: this.formUsuario.value.rolAdminId, // Leemos el nuevo nombre
+  rolDescripcion: "",
       clave: this.formUsuario.value.clave,
       esActivo: parseInt(this.formUsuario.value.esActivo)
     };

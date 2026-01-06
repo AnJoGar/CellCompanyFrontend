@@ -41,7 +41,10 @@ export class TiendaComponent {
     'cedulaEncargado',
     'telefono',
     'direccion',
+    'valorComision',
+    'comentario',
     'fechaRegistro',
+    
     'acciones',
     'eliminar',
 

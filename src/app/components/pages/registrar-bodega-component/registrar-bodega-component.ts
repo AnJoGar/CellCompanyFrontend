@@ -42,16 +42,21 @@ export class RegistrarBodegaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'codigo',
     'tipoProducto',
+    'propietarioDelProducto',
     'marca',
     'modelo',
     'imei',
+'imei2',
+
     'color',
     'capacidad',
     'estado',
     'precioCompra',
-
+'precioVentaContado',
+'precioVentaCredito',
     'fechaIngreso',
     'diasEnBodega',
+    'observaciones',
     'Historial',
     'trasladar',
     'eliminar',
@@ -87,6 +92,11 @@ export class RegistrarBodegaComponent implements OnInit, AfterViewInit {
           // 👇 FILTRAR SOLO PRODUCTOS DE BODEGA (tiendaId = 1)
           const productosBodega = data.value.filter((p: ProductoBodega) => p.tiendaId === 1);
 
+            if (productosBodega.length > 0) {
+          console.log('📦 Primer producto completo:', productosBodega[0]);
+          console.log('📦 Propiedades del producto:', Object.keys(productosBodega[0]));
+        }
+
           this.dataSource.data = productosBodega;
           // Ejecutamos los cálculos para las cartillas solo con productos de bodega
           this.calcularKpis(productosBodega);
@@ -114,7 +124,7 @@ export class RegistrarBodegaComponent implements OnInit, AfterViewInit {
     this.totalInversion = productos.reduce((acc, item) => acc + (Number(item.precioCompra) || 0), 0);
 
     // Suma de precios de venta (considerando que puede ser nulo)
-    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVenta) || 0), 0);
+    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVentaCredito) || 0), 0);
 
     // Contar productos con más de 30 días (Stock antiguo)
     this.productosEnAlerta = productos.filter(p => p.diasEnBodega > 30).length;

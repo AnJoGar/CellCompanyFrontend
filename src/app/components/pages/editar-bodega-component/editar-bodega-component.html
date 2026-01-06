@@ -266,6 +266,10 @@
             <th mat-header-cell *matHeaderCellDef> Tipo </th>
             <td mat-cell *matCellDef="let element" class="text-secondary"> {{element.tipoProducto}} </td>
           </ng-container>
+                 <ng-container matColumnDef="propietarioDelProducto">
+            <th mat-header-cell *matHeaderCellDef> Propietario del producto </th>
+            <td mat-cell *matCellDef="let element"> {{element.propietarioDelProducto}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="marca">
             <th mat-header-cell *matHeaderCellDef> Marca </th>
@@ -281,6 +285,12 @@
             <th mat-header-cell *matHeaderCellDef> IMEI </th>
             <td mat-cell *matCellDef="let element">
               <span class="imei-text">{{element.imei || '-'}}</span>
+            </td>
+          </ng-container>
+           <ng-container matColumnDef="imei2">
+            <th mat-header-cell *matHeaderCellDef> IMEI2 </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="imei-text">{{element.imeI2 || '-'}}</span>
             </td>
           </ng-container>
 
@@ -309,9 +319,21 @@
           </ng-container>
 
           <ng-container matColumnDef="precioCompra">
-            <th mat-header-cell *matHeaderCellDef> Costo </th>
+            <th mat-header-cell *matHeaderCellDef> Costo de compra </th>
             <td mat-cell *matCellDef="let element">
               <span class="money-text">{{formatearPrecio(element.precioCompra)}}</span>
+            </td>
+          </ng-container>
+            <ng-container matColumnDef="precioVentaContado">
+            <th mat-header-cell *matHeaderCellDef> Precio Venta Contado </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="money-text">{{formatearPrecio(element.precioVentaContado)}}</span>
+            </td>
+          </ng-container>
+                    <ng-container matColumnDef="precioVentaCredito">
+            <th mat-header-cell *matHeaderCellDef> Precio Venta Credito </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="money-text">{{formatearPrecio(element.precioVentaCredito)}}</span>
             </td>
           </ng-container>
 
@@ -328,6 +350,11 @@
                 {{element.diasEnBodega}} días
               </span>
             </td>
+            
+          </ng-container>
+           <ng-container matColumnDef="observaciones">
+            <th mat-header-cell *matHeaderCellDef> Observaciones </th>
+            <td mat-cell *matCellDef="let element"> {{element.observaciones}} </td>
           </ng-container>
 
           <ng-container matColumnDef="trasladar" stickyEnd>

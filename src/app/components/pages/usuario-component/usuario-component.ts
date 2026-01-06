@@ -189,7 +189,7 @@ applyFilterEstado() {
   }
 
   editarUsuario(usuario: Usuario) {
-    this.dialog.open(UsuarioModel, {
+    this.dialog.open(ModalUsuarioSinV, {
       disableClose: true,
       data: usuario
     }).afterClosed().subscribe(result => {

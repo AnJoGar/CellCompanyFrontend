@@ -55,6 +55,16 @@
             <th mat-header-cell *matHeaderCellDef> Dirección </th>
             <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
           </ng-container>
+              <!-- Dirección -->
+          <ng-container matColumnDef="valorComision">
+            <th mat-header-cell *matHeaderCellDef> Valor de Comisión </th>
+            <td mat-cell *matCellDef="let element"> {{element.valorComision}} </td>
+          </ng-container>
+
+             <ng-container matColumnDef="comentario">
+            <th mat-header-cell *matHeaderCellDef> Observación </th>
+            <td mat-cell *matCellDef="let element"> {{element.comentario}} </td>
+          </ng-container>
 
           <!-- Fecha Registro -->
           <ng-container matColumnDef="fechaRegistro">

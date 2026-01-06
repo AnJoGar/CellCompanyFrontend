@@ -66,13 +66,17 @@ export class ModalProducto  implements OnInit, AfterViewInit {
       tipoProducto: ['', Validators.required],
       marca: ['', Validators.required],
       modelo: ['', Validators.required],
+      propietarioDelProducto:[''],
       imei: [''],
+         imei2: [''],
       serie: [''],
       color: [''],
       tamano: [''],
       estado: ['Nuevo', Validators.required],
       precioCompra: ['', [Validators.required, Validators.min(0)]],
-      precioVenta: ['', Validators.min(0)]
+      precioVentaContado: ['', Validators.min(0)],
+      precioVentaCredito: ['', Validators.min(0)],
+      observaciones:[''],
     });
 
     if (this.datosProducto != null) {
@@ -87,13 +91,17 @@ export class ModalProducto  implements OnInit, AfterViewInit {
         tipoProducto: this.datosProducto.tipoProducto,
         marca: this.datosProducto.marca,
         modelo: this.datosProducto.modelo,
+        propietarioDelProducto: this.datosProducto.propietarioDelProducto,
         imei: this.datosProducto.imei,
+        imei2: this.datosProducto.imeI2,
         serie: this.datosProducto.serie,
         color: this.datosProducto.color,
         tamano: this.datosProducto.tamano,
         estado: this.datosProducto.estado,
         precioCompra: this.datosProducto.precioCompra,
-        precioVenta: this.datosProducto.precioVenta
+        precioVentaCredito: this.datosProducto.precioVentaCredito,
+precioVentaContado: this.datosProducto.precioVentaContado,
+observaciones:this.datosProducto.observaciones
       });
     }
   }
@@ -115,12 +123,16 @@ export class ModalProducto  implements OnInit, AfterViewInit {
   marca: this.formulario.value.marca,
   modelo: this.formulario.value.modelo,
   imei: this.formulario.value.imei || "",
+  imei2: this.formulario.value.imei2 || "",
+  propietarioDelProducto:this.formulario.value.propietarioDelProducto||"Administrador",
   serie: this.formulario.value.serie || "",
   color: this.formulario.value.color || "",
   tamano: this.formulario.value.tamano || "",
   estado: this.formulario.value.estado,
   precioCompra: parseFloat(this.formulario.value.precioCompra),
-  //precioVenta: this.formulario.value.precioVenta 
+  precioVentaContado:parseFloat( this.formulario.value.precioVentaContado),
+  precioVentaCredito: parseFloat(this.formulario.value.precioVentaCredito),
+   observaciones:this.formulario.value.observaciones||"ninguna",
     //? parseFloat(this.formulario.value.precioVenta) 
     //: 0,
   fechaIngreso: new Date().toISOString(), // Envía la fecha actual en formato ISO

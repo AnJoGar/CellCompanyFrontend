@@ -82,10 +82,12 @@ export class ReporteComponent implements OnInit {
     'nombreTienda',
     'encargadoTienda',
     'telefonoTienda',
+    'direccion',
 
     // CRÉDITO
     'creditoId',
     'nombrePropietario',
+    'imai',
     'marca',
     'modelo',
     'capacidad',
@@ -107,7 +109,7 @@ export class ReporteComponent implements OnInit {
     'fechaCreditoStr',
 
     // ACCIONES
-    'registrarCredito',
+    
     'eliminar'
 
 
@@ -514,18 +516,21 @@ export class ReporteComponent implements OnInit {
   }
 
   // ===== MÉTODOS DE FORMATEO =====
-  formatearFecha(fecha: any): string {
-    if (!fecha) return '---'; // Maneja valores nulos o vacíos
+formatearFecha(fecha: any): string {
+  if (!fecha) return '---';
 
-    // moment() detecta automáticamente si es string ISO o Date y lo convierte
-    const fechaParseada = moment(fecha);
+  // Usamos moment.utc para evitar que el navegador reste horas por la zona horaria local
+  // Esto asegura que si en la DB dice "2026-01-01", se muestre "01/01/2026" y no el día anterior.
+  const fechaParseada = moment.utc(fecha);
 
-    if (!fechaParseada.isValid()) {
-      return 'Fecha inválida';
-    }
-
-    return fechaParseada.format('DD/MM/YYYY');
+  if (!fechaParseada.isValid()) {
+    // Si falla el modo UTC, intentamos el modo normal por si es una fecha ya formateada
+    const fechaNormal = moment(fecha);
+    return fechaNormal.isValid() ? fechaNormal.format('DD/MM/YYYY') : 'Fecha inválida';
   }
+
+  return fechaParseada.format('DD/MM/YYYY');
+}
 
 
   formatearMoneda(monto: number): string {

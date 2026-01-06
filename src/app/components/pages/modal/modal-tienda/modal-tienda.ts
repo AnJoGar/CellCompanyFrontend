@@ -46,6 +46,8 @@ export class ModalTienda implements OnInit {
       nombreEncargado: ['', Validators.required],
       cedulaEncargado: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+     valorComision: [0, [Validators.required, Validators.min(0)]], // Valor por defecto 0
+  comentario: ['']
       //id: ['', Validators.required],
       // fechaRegistro: ['', Validators.required]
     });
@@ -63,7 +65,9 @@ export class ModalTienda implements OnInit {
         direccion: this.tiendaEditar.direccion,
         nombreEncargado: this.tiendaEditar.nombreEncargado,
         cedulaEncargado: this.tiendaEditar.cedulaEncargado,
-        telefono: this.tiendaEditar.telefono
+        telefono: this.tiendaEditar.telefono,
+        valorComision: this.tiendaEditar.valorComision,
+      comentario: this.tiendaEditar.comentario
       });
     }
   }
@@ -83,6 +87,9 @@ export class ModalTienda implements OnInit {
       nombreEncargado: this.formTienda.value.nombreEncargado,
       cedulaEncargado: this.formTienda.value.cedulaEncargado,
       telefono: this.formTienda.value.telefono,
+
+      valorComision:this.formTienda.value.valorComision,
+      comentario:this.formTienda.value.comentario,
       fechaRegistro: this.tiendaEditar ? this.tiendaEditar.fechaRegistro : new Date()
 
     };

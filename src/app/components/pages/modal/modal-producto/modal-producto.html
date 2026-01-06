@@ -184,6 +184,13 @@
         <mat-icon matPrefix>devices_other</mat-icon>
       </mat-form-field>
 
+            <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>Propietario del producto</mat-label>
+        <input matInput autocomplete="off" formControlName="propietarioDelProducto" placeholder="Número único de identificación">
+        <mat-icon matPrefix>fingerprint</mat-icon>
+      </mat-form-field>
+
+
       <mat-form-field appearance="outline">
         <mat-label>Marca</mat-label>
         <input matInput autocomplete="off" formControlName="marca" placeholder="Ej: Samsung">
@@ -199,10 +206,16 @@
       <div class="section-label">Especificaciones Técnicas</div>
 
       <mat-form-field appearance="outline" class="col-span-2">
-        <mat-label>IMEI / Serial</mat-label>
+        <mat-label>IMEI</mat-label>
         <input matInput autocomplete="off" formControlName="imei" placeholder="Número único de identificación">
         <mat-icon matPrefix>fingerprint</mat-icon>
       </mat-form-field>
+            <mat-form-field appearance="outline" class="col-span-2">
+        <mat-label>IMEI2</mat-label>
+        <input matInput autocomplete="off" formControlName="imei2" placeholder="Número único de identificación">
+        <mat-icon matPrefix>fingerprint</mat-icon>
+      </mat-form-field>
+
 
       <mat-form-field appearance="outline">
         <mat-label>Capacidad</mat-label>
@@ -243,6 +256,27 @@
         <span matPrefix>$&nbsp;</span>
         <input matInput type="number" formControlName="precioCompra" class="price-input" placeholder="0.00" min="0">
       </mat-form-field>
+
+           <mat-form-field appearance="outline">
+        <mat-label>Precio de venta al contado</mat-label>
+        <span matPrefix>$&nbsp;</span>
+        <input matInput type="number" formControlName="precioVentaContado" class="price-input" placeholder="0.00" min="0">
+      </mat-form-field>
+
+
+           <mat-form-field appearance="outline">
+        <mat-label>Precio de venta al contado</mat-label>
+        <span matPrefix>$&nbsp;</span>
+        <input matInput type="number" formControlName="precioVentaCredito" class="price-input" placeholder="0.00" min="0">
+      </mat-form-field>
+
+       <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Comentarios adicionales</mat-label>
+    <textarea matInput formControlName="observaciones" 
+              placeholder="Escribe aquí observaciones relevantes..." 
+              rows="4"></textarea>
+    <mat-icon matPrefix>notes</mat-icon>
+  </mat-form-field>
 
     </form>
 

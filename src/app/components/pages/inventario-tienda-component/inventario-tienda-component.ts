@@ -50,13 +50,18 @@ export class InventarioTiendaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'codigo',
     'tipoProducto',
+     'propietarioDelProducto',
     'marca',
     'modelo',
     'imei',
+    'imei2',
     'color',
     'capacidad',
     'estado',
-    'precio',
+   // 'precio',
+    //'precioCompra',
+'precioVentaContado',
+'precioVentaCredito',
     'fechaIngreso',
     'diasEnBodega',
    'acciones',
@@ -104,15 +109,23 @@ export class InventarioTiendaComponent implements OnInit, AfterViewInit {
     this._tiendaInventarioService.obtenerTiendasDisponibles().subscribe({
       next: (response) => {
         if (response.status) {
+
+                if (response.value.length > 0) {
+          console.log('🏪 Primer producto de tienda:', response.value[0]);
+          console.log('🏪 Propiedades:', Object.keys(response.value[0]));
+        }
           // Filtrar para NO mostrar la bodega central (id: 1)
           this.listaTiendas = response.value.filter((t: TiendaDestino) => t.id !== 1);
 
+       
           // Auto-seleccionar la primera tienda si existe
           if (this.listaTiendas.length > 0) {
             this.tiendaSeleccionada = this.listaTiendas[0].id;
             this.nombreTiendaSeleccionada = this.listaTiendas[0].nombreTienda;
             this.cargarProductosPorTienda();
           }
+
+     
         } else {
           this._snackBar.open('No se pudieron cargar las tiendas', 'Error', { duration: 3000 });
         }
@@ -173,7 +186,7 @@ export class InventarioTiendaComponent implements OnInit, AfterViewInit {
   calcularKpis(productos: ProductoBodega[]) {
     this.totalProductos = productos.length;
     this.totalInversion = productos.reduce((acc, item) => acc + (Number(item.precioCompra) || 0), 0);
-    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVenta) || 0), 0);
+    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVentaContado) || 0), 0);
     this.productosEnAlerta = productos.filter(p => p.diasEnBodega > 30).length;
   }
 

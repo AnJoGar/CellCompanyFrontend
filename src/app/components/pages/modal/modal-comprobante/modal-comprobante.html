@@ -46,7 +46,7 @@
         </div>
         <div class="info-item" *ngIf="datos.proximaCuota">
           <span class="label">Cuota Pagada:</span>
-          <span class="value">{{formatearSoloFecha(datos.proximaCuota)}}</span>
+          <span class="value">{{formatearSoloFecha1(datos.proximaCuota)}}</span>
         </div>
       </div>
     </div>
@@ -63,10 +63,7 @@
           <span class="label">Monto Pagado:</span>
           <span class="value-monto">{{formatearMoneda(datos.montoPagado)}}</span>
         </div>
-        <div class="pago-item pendiente" *ngIf="datos.montoPendiente !== undefined">
-          <span class="label">Saldo Pendiente:</span>
-          <span class="value-pendiente">{{formatearMoneda(datos.montoPendiente)}}</span>
-        </div>
+       
       </div>
     </div>
 
@@ -81,6 +78,12 @@
       <p>Este documento es un comprobante válido de pago</p>
       <p class="nota">Conserve este comprobante para futuras referencias</p>
     </div>
+
+       <div class="footer">
+      <p>Telefono de soporte</p>
+      <p class="nota"> 0982327250</p>
+    </div>
+
 
   </div>
 

@@ -40,15 +40,20 @@ export class EditarBodegaComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'codigo',
     'tipoProducto',
+      'propietarioDelProducto',
     'marca',
     'modelo',
     'imei',
+    'imei2',
     'color',
     'capacidad',
     'estado',
     'precioCompra',
+    'precioVentaContado',
+'precioVentaCredito',
     'fechaIngreso',
     'diasEnBodega',
+    'observaciones',
     'trasladar',
     'editar',
     'eliminar',
@@ -111,7 +116,7 @@ export class EditarBodegaComponent implements OnInit, AfterViewInit {
     this.totalInversion = productos.reduce((acc, item) => acc + (Number(item.precioCompra) || 0), 0);
 
     // Suma de precios de venta (considerando que puede ser nulo)
-    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVenta) || 0), 0);
+    this.valorVentaTotal = productos.reduce((acc, item) => acc + (Number(item.precioVentaContado) || 0), 0);
 
     // Contar productos con más de 30 días (Stock antiguo)
     this.productosEnAlerta = productos.filter(p => p.diasEnBodega > 30).length;

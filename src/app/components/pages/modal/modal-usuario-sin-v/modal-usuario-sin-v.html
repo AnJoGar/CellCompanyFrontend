@@ -101,16 +101,18 @@
       </div>
 
       <div class="form-row">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Rol de usuario</mat-label>
-          <mat-select formControlName="id">
-            <mat-option *ngFor="let item of listaRoles" [value]="item.id">
-              {{item.descripcion}}
-            </mat-option>
-          </mat-select>
-          <mat-icon matPrefix>admin_panel_settings</mat-icon>
-          <mat-error *ngIf="formUsuario.get('id')?.hasError('required')">Seleccione un rol</mat-error>
-        </mat-form-field>
+       <mat-form-field appearance="outline" class="full-width">
+  <mat-label>Rol de usuario</mat-label>
+  <mat-select formControlName="rolAdminId">
+    <mat-option *ngFor="let item of listaRoles" [value]="item.id">
+      {{item.descripcion}}
+    </mat-option>
+  </mat-select>
+  <mat-icon matPrefix>admin_panel_settings</mat-icon>
+  <mat-error *ngIf="formUsuario.get('rolAdminId')?.hasError('required')">
+    Seleccione un rol
+  </mat-error>
+</mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Estado</mat-label>
