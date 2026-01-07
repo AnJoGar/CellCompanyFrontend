@@ -45,7 +45,7 @@ export class ModalPago implements OnInit {
   isLoading: boolean = false;
 
   metodosPago: string[] = [
-    'Efectivo',
+    'Efectivo (Cobro en tienda)',
     'Transferencia',
     'Tarjeta de Crédito',
     'Tarjeta de Débito',

@@ -83,6 +83,7 @@ export class ReporteComponent implements OnInit {
     'encargadoTienda',
     'telefonoTienda',
     'direccion',
+    'valorComision',
 
     // CRÉDITO
     'creditoId',

@@ -510,6 +510,10 @@
               <th mat-header-cell *matHeaderCellDef> Comisión </th>
               <td mat-cell *matCellDef="let element"> {{element.estadoDeComision}} </td>
             </ng-container>
+            <ng-container matColumnDef="valorComision">
+              <th mat-header-cell *matHeaderCellDef> Valor de comisión </th>
+              <td mat-cell *matCellDef="let element"> {{element.valorComision}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="creditoId">
               <th mat-header-cell *matHeaderCellDef> ID Crédito </th>
