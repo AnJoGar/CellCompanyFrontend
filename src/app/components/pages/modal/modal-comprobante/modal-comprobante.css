@@ -15,46 +15,90 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Encabezado */
+/* --- ENCABEZADO PRINCIPAL --- */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  /* Alineación vertical centrada */
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #1976d2;
+  /* Línea separadora integrada en el header */
 }
 
-.logo-section {
+/* Contenedor de Logo + Texto */
+.brand-section {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+  /* Espacio entre logo y texto */
 }
 
-.logo-icon {
-  font-size: 36px;
-  width: 36px;
-  height: 36px;
-  color: #1976d2;
+/* --- ESTILO DEL LOGO (Imagen) --- */
+.receipt-logo {
+  width: 65px;
+  /* Tamaño balanceado para documentos */
+  height: 65px;
+  border-radius: 50%;
+  /* Circular */
+  object-fit: cover;
+  border: 2px solid #e0e0e0;
+  /* Borde sutil gris para definir el límite en papel blanco */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo-section h1 {
+/* Textos de la marca */
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.company-name {
   margin: 0;
   color: #1976d2;
-  font-size: 20px;
-  font-weight: bold;
+  /* Azul corporativo */
+  font-size: 22px;
+  /* Tamaño destacado */
+  font-weight: 800;
+  /* Extra negrita */
+  letter-spacing: 0.5px;
+  line-height: 1.1;
 }
 
+.doc-title {
+  margin: 0;
+  color: #555;
+  /* Gris oscuro para el subtítulo */
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* Datos a la derecha (Número y Fecha) */
 .numero-comprobante {
   text-align: right;
 }
 
-.numero-comprobante p {
-  margin: 3px 0;
-  font-size: 13px;
+.num-label {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
 }
 
 .fecha {
+  margin: 4px 0 0 0;
   color: #666;
-  font-size: 11px;
+  font-size: 12px;
+}
+
+/* --- ELIMINAR EL DIVIDER ANTIGUO --- */
+/* Como agregamos el borde al .header, puedes quitar o comentar la clase .divider antigua si quieres ahorrar espacio */
+.divider {
+  display: none;
 }
 
 .divider {

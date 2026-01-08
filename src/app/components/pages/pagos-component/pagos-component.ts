@@ -96,7 +96,7 @@ export class PagosComponent {
     'proximaCuota',
     'estadoCredito',
     'estadoCuota',
-   
+
 
     // FECHAS
     'fechaCreditoStr',
@@ -112,7 +112,7 @@ export class PagosComponent {
   // Agrega estas propiedades después de displayedColumns
   filtroEstadoCredito: string = 'Pendiente';
   filtroEstadoCuota: string = 'Pendiente';
- // 🔥 Propiedades para actualización automática
+  // 🔥 Propiedades para actualización automática
   private refreshSubscription?: Subscription;
   private focusListener?: () => void;
   dataSource = new MatTableDataSource<ReporteInterface>(this.ELEMENT_DATA);
@@ -133,17 +133,17 @@ export class PagosComponent {
   ngOnInit(): void {
     this.cargarReportes();
 
-     this.configurarFiltroCombinado();
- 
-  this.refreshSubscription = interval(60000).subscribe(() => {
+    this.configurarFiltroCombinado();
+
+    this.refreshSubscription = interval(60000).subscribe(() => {
       this.cargarReportesSilencioso();
     });
-  this.focusListener = () => {
+    this.focusListener = () => {
       this.cargarReportesSilencioso();
     };
     window.addEventListener('focus', this.focusListener);
   }
-    ngOnDestroy(): void {
+  ngOnDestroy(): void {
     // 🔥 Limpiar suscripciones al destruir el componente
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
@@ -162,10 +162,10 @@ export class PagosComponent {
       next: (data) => {
         if (data.status) {
           this.ELEMENT_DATA = data.value;
-          this.dataSource.data = data.value;
+          //  this.dataSource.data = data.value;
 
+          this.aplicarFiltrosCombinados();
 
-          
         } else {
           this.ELEMENT_DATA = [];
           this.dataSource.data = [];
@@ -178,71 +178,71 @@ export class PagosComponent {
     });
   }
 
-configurarFiltroCombinado() {
-  this.dataSource.filterPredicate = (data: ReporteInterface, filter: string): boolean => {
-    const searchTerm = filter.toLowerCase().trim();
-    
-    // Si está vacío, no filtrar
-    if (!searchTerm) return true;
-    
-    // 🔥 Crear una cadena con TODOS los campos concatenados
-    const searchableText = [
-      data.codigoUnico,
-      data.clienteId?.toString(),
-      data.nombreCliente,
-      data.cedula,
-      data.telefonoCliente,
-      data.direccionCliente,
-      data.tiendaId?.toString(),
-      data.nombreTienda,
-      data.encargadoTienda,
-      data.telefonoTienda,
-      data.estadoDeComision,
-      data.creditoId?.toString(),
-      data.nombrePropietario,
-      data.marca,
-      data.modelo,
-      data.imai,
-      data.capacidad?.toString(),
-      data.entrada?.toString(),
-      data.montoTotal?.toString(),
-      data.montoPendiente?.toString(),
-      data.plazoCuotas?.toString(),
-      data.frecuenciaPago,
-      data.valorPorCuota?.toString(),
-      data.estadoCredito,
-      data.estadoCuota,
-      data.abonadoTotal?.toString(),
-      data.abonadoCuota?.toString(),
-      data.fechaCreditoStr,
-      
-      // 🔥 COMBINACIONES DE 2 CAMPOS
-      `${data.marca} ${data.modelo}`.trim(), // "Samsung J8"
-      `${data.marca}${data.modelo}`.trim(), // "SamsungJ8"
-      `${data.nombreCliente} ${data.cedula}`.trim(), // "Juan Pérez 0912345678"
-      `${data.estadoCredito} ${data.marca}`.trim(), // "Activo Samsung"
-      `${data.marca} ${data.capacidad}`.trim(), // "Samsung 64"
-      `${data.nombreCliente} ${data.estadoCredito}`.trim(), // "Juan Activo"
-      
-      // 🔥 COMBINACIONES DE 3 CAMPOS
-      `${data.marca} ${data.modelo} ${data.capacidad}`.trim(),
-     // "Samsung J8 64"
-      `${data.nombreCliente} ${data.marca} ${data.modelo}`.trim(), // "Juan Samsung J8"
-      `${data.estadoCredito} ${data.marca} ${data.modelo}`.trim(), // "Activo Samsung J8"
-      `${data.marca} ${data.modelo} ${data.estadoCredito}`.trim(), // "Samsung J8 Activo"
-      `${data.nombreTienda} ${data.marca} ${data.modelo}`.trim(), // "Tienda1 Samsung J8"
-      `${data.nombreCliente} ${data.cedula} ${data.estadoCredito}`.trim(), // "Juan 0912345678 Activo"
-    ]
-      .filter(Boolean) // Elimina valores null/undefined
-      .join(' | ') // Separador para distinguir campos
-      .toLowerCase();
-    
-    // 🔥 Buscar si el término está en cualquier parte
-    return searchableText.includes(searchTerm);
-  };
-}
+  configurarFiltroCombinado() {
+    this.dataSource.filterPredicate = (data: ReporteInterface, filter: string): boolean => {
+      const searchTerm = filter.toLowerCase().trim();
 
-actualizarTabla() {
+      // Si está vacío, no filtrar
+      if (!searchTerm) return true;
+
+      // 🔥 Crear una cadena con TODOS los campos concatenados
+      const searchableText = [
+        data.codigoUnico,
+        data.clienteId?.toString(),
+        data.nombreCliente,
+        data.cedula,
+        data.telefonoCliente,
+        data.direccionCliente,
+        data.tiendaId?.toString(),
+        data.nombreTienda,
+        data.encargadoTienda,
+        data.telefonoTienda,
+        data.estadoDeComision,
+        data.creditoId?.toString(),
+        data.nombrePropietario,
+        data.marca,
+        data.modelo,
+        data.imai,
+        data.capacidad?.toString(),
+        data.entrada?.toString(),
+        data.montoTotal?.toString(),
+        data.montoPendiente?.toString(),
+        data.plazoCuotas?.toString(),
+        data.frecuenciaPago,
+        data.valorPorCuota?.toString(),
+        data.estadoCredito,
+        data.estadoCuota,
+        data.abonadoTotal?.toString(),
+        data.abonadoCuota?.toString(),
+        data.fechaCreditoStr,
+
+        // 🔥 COMBINACIONES DE 2 CAMPOS
+        `${data.marca} ${data.modelo}`.trim(), // "Samsung J8"
+        `${data.marca}${data.modelo}`.trim(), // "SamsungJ8"
+        `${data.nombreCliente} ${data.cedula}`.trim(), // "Juan Pérez 0912345678"
+        `${data.estadoCredito} ${data.marca}`.trim(), // "Activo Samsung"
+        `${data.marca} ${data.capacidad}`.trim(), // "Samsung 64"
+        `${data.nombreCliente} ${data.estadoCredito}`.trim(), // "Juan Activo"
+
+        // 🔥 COMBINACIONES DE 3 CAMPOS
+        `${data.marca} ${data.modelo} ${data.capacidad}`.trim(),
+        // "Samsung J8 64"
+        `${data.nombreCliente} ${data.marca} ${data.modelo}`.trim(), // "Juan Samsung J8"
+        `${data.estadoCredito} ${data.marca} ${data.modelo}`.trim(), // "Activo Samsung J8"
+        `${data.marca} ${data.modelo} ${data.estadoCredito}`.trim(), // "Samsung J8 Activo"
+        `${data.nombreTienda} ${data.marca} ${data.modelo}`.trim(), // "Tienda1 Samsung J8"
+        `${data.nombreCliente} ${data.cedula} ${data.estadoCredito}`.trim(), // "Juan 0912345678 Activo"
+      ]
+        .filter(Boolean) // Elimina valores null/undefined
+        .join(' | ') // Separador para distinguir campos
+        .toLowerCase();
+
+      // 🔥 Buscar si el término está en cualquier parte
+      return searchableText.includes(searchTerm);
+    };
+  }
+
+  actualizarTabla() {
     this._snackBar.open('Actualizando datos...', '', { duration: 1000 });
     this.cargarReportes();
   }
@@ -254,9 +254,9 @@ actualizarTabla() {
         if (data.status) {
           this.ELEMENT_DATA = data.value;
           this.dataSource.data = data.value;
-          
+
           // Reaplicar filtros si están activos
-          if (this.filtroEstadoCredito !== 'Todos' || this.filtroEstadoCuota !== 'Todos') {
+          if (this.filtroEstadoCredito !== 'pendiente' || this.filtroEstadoCuota !== 'pendiente') {
             this.aplicarFiltrosCombinados();
           }
         }
@@ -267,7 +267,7 @@ actualizarTabla() {
       }
     });
   }
-  
+
 
   onSubmitForm() {
     const _fechaInicio: any = moment(this.formGroup.value.fechaInicio).format('DD/MM/YYYY');
@@ -559,21 +559,21 @@ actualizarTabla() {
 
   // ===== MÉTODOS DE FORMATEO =====
   // En tu archivo .component.ts
-formatearFecha(fecha: any): string {
-  if (!fecha) return '---';
+  formatearFecha(fecha: any): string {
+    if (!fecha) return '---';
 
-  // Usamos moment.utc para evitar que el navegador reste horas por la zona horaria local
-  // Esto asegura que si en la DB dice "2026-01-01", se muestre "01/01/2026" y no el día anterior.
-  const fechaParseada = moment.utc(fecha);
+    // Usamos moment.utc para evitar que el navegador reste horas por la zona horaria local
+    // Esto asegura que si en la DB dice "2026-01-01", se muestre "01/01/2026" y no el día anterior.
+    const fechaParseada = moment.utc(fecha);
 
-  if (!fechaParseada.isValid()) {
-    // Si falla el modo UTC, intentamos el modo normal por si es una fecha ya formateada
-    const fechaNormal = moment(fecha);
-    return fechaNormal.isValid() ? fechaNormal.format('DD/MM/YYYY') : 'Fecha inválida';
+    if (!fechaParseada.isValid()) {
+      // Si falla el modo UTC, intentamos el modo normal por si es una fecha ya formateada
+      const fechaNormal = moment(fecha);
+      return fechaNormal.isValid() ? fechaNormal.format('DD/MM/YYYY') : 'Fecha inválida';
+    }
+
+    return fechaParseada.format('DD/MM/YYYY');
   }
-
-  return fechaParseada.format('DD/MM/YYYY');
-}
 
   formatearMoneda(monto: number): string {
     return `$${monto.toFixed(2)}`;
@@ -842,7 +842,7 @@ formatearFecha(fecha: any): string {
         nombreCliente: element.nombreCliente,
         montoTotal: element.montoTotal,
         cedula: element.cedula,
-         proximaCuota: element.proximaCuota 
+        proximaCuota: element.proximaCuota
 
 
       }

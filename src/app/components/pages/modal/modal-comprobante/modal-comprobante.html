@@ -1,16 +1,20 @@
 !-- components/pages/modal/comprobante-pago/comprobante-pago.html -->
 <div class="comprobante-container">
   <div class="comprobante-content" id="comprobante-print">
-    
+
     <!-- Encabezado -->
     <div class="header">
-      <div class="logo-section">
-        <mat-icon class="logo-icon">receipt_long</mat-icon>
-         <h1>CELLCOMPANY</h1>
-        <h1>COMPROBANTE DE PAGO</h1>
+      <div class="brand-section">
+        <img src="cellcompay.jpg" alt="Logo CellCompay" class="receipt-logo">
+
+        <div class="brand-titles">
+          <h1 class="company-name">CELLCOMPAY</h1>
+          <h2 class="doc-title">COMPROBANTE DE PAGO</h2>
+        </div>
       </div>
+
       <div class="numero-comprobante">
-        <p><strong>N° {{datos.numeroComprobante}}</strong></p>
+        <p class="num-label"><strong>N° {{datos.numeroComprobante}}</strong></p>
         <p class="fecha">{{formatearFecha(datos.fechaPago)}}</p>
       </div>
     </div>
@@ -63,7 +67,7 @@
           <span class="label">Monto Pagado:</span>
           <span class="value-monto">{{formatearMoneda(datos.montoPagado)}}</span>
         </div>
-       
+
       </div>
     </div>
 
@@ -79,7 +83,7 @@
       <p class="nota">Conserve este comprobante para futuras referencias</p>
     </div>
 
-       <div class="footer">
+    <div class="footer">
       <p>Telefono de soporte</p>
       <p class="nota"> 0982327250</p>
     </div>

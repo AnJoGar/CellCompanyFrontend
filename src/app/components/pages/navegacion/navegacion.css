@@ -321,50 +321,62 @@
   flex-direction: column;
 }
 
-/* Logo Area */
+/* Contenedor de la marca en el menú */
 .sidenav-brand {
-  height: 80px;
   display: flex;
   align-items: center;
-  padding: 0 24px;
-  background-color: #151c2f;
-  /* Un tono más oscuro que el sidebar */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 24px 16px;
+  /* Espaciado generoso */
+  background: rgba(255, 255, 255, 0.05);
+  /* Fondo sutil para destacar la cabecera */
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .brand-logo-container {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-  /* Gradiente cian */
-  border-radius: 8px;
+  margin-right: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
-  box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
 }
 
-.brand-logo-container mat-icon {
-  color: white;
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
+/* ESTILO DEL LOGO */
+.company-logo {
+  width: 50px;
+  /* Tamaño ideal para sidebar */
+  height: 50px;
+  border-radius: 50%;
+  /* Lo hace circular */
+  object-fit: cover;
+  /* Asegura que la imagen cubra el círculo sin deformarse */
+  border: 2px solid #ffffff;
+  /* Borde blanco fino para resaltar sobre fondo oscuro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  /* Sombra suave para dar profundidad */
+  background-color: white;
+  /* Fondo blanco por si la imagen tiene transparencia */
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .brand-text h1 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
   letter-spacing: 0.5px;
   line-height: 1.2;
 }
 
 .brand-text small {
-  color: #8da2bb;
-  /* Gris azulado */
-  font-size: 12px;
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* Lista de Navegación */
